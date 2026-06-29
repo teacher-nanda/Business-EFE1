@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEfE L1 – Lesson 1 – Meeting New Colleagues</title>
+<style>
+/* ── RESET & BASE ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', system-ui, sans-serif; background: #0F2A38; }
+
+#deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s ease;
+  background: #FAFAF8;
+  display: flex; flex-direction: column;
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+.slide-main {
+  flex: 1; overflow-y: auto; width: 100%;
+  display: flex; flex-direction: column;
+  padding-bottom: 60px;
+}
+
+/* ── NAVIGATION BAR ───────────────────────────── */
+#nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+  height: 52px;
+  background: rgba(10,40,54,.96);
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  backdrop-filter: blur(6px);
+}
+#nav button {
+  background: rgba(255,255,255,.12); color: #fff; border: none;
+  padding: 7px 22px; border-radius: 20px; cursor: pointer;
+  font-size: .95rem; font-weight: 600; transition: background .2s;
+}
+#nav button:hover:not(:disabled) { background: rgba(255,255,255,.25); }
+#nav button:disabled { opacity: .3; cursor: default; }
+#counter { color: rgba(255,255,255,.7); font-size: .9rem; min-width: 60px; text-align: center; }
+#dots { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.25); cursor: pointer; transition: all .2s;
+  flex-shrink: 0;
+}
+.dot.active { background: #C8891E; transform: scale(1.4); }
+#dots { display:flex; align-items:center; gap:5px; overflow:hidden; flex:1; justify-content:center; }
+
+/* ── FLOATING NOTES ───────────────────────────── */
+#notesBtn {
+  position: fixed; top: 14px; right: 22px; z-index: 1000;
+  background: rgba(10,40,54,.88); color: #fff; border: none;
+  padding: 9px 20px; border-radius: 22px; cursor: pointer;
+  font-size: .92rem; font-weight: 600; letter-spacing: .02em;
+  transition: background .2s; backdrop-filter: blur(4px);
+}
+#notesBtn:hover { background: rgba(10,40,54,1); }
+#notesPanel {
+  position: fixed; top: 54px; right: 22px; z-index: 999;
+  width: 360px; max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, opacity .25s ease, width .35s ease, left .35s ease, top .35s ease;
+  opacity: 0; border-radius: 14px;
+}
+#notesPanel.open { max-height: 320px; opacity: 1; }
+#notesToolbar {
+  display: flex; gap: 5px; padding: 6px 10px;
+  background: rgba(10,40,54,.7); border-radius: 10px 10px 0 0;
+}
+#notesToolbar button {
+  background: rgba(255,255,255,.12); border: none; border-radius: 5px;
+  color: #fff; font-size: .85rem; padding: 3px 9px; cursor: pointer;
+  font-family: inherit; transition: background .15s;
+}
+#notesToolbar button:hover { background: rgba(255,255,255,.25); }
+#notesToolbar button.active { background: rgba(255,255,255,.35); }
+#notesTA {
+  width: 100%; min-height: 220px; max-height: 260px; padding: 14px;
+  border: none; border-radius: 0 0 14px 14px; outline: none;
+  font-size: 1rem; line-height: 1.55;
+  background: rgba(10,40,54,.92); color: #fff;
+  font-family: inherit; backdrop-filter: blur(6px);
+  box-sizing: border-box; overflow-y: auto;
+}
+#notesTA:empty::before { content: attr(data-placeholder); color: rgba(255,255,255,.4); pointer-events: none; }
+#notesTA [style*="background-color"] { color: #1a1a1a !important; }
+#notesPanel.cover {
+  left: 50%; right: auto; top: 56px;
+  transform: translateX(-50%);
+  width: min(760px, 94vw);
+  max-height: calc(100vh - 110px) !important;
+  display: flex; flex-direction: column;
+}
+#notesPanel.cover #notesTA {
+  min-height: calc(100vh - 210px) !important;
+  max-height: calc(100vh - 210px) !important;
+  overflow-y: auto;
+}
+
+/* ── HOME BUTTON ──────────────────────────────── */
+#homeBtn {
+  position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+  display: none;
+  background: rgba(10,40,54,.88); color: #fff; border: none;
+  width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+  font-size: 1.1rem; align-items: center; justify-content: center;
+  transition: background .2s; backdrop-filter: blur(4px);
+}
+#homeBtn:hover { background: rgba(20,96,122,.95); }
+
+/* ── BANNERS ──────────────────────────────────── */
+.banner {
+  width: 100%; padding: 13px 28px;
+  font-size: 1.1rem; font-weight: 700; letter-spacing: .03em;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.banner-pill {
+  margin-left: auto; font-size: .82rem; font-weight: 600;
+  background: rgba(255,255,255,.2); padding: 3px 12px; border-radius: 20px;
+}
+
+/* ── CONTENT AREA ─────────────────────────────── */
+.content { padding: 24px 48px 20px; flex: 1; }
+h2 { font-size: 1.85rem; font-weight: 800; color: #0A2836; margin-bottom: 14px; }
+.instruction { font-size: 1.08rem; color: #1C2B3A; margin-bottom: 10px; font-weight: 700; }
+.inst-light { font-size: 1.05rem; color: #1C2B3A; margin-bottom: 10px; font-weight: 400; }
+
+/* ── TITLE SLIDE ──────────────────────────────── */
+#s1 { background: linear-gradient(145deg, #071428 0%, #0F2A50 45%, #1A4A8C 100%); }
+.title-inner {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 40px;
+  gap: 10px; position: relative;
+}
+.title-label { font-size: 1.1rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.65); font-weight: 500; }
+.title-sub { font-size: 1.15rem; color: rgba(255,255,255,.75); margin-top: 4px; }
+.title-main { font-size: 3.4rem; font-weight: 900; color: #fff; line-height: 1.1; margin: 14px 0 8px; }
+.title-accent { display: inline-block; color: #E8A030; }
+.title-tag { font-size: 1rem; color: rgba(255,255,255,.55); letter-spacing: .08em; margin-top: 8px; }
+
+/* ── GRAMMAR BOXES ────────────────────────────── */
+.grammar-theory {
+  background: #EEF4FB; border-left: 5px solid #1A4A8C;
+  border-radius: 0 14px 14px 0; padding: 18px 22px; margin: 12px 0;
+  font-size: 1.06rem; line-height: 1.7; color: #0A1628;
+}
+.grammar-theory h3 { font-size: 1.05rem; font-weight: 800; color: #4A1A6A; margin-bottom: 10px; }
+.grammar-theory .form-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+.grammar-theory .form-table td { padding: 7px 12px; border: 1px solid #d5c5e5; font-size: .95rem; }
+.grammar-theory .form-table td:first-child { font-weight: 700; color: #4A1A6A; background: #EAE0F5; width: 30%; }
+.grammar-theory .ex { font-style: italic; color: #1C3A5A; margin-top: 6px; padding-left: 12px; border-left: 3px solid #5A8CC0; }
+
+.grammar-box2 {
+  background: #F4F8FA; border-radius: 12px;
+  padding: 16px 18px; border-top: 4px solid #4A1A6A;
+  margin: 10px 0;
+}
+.grammar-box2 h3 { font-size: 1rem; font-weight: 800; color: #4A1A6A; margin-bottom: 8px; }
+
+/* ── AUDIO PLACEHOLDER ────────────────────────── */
+.audio-placeholder {
+  background: linear-gradient(135deg, #EAF5F8, #D4EEF5);
+  border: 2px dashed #14607A; border-radius: 14px;
+  padding: 22px 28px; margin: 12px 0;
+  display: flex; align-items: center; gap: 16px;
+}
+.audio-icon { font-size: 2.5rem; }
+.audio-info h3 { font-size: 1.05rem; font-weight: 700; color: #14607A; margin-bottom: 4px; }
+.audio-info p  { font-size: .9rem; color: #5A7080; }
+
+/* ── IMAGE PLACEHOLDER ────────────────────────── */
+.img-placeholder {
+  background: #F0F0F0; border: 2px dashed #aaa;
+  border-radius: 12px; padding: 40px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: #888; font-size: .9rem; text-align: center;
+}
+.img-placeholder .img-icon { font-size: 2.5rem; }
+
+/* ── LISTENING Q's ────────────────────────────── */
+.listen-qs { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+.listen-q {
+  background: #F4F8FA; border-radius: 10px;
+  padding: 12px 16px; font-size: 1.06rem; color: #1C2B3A;
+  border-left: 3px solid #4A1A6A;
+  cursor: pointer; transition: background .2s;
+}
+.listen-q:hover { background: #F0EAF5; }
+.listen-q .q-answer { display: none; font-style: italic; color: #4A1A6A; margin-top: 5px; font-size: .92rem; }
+.listen-q.revealed .q-answer { display: block; }
+
+/* ── TWO-COLUMN LAYOUT ────────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; }
+.col-section { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── EXERCISE ROWS ────────────────────────────── */
+.ex-row {
+  background: #F4F8FA; border-radius: 10px; padding: 12px 16px;
+  font-size: 1.06rem; line-height: 1.7; color: #1C2B3A;
+  border-left: 3px solid #dde;
+}
+.ex-num { font-weight: 800; color: #4A1A6A; margin-right: 6px; }
+.ans-input {
+  display: inline-block; border: none; border-bottom: 2px solid #1A4A8C;
+  background: transparent; font-size: 1.05rem; font-family: inherit; font-weight: 700;
+  color: #1C2B3A; width: 120px; padding: 2px 4px; outline: none; text-align: center;
+}
+.ans-input.correct { color: #1A7A4A; border-bottom-color: #1A7A4A; background: rgba(26,122,74,.08); border-radius: 4px; }
+.ans-input.wrong   { color: #C4614A; border-bottom-color: #C4614A; background: rgba(196,97,74,.1); border-radius: 4px; }
+.ans-input:disabled { color: #1A7A4A; border-bottom-color: #1A7A4A; background: rgba(26,122,74,.12); border-radius: 4px; cursor: default; }
+
+/* ── SPEAKING CARDS ────────────────────────────── */
+.speaking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+.speak-card {
+  background: #F0EAF5; border-radius: 14px; padding: 18px;
+  border-left: 4px solid #7A2A5A;
+}
+.speak-card .speak-num { font-weight: 800; color: #4A1A6A; margin-bottom: 6px; font-size: 1rem; }
+.speak-card .speak-q { font-size: 1.12rem; color: #1C2B3A; line-height: 1.5; }
+.speak-card .speak-ex { font-size: .88rem; color: #666; font-style: italic; margin-top: 6px; }
+
+/* ── RANK ITEMS ──────────────────────────────── */
+.rank-grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+.rank-item {
+  background: #EAF5F8; border-radius: 10px; padding: 12px 20px;
+  font-size: 1rem; font-weight: 700; color: #14607A;
+  display: flex; align-items: center; gap: 10px;
+  border: 2px solid #dde; cursor: pointer; transition: all .2s;
+}
+.rank-item:hover { border-color: #14607A; }
+.rank-item .rank-num {
+  background: #14607A; color: #fff; border-radius: 50%;
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 800; flex-shrink: 0;
+}
+
+/* ── ARTICLE CARDS ───────────────────────────── */
+.article-section {
+  background: #FFFDF5; border: 1px solid #E8D5B5;
+  border-radius: 12px; padding: 16px 20px; margin-bottom: 10px;
+}
+.article-section h3 { font-size: 1rem; font-weight: 800; color: #7A4A10; margin-bottom: 8px; }
+.article-section p { font-size: 1.02rem; line-height: 1.65; color: #2D2D2D; }
+
+/* ── MATCH EXERCISE ──────────────────────────── */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+.match-problem {
+  background: #FEF5E7; border-radius: 10px; padding: 14px 16px;
+  border-left: 4px solid #C8891E; font-size: 1.05rem; line-height: 1.6;
+}
+.match-problem strong { color: #7A4A10; display: block; margin-bottom: 4px; }
+
+/* ── DIALOGUE BOX ────────────────────────────── */
+.dialogue {
+  background: #F4F8FA; border-radius: 12px; padding: 14px 18px;
+  font-size: 1.06rem; line-height: 1.9; margin-bottom: 8px;
+  border: 1px solid #dde;
+}
+.speaker-a { color: #4A1A6A; font-weight: 700; }
+.speaker-b { color: #C8891E; font-weight: 700; }
+
+/* ── TICK / CROSS EXERCISE ───────────────────── */
+.tick-row {
+  background: #F4F8FA; border-radius: 10px; padding: 12px 16px;
+  font-size: 1.06rem; color: #1C2B3A; line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 12px;
+  border: 2px solid #dde; cursor: pointer; transition: all .2s; margin-bottom: 8px;
+}
+.tick-row:hover { border-color: #4A1A6A; }
+.tick-badge { font-size: 1.2rem; flex-shrink: 0; min-width: 24px; }
+.tick-row.tick-yes { background: #D4F5E0; border-color: #2E8B57; }
+.tick-row.tick-no  { background: #FDDEDE; border-color: #C4614A; }
+
+/* ── VOCAB BOX ────────────────────────────────── */
+.vocab-box {
+  background: rgba(74,26,106,.08); border: 2px solid rgba(74,26,106,.2);
+  border-radius: 12px; padding: 14px 20px; margin: 10px 0;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.vocab-chip {
+  background: #4A1A6A; color: #fff; font-weight: 700;
+  padding: 6px 16px; border-radius: 20px; font-size: .95rem;
+  letter-spacing: .02em;
+}
+
+/* ── ORANGE ACCENT QUOTE ──────────────────────── */
+.quote-banner {
+  background: linear-gradient(135deg, #7A2A5A, #4A1A6A);
+  border-radius: 14px; padding: 20px 28px; margin: 10px 0;
+  color: #fff; font-size: 1.1rem; font-style: italic; line-height: 1.7;
+  position: relative;
+}
+.quote-banner .quote-attr { font-size: .85rem; color: rgba(255,255,255,.7); margin-top: 8px; font-style: normal; }
+
+/* ── HW COVER ──────────────────────────────────── */
+#s-hw { background: linear-gradient(145deg, #0A2836 0%, #14607A 60%, #1A8A7A 100%); }
+
+/* ── CHECK / RESET BUTTONS ─────────────────────── */
+.hw-btns { display: flex; gap: 10px; margin-top: 16px; }
+.btn-check {
+  background: #14607A; color: #fff; border: none;
+  padding: 9px 22px; border-radius: 20px; cursor: pointer;
+  font-size: .92rem; font-weight: 700; transition: background .2s;
+}
+.btn-check:hover { background: #0F4A5E; }
+.btn-reset {
+  background: transparent; color: #C4614A; border: 2px solid #C4614A;
+  padding: 7px 20px; border-radius: 20px; cursor: pointer;
+  font-size: .92rem; font-weight: 700; transition: all .2s;
+}
+.btn-reset:hover { background: #C4614A; color: #fff; }
+
+/* ── ANIMATIONS ───────────────────────────────── */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  60%      { transform: translateX(6px); }
+}
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.vtoggle {
+  display:inline-block;background:#EEE0F5;color:#4A1A6A;
+  border:2px solid #9B4DCA;border-radius:6px;padding:1px 10px;
+  cursor:pointer;font-weight:700;font-size:.95rem;
+  transition:background .15s;user-select:none;
+  min-width:72px;text-align:center;vertical-align:middle;
+}
+.vtoggle:hover { background:#D9B8F0; }
+.svoc1-half {
+  flex:1;padding:28px 32px;display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+}
+.svoc1-verb { font-size:2.4rem;font-weight:800;margin-bottom:12px;letter-spacing:-.5px; }
+.svoc1-meaning { font-size:1.05rem;font-style:italic;line-height:1.5;max-width:260px; }
+
+.svoc2-card {
+  background:#faf8fd;border-radius:10px;padding:10px 13px;
+  border:1px solid #e8d5f0;
+}
+.svoc2-tag {
+  display:inline-block;font-size:.68rem;font-weight:800;color:#7A2050;
+  text-transform:uppercase;letter-spacing:1px;background:#F3E8F8;
+  border-radius:20px;padding:2px 10px;margin-bottom:5px;
+}
+.svoc2-q {
+  font-size:.95rem;color:#1C2B3A;line-height:2;
+}
+.svoc2-n {
+  font-weight:900;color:#7A2050;margin-right:5px;
+}
+
+
+.sp2-input {
+  display:inline-block;border:none;border-bottom:2.5px solid #9B4DCA;
+  background:#f4eeff;border-radius:4px 4px 0 0;
+  padding:2px 8px;font-size:1rem;font-family:inherit;
+  width:120px;text-align:center;outline:none;
+  color:#4A1A6A;font-weight:700;vertical-align:middle;
+  transition:background .2s,border-color .2s;
+}
+.sp2-input:focus { background:#EEE0F5; border-bottom-color:#7A2050; }
+
+
+.hw-tok {
+  display:inline-block;cursor:pointer;border:2px solid #ccc;border-radius:6px;
+  padding:2px 10px;font-size:.95rem;font-weight:700;background:#f0f0f0;color:#aaa;
+  transition:all .18s;vertical-align:middle;min-width:40px;text-align:center;
+  user-select:none;-webkit-user-select:none;
+}
+.hw-modal-tok {
+  display:inline-block;cursor:pointer;border:2px solid #ccc;border-radius:6px;
+  padding:2px 12px;font-size:.92rem;font-weight:700;background:#f0f0f0;color:#aaa;
+  transition:all .18s;vertical-align:middle;min-width:110px;text-align:center;
+  user-select:none;-webkit-user-select:none;
+}
+.hw-key { display:none;background:#EAF5F8;border-radius:8px;padding:8px 12px;
+  margin-top:8px;font-size:.9rem;color:#14607A;border-left:3px solid #14607A; }
+.hw-score { display:none;border-radius:8px;padding:6px 14px;font-weight:800;
+  font-size:.9rem;margin-left:6px;vertical-align:middle; }
+
+
+/* ─── WORD BANK CHIPS ─── */
+.wb-chip {
+  background:#1A4A8C;color:#fff;font-weight:700;padding:5px 16px;border-radius:20px;
+  font-size:.92rem;cursor:pointer;transition:all .15s;border:2px solid transparent;
+  user-select:none;display:inline-block;
+}
+.wb-chip:hover:not(.wb-used){ opacity:.85; }
+.wb-chip.wb-active{ background:#fff;color:#1A4A8C;border-color:#1A4A8C;box-shadow:0 0 0 3px rgba(26,74,140,.2); }
+.wb-chip.wb-used{ background:#d0d8e4;color:#8898aa;text-decoration:line-through;cursor:default;pointer-events:none; }
+.wb-blank{ cursor:pointer; }
+.wb-blank:focus{ outline:2px dashed #1A4A8C; }
+
+/* ─── NAME PAIRS (Listening 1.4) ─── */
+.np-btn {
+  flex:1;padding:8px 10px;border-radius:8px;border:2px solid #B0C4D4;
+  background:#F8FAFC;font-size:.95rem;font-weight:800;cursor:pointer;
+  letter-spacing:.04em;color:#1C2B3A;transition:all .15s;
+}
+.np-btn:hover { background:#DFF0F8;border-color:#0E7A8A; }
+.np-btn.np-sel { background:#0E7A8A;color:#fff;border-color:#0E7A8A; }
+.np-btn.np-correct { background:#1A7A4A;color:#fff;border-color:#1A7A4A; }
+.np-btn.np-wrong { background:#C4614A;color:#fff;border-color:#C4614A; }
+
+/* ─── BUSINESS EXTRAS ─── */
+.note-callout {
+  background:#FFF8E8;border:1px solid #E8D080;border-radius:10px;
+  padding:10px 14px;margin:10px 0;font-size:.95rem;color:#5A4000;
+  display:flex;align-items:flex-start;gap:8px;line-height:1.5;
+}
+.alpha-grid {
+  display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:10px 0;
+}
+.alpha-cell {
+  background:#EEF4FB;border:2px solid #C8D8F0;border-radius:8px;
+  padding:7px 4px;text-align:center;font-size:1rem;font-weight:800;
+  color:#0A1628;display:flex;flex-direction:column;align-items:center;gap:1px;
+}
+.alpha-cell .ipa{font-size:.65rem;color:#5A7090;font-weight:500;}
+
+/* ─── GUIDED SPEAKING ─── */
+.gs-scenario { display:none; }
+.gs-scenario.gs-active { display:block; }
+.gs-teacher { background:#F4F4F4;border-radius:8px;padding:10px 14px;font-size:1.05rem;color:#333;margin-bottom:6px; }
+.gs-teacher span { font-size:.82rem;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px; }
+.gs-student { background:#EEF4FB;border-radius:8px;padding:10px 14px;font-size:1.05rem;color:#1C2B3A;margin-bottom:6px;border-left:4px solid #1A4A8C; }
+.gs-student span { font-size:.82rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px; }
+.hint-btn { background:none;border:1.5px solid #aaa;border-radius:6px;font-size:.85rem;color:#666;padding:3px 11px;cursor:pointer;margin-top:5px;transition:all .15s; }
+.hint-btn:hover { border-color:#1A4A8C;color:#1A4A8C; }
+.hint-text { display:none;background:#FFFBE6;border-left:3px solid #E8C830;border-radius:6px;padding:7px 12px;font-size:.95rem;font-style:italic;color:#5A4000;margin-top:6px; }
+.gs-nav { display:flex;align-items:center;justify-content:center;gap:18px;margin-top:16px; }
+.gs-nav button { background:#1A4A8C;color:#fff;border:none;border-radius:8px;padding:8px 22px;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .15s; }
+.gs-nav button:disabled { opacity:.35;cursor:default; }
+.gs-counter { font-size:1rem;font-weight:700;color:#1A4A8C;min-width:90px;text-align:center; }
+.mc-q{margin-bottom:10px;}
+.mc-q-label{font-weight:700;color:#1C2B3A;margin-bottom:5px;font-size:.97rem;}
+.mc-opt{
+  background:#F4F8FA;border-radius:8px;padding:9px 14px;
+  font-size:.98rem;color:#1C2B3A;border:2px solid transparent;
+  cursor:pointer;transition:all .18s;margin-bottom:4px;
+  display:flex;align-items:center;gap:10px;
+}
+.mc-opt:hover{border-color:#1A4A8C;background:#EEF4FB;}
+.mc-opt.mc-sel{border-color:#1A4A8C;background:#EEF4FB;}
+.mc-opt.mc-ok{border-color:#1A7A4A;background:#d4edda;color:#0A3820;}
+.mc-opt.mc-bad{border-color:#C4614A;background:#fddede;color:#5A1000;}
+.mc-dot{width:18px;height:18px;border-radius:50%;border:2px solid #1A4A8C;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;}
+.mc-opt.mc-sel .mc-dot{background:#1A4A8C;color:#fff;}
+.mc-opt.mc-ok  .mc-dot{background:#1A7A4A;border-color:#1A7A4A;color:#fff;}
+.mc-opt.mc-bad .mc-dot{background:#C4614A;border-color:#C4614A;color:#fff;}
+/* photo placeholder */
+.photo-ph{
+  background:linear-gradient(135deg,#E8EFF8,#D0DDEF);
+  border:2px dashed #8AAAD0;border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:#5A7090;font-size:.88rem;text-align:center;
+  min-height:160px;
+}
+.photo-ph .ph-icon{font-size:2.8rem;}
+/* stat card */
+.stat-card{
+  background:#fff;border-radius:12px;padding:14px 16px;
+  border-top:4px solid var(--c,#1A4A8C);
+  display:flex;flex-direction:column;gap:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.stat-num{font-size:2rem;font-weight:900;color:var(--c,#1A4A8C);line-height:1;}
+.stat-lbl{font-size:.82rem;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.06em;}
+/* spectrum bar */
+.spectrum{
+  display:flex;align-items:stretch;border-radius:10px;overflow:hidden;
+  margin:10px 0;font-size:.88rem;font-weight:700;
+}
+.spec-seg{flex:1;padding:10px 12px;text-align:center;line-height:1.4;}
+/* pill tag */
+.tag-pill{
+  display:inline-block;padding:3px 12px;border-radius:20px;
+  font-size:.8rem;font-weight:700;letter-spacing:.04em;
+}
+</style>
+</head>
+<body>
+
+<button id="homeBtn" onclick="goTo(0)" title="Back to lesson cover">🏠</button>
+<button id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
+
+<div id="notesPanel">
+  <div id="notesToolbar">
+    <button onclick="notesFormat('bold')"><b>B</b></button>
+    <button onclick="notesFormat('underline')"><u>U</u></button>
+    <button onclick="notesFormat('hilite')">🖊 Highlight</button>
+  </div>
+  <div id="notesTA" contenteditable="true" data-placeholder="Type your notes here…"></div>
+</div>
+
+<div id="deck">
+
+<!-- ════════════════════
+  s1 · COVER
+════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="title-inner">
+    <div class="title-label">Business English</div>
+    <div class="title-sub">with teacher Nanda</div>
+    <div class="title-main">
+      <span class="title-accent">Meeting</span><br>New Colleagues
+    </div>
+    <div style="position:absolute;bottom:70px;left:32px;">
+      <button onclick="location.href='index.html'" style="background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:10px;padding:11px 24px;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.03em;backdrop-filter:blur(4px);">🏠 Course Home</button>
+    </div>
+    <div style="position:absolute;bottom:70px;right:32px;">
+      <button onclick="goToId('s-hw')" style="background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:10px;padding:11px 24px;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.03em;backdrop-filter:blur(4px);">📝 Homework</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s2 · LEAD-IN
+════════════════════ -->
+<div class="slide" id="s2">
+  <div class="banner" style="background:#D35400;color:#fff;">🎯 Warm-Up</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>To Think About...</h2>
+      <p class="instruction">Look at the photo. Answer the questions.</p>
+
+      <div class="two-col" style="gap:20px;margin-top:12px;">
+        <img src="vitaly-gariev-lZXX-QVdyXY-unsplash.jpg" alt="People meeting at work" style="width:100%;border-radius:14px;object-fit:cover;max-height:320px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="speak-card" style="border-left-color:#D35400;">
+            <div class="speak-num" style="color:#D35400;">1. 👥 Who are these people?</div>
+            <div class="speak-q">Are they at work?</div>
+            <div class="speak-ex">Yes, they are. / I think so.</div>
+          </div>
+          <div class="speak-card" style="border-left-color:#D35400;">
+            <div class="speak-num" style="color:#D35400;">2. 🤝 What are they doing?</div>
+            <div class="speak-ex">They are …</div>
+          </div>
+          <div class="speak-card" style="border-left-color:#D35400;">
+            <div class="speak-num" style="color:#D35400;">3. 😊 What do you say when you meet someone new?</div>
+            <div class="speak-ex">I say "Hello" / "Hi, I'm…"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s3 · KEY LANGUAGE 1.1 – Introducing Yourself
+════════════════════ -->
+<div class="slide" id="s3">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">💬 Speaking</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Introducing Yourself</h2>
+      <p class="inst-light">English uses a variety of polite phrases. The level of formality depends on the situation and the people you are meeting.</p>
+
+      <!-- Formality spectrum -->
+      <div style="margin:12px 0 16px;">
+        <div style="font-size:.75rem;font-weight:800;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Formality spectrum</div>
+        <div class="spectrum">
+          <div class="spec-seg" style="background:#1A4A8C;color:#fff;">🤝<br>Very Formal</div>
+          <div class="spec-seg" style="background:#2060A8;color:#fff;">👔<br>Formal</div>
+          <div class="spec-seg" style="background:#5A90D0;color:#fff;">😊<br>Neutral</div>
+          <div class="spec-seg" style="background:#E8A030;color:#fff;">👋<br>Informal</div>
+          <div class="spec-seg" style="background:#C8891E;color:#fff;">🙌<br>Casual</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <!-- col headers -->
+        <div style="background:#1A4A8C;color:#fff;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:7px 14px;border-radius:8px 8px 0 0;text-align:center;">🤝 Formal / Professional</div>
+        <div style="background:#E8A030;color:#fff;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:7px 14px;border-radius:8px 8px 0 0;text-align:center;">😊 Informal / Friendly</div>
+
+        <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;margin-bottom:4px;">Greeting</div>
+          <strong>Good morning.</strong> / <strong>Good afternoon.</strong> / <strong>Good evening.</strong><br>
+          <span style="font-size:.82rem;color:#888;">Use time-specific greetings in professional meetings.</span>
+        </div>
+        <div style="background:#FFF5E6;border-left:4px solid #E8A030;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#E8A030;text-transform:uppercase;margin-bottom:4px;">Greeting</div>
+          <strong>Hi!</strong> / <strong>Hello!</strong><br>
+          <span style="font-size:.82rem;color:#888;">"Hello" works in both formal &amp; informal situations.</span>
+        </div>
+
+        <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;margin-bottom:4px;">Name</div>
+          <strong>My name is Alisha Sharma.</strong><br>
+          <span style="font-size:.82rem;color:#888;">Full name — very professional. Use with clients &amp; seniors.</span>
+        </div>
+        <div style="background:#FFF5E6;border-left:4px solid #E8A030;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#E8A030;text-transform:uppercase;margin-bottom:4px;">Name</div>
+          <strong>My name's Tom.</strong> / <strong>I'm Lee.</strong><br>
+          <span style="font-size:.82rem;color:#888;">"Name's" = contraction. "I'm" = informal way to say your name.</span>
+        </div>
+
+        <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;margin-bottom:4px;">Response</div>
+          <strong>It's a pleasure to meet you.</strong><br>
+          <strong>Pleased to meet you.</strong><br>
+          <span style="font-size:.82rem;color:#888;">"I'm" is implied before "pleased."</span>
+        </div>
+        <div style="background:#FFF5E6;border-left:4px solid #E8A030;padding:10px 14px;font-size:.97rem;line-height:1.6;">
+          <div style="font-size:.7rem;font-weight:800;color:#E8A030;text-transform:uppercase;margin-bottom:4px;">Response</div>
+          <strong>Nice to meet you.</strong> / <strong>Good to meet you.</strong><br>
+          <strong>Great to meet you!</strong> → <strong>You too.</strong><br>
+          <span style="font-size:.82rem;color:#888;">"You too" means "Great to meet you, too."</span>
+        </div>
+      </div>
+
+      <div class="note-callout" style="margin-top:10px;">
+        <span>💡</span>
+        <span>Using <strong>Mr. / Ms. / Dr. + last name</strong> is very formal. First name only = informal. Always match your register to the situation!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s4 · EXERCISE 1.2 — Fill in the Gaps
+════════════════════ -->
+<div class="slide" id="s4">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">📚 Vocabulary</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Useful Phrases</h2>
+      <p class="instruction">Fill in the gaps using the words in the box.</p>
+
+      <div style="background:#EEF4FB;border:2px solid #1A4A8C;border-radius:10px;padding:12px 18px;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+        <span style="font-size:.75rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.06em;margin-right:4px;">Words</span>
+        <span id="wc-afternoon" class="wb-chip" data-word="afternoon" onclick="wbSelect(this)">afternoon</span>
+        <span id="wc-pleasure"  class="wb-chip" data-word="pleasure"  onclick="wbSelect(this)">pleasure</span>
+        <span id="wc-meet"      class="wb-chip" data-word="meet"      onclick="wbSelect(this)">meet</span>
+        <span id="wc-im"        class="wb-chip" data-word="I'm"       onclick="wbSelect(this)">I'm</span>
+        <span id="wc-names"     class="wb-chip" data-word="name's"    onclick="wbSelect(this)">name's</span>
+        <span id="wc-too"       class="wb-chip" data-word="too"       onclick="wbSelect(this)">too</span>
+      </div>
+
+      <div class="two-col" style="gap:14px;">
+        <div>
+          <div class="ex-row">😊 <strong>1</strong> &nbsp;It's good to <input class="ans-input wb-blank" data-ans="meet" placeholder="…" style="width:80px;" onclick="wbFill(this)" readonly> you.</div>
+          <div class="ex-row">👋 <strong>2</strong> &nbsp;Hello. My <input class="ans-input wb-blank" data-ans="name's" placeholder="…" style="width:80px;" onclick="wbFill(this)" readonly> Sebastian.</div>
+          <div class="ex-row">☀️ <strong>3</strong> &nbsp;Good <input class="ans-input wb-blank" data-ans="afternoon" placeholder="…" style="width:110px;" onclick="wbFill(this)" readonly>. My name is Joe Carr.</div>
+        </div>
+        <div>
+          <div class="ex-row">🙌 <strong>4</strong> &nbsp;Hi, Marie. <input class="ans-input wb-blank" data-ans="I'm" placeholder="…" style="width:60px;" onclick="wbFill(this)" readonly> Clive.</div>
+          <div class="ex-row">✨ <strong>5</strong> &nbsp;It's great to meet you, <input class="ans-input wb-blank" data-ans="too" placeholder="…" style="width:60px;" onclick="wbFill(this)" readonly>, Sven.</div>
+          <div class="ex-row">🤝 <strong>6</strong> &nbsp;It's a <input class="ans-input wb-blank" data-ans="pleasure" placeholder="…" style="width:100px;" onclick="wbFill(this)" readonly> to meet you.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="checkInputs('s4')" style="background:#1A4A8C;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:.95rem;font-weight:700;cursor:pointer;">✅ Check Answers</button>
+        <button onclick="resetS4()" style="background:transparent;color:#C4614A;border:2px solid #C4614A;border-radius:8px;padding:7px 20px;font-size:.92rem;font-weight:700;cursor:pointer;">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s5 · PRONUNCIATION 1.3 — The Alphabet
+════════════════════ -->
+<div class="slide" id="s5">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔊 Pronunciation</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>The Alphabet</h2>
+      <p class="instruction">Try to spell your first name and last name. If you have difficulties, practice the letters.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:14px;align-items:start;">
+
+        <!-- Left: speaking prompt -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="speak-card" style="border-left-color:#0E7A8A;">
+            <div class="speak-num" style="color:#0E7A8A;">🔤 Spell your first name</div>
+            <div class="speak-q">Say each letter out loud.</div>
+            <div class="speak-ex" style="font-size:1.05rem;">M - A - R - I - A</div>
+          </div>
+          <div class="speak-card" style="border-left-color:#0E7A8A;">
+            <div class="speak-num" style="color:#0E7A8A;">🔤 Spell your last name</div>
+            <div class="speak-q">Say each letter out loud.</div>
+            <div class="speak-ex" style="font-size:1.05rem;">S - M - I - T - H</div>
+          </div>
+          <div class="speak-card" style="border-left-color:#0E7A8A;">
+            <div class="speak-num" style="color:#0E7A8A;">💬 Now say it in a sentence</div>
+            <div class="speak-q">My name is … That's …</div>
+            <div class="speak-ex" style="font-size:1.05rem;">"My name is Maria. That's M - A - R - I - A."</div>
+          </div>
+        </div>
+
+        <!-- Right: 4×7 alphabet table -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+          <div class="alpha-cell">Aa<span class="ipa">/eɪ/</span></div>
+          <div class="alpha-cell">Bb<span class="ipa">/biː/</span></div>
+          <div class="alpha-cell">Cc<span class="ipa">/siː/</span></div>
+          <div class="alpha-cell">Dd<span class="ipa">/diː/</span></div>
+          <div class="alpha-cell">Ee<span class="ipa">/iː/</span></div>
+          <div class="alpha-cell">Ff<span class="ipa">/ɛf/</span></div>
+          <div class="alpha-cell">Gg<span class="ipa">/dʒiː/</span></div>
+          <div class="alpha-cell">Hh<span class="ipa">/eɪtʃ/</span></div>
+          <div class="alpha-cell">Ii<span class="ipa">/aɪ/</span></div>
+          <div class="alpha-cell">Jj<span class="ipa">/dʒeɪ/</span></div>
+          <div class="alpha-cell">Kk<span class="ipa">/keɪ/</span></div>
+          <div class="alpha-cell">Ll<span class="ipa">/ɛl/</span></div>
+          <div class="alpha-cell">Mm<span class="ipa">/ɛm/</span></div>
+          <div class="alpha-cell">Nn<span class="ipa">/ɛn/</span></div>
+          <div class="alpha-cell">Oo<span class="ipa">/əʊ/</span></div>
+          <div class="alpha-cell">Pp<span class="ipa">/piː/</span></div>
+          <div class="alpha-cell">Qq<span class="ipa">/kjuː/</span></div>
+          <div class="alpha-cell">Rr<span class="ipa">/ɑː/</span></div>
+          <div class="alpha-cell">Ss<span class="ipa">/ɛs/</span></div>
+          <div class="alpha-cell">Tt<span class="ipa">/tiː/</span></div>
+          <div class="alpha-cell">Uu<span class="ipa">/juː/</span></div>
+          <div class="alpha-cell">Vv<span class="ipa">/viː/</span></div>
+          <div class="alpha-cell">Ww<span class="ipa">/ˈdʌb.l.juː/</span></div>
+          <div class="alpha-cell">Xx<span class="ipa">/ɛks/</span></div>
+          <div class="alpha-cell">Yy<span class="ipa">/waɪ/</span></div>
+          <div class="alpha-cell">Zz<span class="ipa">/zɛd/</span></div>
+          <div class="alpha-cell" style="background:transparent;border:none;"></div>
+          <div class="alpha-cell" style="background:transparent;border:none;"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s6 · LISTENING 1.4 — Names in Conversations
+════════════════════ -->
+<div class="slide" id="s6">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🎧 Listening</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Names in Conversations</h2>
+      <p class="instruction">Listen and circle the name you hear.</p>
+
+      <!-- Audio Player -->
+      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;">🔊</span>
+        <div style="flex:1;">
+          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:5px;">Names in Conversations</div>
+          <audio controls style="width:100%;height:36px;">
+            <source src="1_4__all.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <!-- Name Pairs Grid: 3 columns, 2 rows -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+
+        <!-- 1 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">1</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-1','A')" id="s6-1-A"><span style="font-weight:800;margin-right:4px;">a)</span>GEORGE</button>
+            <button class="np-btn" onclick="npPick(this,'s6-1','B')" id="s6-1-B"><span style="font-weight:800;margin-right:4px;">b)</span>JORGE</button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">2</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-2','A')" id="s6-2-A"><span style="font-weight:800;margin-right:4px;">a)</span>KATIE</button>
+            <button class="np-btn" onclick="npPick(this,'s6-2','B')" id="s6-2-B"><span style="font-weight:800;margin-right:4px;">b)</span>KATY</button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">3</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-3','A')" id="s6-3-A"><span style="font-weight:800;margin-right:4px;">a)</span>FRANCIS</button>
+            <button class="np-btn" onclick="npPick(this,'s6-3','B')" id="s6-3-B"><span style="font-weight:800;margin-right:4px;">b)</span>FRANCES</button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">4</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-4','A')" id="s6-4-A"><span style="font-weight:800;margin-right:4px;">a)</span>LAURA</button>
+            <button class="np-btn" onclick="npPick(this,'s6-4','B')" id="s6-4-B"><span style="font-weight:800;margin-right:4px;">b)</span>LORNA</button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">5</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-5','A')" id="s6-5-A"><span style="font-weight:800;margin-right:4px;">a)</span>SANDRA</button>
+            <button class="np-btn" onclick="npPick(this,'s6-5','B')" id="s6-5-B"><span style="font-weight:800;margin-right:4px;">b)</span>ZANDRA</button>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.75rem;font-weight:800;color:#0E7A8A;margin-bottom:7px;">6</div>
+          <div style="display:flex;gap:8px;">
+            <button class="np-btn" onclick="npPick(this,'s6-6','A')" id="s6-6-A"><span style="font-weight:800;margin-right:4px;">a)</span>BORIS</button>
+            <button class="np-btn" onclick="npPick(this,'s6-6','B')" id="s6-6-B"><span style="font-weight:800;margin-right:4px;">b)</span>DORIS</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkS6()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetS6()">↺ Reset</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s7 · KEY LANGUAGE 1.5 — Introducing Others
+════════════════════ -->
+<div class="slide" id="s7">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">💬 Speaking</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Introducing Other People</h2>
+      <p class="inst-light">You can also use polite formal and informal phrases to introduce your colleagues to each other.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+
+        <div style="background:#EEF4FB;border-radius:12px;padding:14px 16px;border-top:4px solid #1A4A8C;">
+          <div style="font-size:.85rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">🤝 Formal Introduction</div>
+          <img src="vitaly-gariev-_BHlEskTT4c-unsplash.jpg" alt="Formal introduction" style="width:75%;display:block;margin:0 auto 10px;border-radius:8px;">
+          <p style="font-size:1.1rem;line-height:1.7;"><strong>"May I introduce Maria Diaz?</strong><br>Maria is our sales manager for Europe."</p>
+          <p style="font-size:1rem;color:#1A4A8C;font-style:italic;margin-top:6px;">→ "It's good to meet you, Maria."</p>
+          <p style="font-size:1.1rem;line-height:1.7;margin-top:8px;"><strong>"I'd like you to meet Zoe Carr."</strong></p>
+          <p style="font-size:1rem;color:#1A4A8C;font-style:italic;margin-top:6px;">→ "It's a pleasure to meet you, too."</p>
+        </div>
+
+        <div style="background:#FFF5E6;border-radius:12px;padding:14px 16px;border-top:4px solid #E8A030;">
+          <div style="font-size:.85rem;font-weight:800;color:#E8A030;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">😊 Informal Introduction</div>
+          <img src="vitaly-gariev-6hb3u7YOFFk-unsplash.jpg" alt="Informal introduction" style="width:75%;display:block;margin:0 auto 10px;border-radius:8px;">
+          <p style="font-size:1.1rem;line-height:1.7;"><strong>"Amit, meet Edward.</strong><br>Edward, Amit and I work together."</p>
+          <p style="font-size:1rem;color:#E8A030;font-style:italic;margin-top:6px;">→ "Great to meet you, Edward."</p>
+          <p style="font-size:1.1rem;line-height:1.7;margin-top:8px;"><strong>"This is my new assistant, Levi."</strong></p>
+          <p style="font-size:1rem;color:#E8A030;font-style:italic;margin-top:6px;">→ "Hi, Levi. Good to meet you."</p>
+        </div>
+      </div>
+
+      <div class="note-callout" style="margin-top:10px;">
+        <span>💡</span>
+        <span>Use <strong>"May I introduce…"</strong> &amp; <strong>"I'd like you to meet…"</strong> in formal contexts. Use <strong>"This is…"</strong> &amp; <strong>"[Name], meet [Name]"</strong> with colleagues.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s8 · EXERCISE 1.6 — Correct the Errors
+════════════════════ -->
+<div class="slide" id="s8">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">📚 Vocabulary</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Sentence Correction</h2>
+      <p class="instruction">Rewrite the sentences correcting the errors.</p>
+
+      <div class="two-col" style="gap:14px;margin-top:12px;">
+        <div>
+          <div class="ex-row" style="background:#d4edda;border-left:4px solid #1A7A4A;">
+            <strong style="color:#1C2B3A;">1</strong> &nbsp;❌ <em style="color:#C4614A;">"Hello, Sam. Nice meet you."</em><br>
+            ✏️ <input class="ans-input correct" data-ans="Hello, Sam. Nice to meet you." value="Hello, Sam. Nice to meet you." readonly style="width:95%;margin-top:6px;display:block;background:#b8dfc8;border-bottom-color:#1A7A4A;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">2</strong> &nbsp;❌ <em style="color:#C4614A;">"To meet you, it's a pleasure, too."</em><br>
+            ✏️ <input class="ans-input" data-ans="It's a pleasure to meet you, too." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">3</strong> &nbsp;❌ <em style="color:#C4614A;">"Hi, I'm name's Adedeyo."</em><br>
+            ✏️ <input class="ans-input" data-ans="Hi, my name's Adedeyo.|Hi, I'm Adedeyo." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">4</strong> &nbsp;❌ <em style="color:#C4614A;">"Greet to meet you."</em><br>
+            ✏️ <input class="ans-input" data-ans="Great to meet you." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+        </div>
+        <div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">5</strong> &nbsp;❌ <em style="color:#C4614A;">"This my new colleague, Martin."</em><br>
+            ✏️ <input class="ans-input" data-ans="This is my new colleague, Martin." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">6</strong> &nbsp;❌ <em style="color:#C4614A;">"Marisa, meeting Roula, my partner."</em><br>
+            ✏️ <input class="ans-input" data-ans="Marisa, meet Roula, my partner." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">7</strong> &nbsp;❌ <em style="color:#C4614A;">"It's good to meet to you, Katherine."</em><br>
+            ✏️ <input class="ans-input" data-ans="It's good to meet you, Katherine." placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+          <div class="ex-row">
+            <strong style="color:#1C2B3A;">8</strong> &nbsp;❌ <em style="color:#C4614A;">"I may introduce Claudia Gomez, our new CEO?"</em><br>
+            ✏️ <input class="ans-input" data-ans="May I introduce Claudia Gomez, our new CEO?" placeholder="Rewrite correctly…" style="width:95%;margin-top:6px;display:block;">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button onclick="checkInputs('s8')" style="background:#1A4A8C;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:.95rem;font-weight:700;cursor:pointer;">✅ Check Answers</button>
+        <button onclick="resetInputs('s8')" style="background:transparent;color:#C4614A;border:2px solid #C4614A;border-radius:8px;padding:7px 20px;font-size:.92rem;font-weight:700;cursor:pointer;">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s9 · LISTENING 1.7 — Jill's First Day
+════════════════════ -->
+<div class="slide" id="s9">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🎧 Listening</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Jill's First Day at Spandone &amp; Co.</h2>
+
+      <!-- Context box — before instructions -->
+      <div style="background:#F0EAF5;border-radius:10px;padding:12px 16px;border-left:4px solid #4A1A6A;margin-bottom:10px;">
+        <div style="font-size:.82rem;font-weight:800;color:#4A1A6A;text-transform:uppercase;margin-bottom:5px;">📖 Context</div>
+        <p style="font-size:1.05rem;line-height:1.7;color:#1C2B3A;">Jill has started a new job. She goes to a meeting with her new colleagues, <strong>Mr. Singh</strong> and <strong>Daniel</strong>. Listen to how they introduce themselves.</p>
+      </div>
+
+      <p class="instruction">Listen and choose the correct answer.</p>
+
+      <div class="two-col" style="gap:20px;margin-top:10px;">
+
+        <!-- Left: audio + image -->
+        <div>
+          <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:2rem;">🔊</span>
+            <div style="flex:1;">
+              <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:5px;">Listening</div>
+              <audio controls style="width:100%;height:36px;">
+                <source src="1_7.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+          <img src="hunters-race-MYbhN8KaaEc-unsplash.jpg" alt="Jill's first day at Spandone and Co." style="width:100%;border-radius:10px;display:block;">
+        </div>
+
+        <!-- Right: MC questions -->
+        <div>
+          <div class="mc-q">
+            <div class="mc-q-label">1. 👩‍💼 What is Jill's role at the company?</div>
+            <div class="mc-opt" onclick="mcPick(this,'q1')" data-q="q1" data-correct="false"><div class="mc-dot"></div> Design assistant</div>
+            <div class="mc-opt" onclick="mcPick(this,'q1')" data-q="q1" data-correct="true"><div class="mc-dot"></div> Finance manager</div>
+            <div class="mc-opt" onclick="mcPick(this,'q1')" data-q="q1" data-correct="false"><div class="mc-dot"></div> Intern</div>
+          </div>
+          <div class="mc-q">
+            <div class="mc-q-label">2. 🔤 What is Jill's last name?</div>
+            <div class="mc-opt" onclick="mcPick(this,'q2')" data-q="q2" data-correct="true"><div class="mc-dot"></div> Greene</div>
+            <div class="mc-opt" onclick="mcPick(this,'q2')" data-q="q2" data-correct="false"><div class="mc-dot"></div> Cheam</div>
+            <div class="mc-opt" onclick="mcPick(this,'q2')" data-q="q2" data-correct="false"><div class="mc-dot"></div> Green</div>
+          </div>
+          <div class="mc-q">
+            <div class="mc-q-label">3. ⏳ How long has Mr. Singh been working with Spandone and Co.?</div>
+            <div class="mc-opt" onclick="mcPick(this,'q3')" data-q="q3" data-correct="true"><div class="mc-dot"></div> 14 years</div>
+            <div class="mc-opt" onclick="mcPick(this,'q3')" data-q="q3" data-correct="false"><div class="mc-dot"></div> 15 years</div>
+            <div class="mc-opt" onclick="mcPick(this,'q3')" data-q="q3" data-correct="false"><div class="mc-dot"></div> 16 years</div>
+          </div>
+          <div class="mc-q">
+            <div class="mc-q-label">4. 💼 What is Mr. Singh's role at Spandone and Co.?</div>
+            <div class="mc-opt" onclick="mcPick(this,'q4')" data-q="q4" data-correct="false"><div class="mc-dot"></div> Lawyer</div>
+            <div class="mc-opt" onclick="mcPick(this,'q4')" data-q="q4" data-correct="false"><div class="mc-dot"></div> CEO</div>
+            <div class="mc-opt" onclick="mcPick(this,'q4')" data-q="q4" data-correct="true"><div class="mc-dot"></div> Accountant</div>
+          </div>
+          <div class="mc-q">
+            <div class="mc-q-label">5. 🤝 Which two people are meeting for the first time?</div>
+            <div class="mc-opt" onclick="mcPick(this,'q5')" data-q="q5" data-correct="false"><div class="mc-dot"></div> Jill and Daniel</div>
+            <div class="mc-opt" onclick="mcPick(this,'q5')" data-q="q5" data-correct="true"><div class="mc-dot"></div> Jill and Mr. Singh</div>
+            <div class="mc-opt" onclick="mcPick(this,'q5')" data-q="q5" data-correct="false"><div class="mc-dot"></div> Daniel and Mr. Singh</div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <button onclick="checkMC()" style="background:#0E7A8A;color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:.92rem;font-weight:700;cursor:pointer;">✅ Check Answers</button>
+            <button onclick="resetMC()" style="background:transparent;color:#C4614A;border:2px solid #C4614A;border-radius:8px;padding:6px 18px;font-size:.9rem;font-weight:700;cursor:pointer;">↺ Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s10 · SPEAKING 1.8 — Fill in the Gaps Aloud
+════════════════════ -->
+<div class="slide" id="s10">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">📚 Vocabulary</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Fill in the Gaps</h2>
+      <p class="instruction">Use the words in the box. Complete the sentences and say them aloud.</p>
+
+      <!-- Word bank chips -->
+      <div style="background:#EEF4FB;border:2px solid #1A4A8C;border-radius:10px;padding:12px 18px;margin:10px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+        <span style="font-size:.75rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.06em;margin-right:4px;">Words</span>
+        <span id="wc10-good"      class="wb-chip" data-word="good"      onclick="wbSelect(this)">good</span>
+        <span id="wc10-together"  class="wb-chip" data-word="together"  onclick="wbSelect(this)">together</span>
+        <span id="wc10-its"       class="wb-chip" data-word="It's"      onclick="wbSelect(this)">It's</span>
+        <span id="wc10-my"        class="wb-chip" data-word="My"        onclick="wbSelect(this)">My</span>
+        <span id="wc10-to"        class="wb-chip" data-word="to"        onclick="wbSelect(this)">to</span>
+        <span id="wc10-introduce" class="wb-chip wb-used" data-word="introduce" data-preused="true" onclick="wbSelect(this)">introduce</span>
+        <span id="wc10-names"     class="wb-chip" data-word="name's"    onclick="wbSelect(this)">name's</span>
+        <span id="wc10-pleasure"  class="wb-chip" data-word="pleasure"  onclick="wbSelect(this)">pleasure</span>
+        <span id="wc10-hello"     class="wb-chip" data-word="Hello"     onclick="wbSelect(this)">Hello</span>
+        <span id="wc10-meet"      class="wb-chip" data-word="meet"      onclick="wbSelect(this)">meet</span>
+        <span id="wc10-same"      class="wb-chip" data-word="same"      onclick="wbSelect(this)">same</span>
+        <span id="wc10-you"       class="wb-chip" data-word="you"       onclick="wbSelect(this)">you</span>
+        <span id="wc10-this"      class="wb-chip" data-word="This"      onclick="wbSelect(this)">This</span>
+        <span id="wc10-work"      class="wb-chip wb-used" data-word="work" data-preused="true" onclick="wbSelect(this)">work</span>
+      </div>
+
+      <!-- Example -->
+      <div class="ex-row" style="background:#EEF6EE;border-left:4px solid #1A7A4A;margin-bottom:8px;">
+        <strong style="color:#1A7A4A;">✔ Example</strong> &nbsp; May I <strong style="color:#1A7A4A;">introduce</strong> Marta Lopez? Marta and I <strong style="color:#1A7A4A;">work</strong> together.
+      </div>
+
+      <div class="two-col" style="gap:12px;margin-top:8px;">
+        <div>
+          <div class="ex-row">🤝 <strong>1</strong> &nbsp;Hello, Mr. Lucas. It's a <input class="ans-input wb-blank" id="s10-b1a" data-ans="pleasure" placeholder="…" style="width:95px;" onclick="wbFill(this)" readonly> to meet <input class="ans-input wb-blank" id="s10-b1b" data-ans="you" placeholder="…" style="width:45px;" onclick="wbFill(this)" readonly>.</div>
+          <div class="ex-row">👥 <strong>2</strong> &nbsp;Ashley, <input class="ans-input wb-blank" id="s10-b2a" data-ans="meet" placeholder="…" style="width:65px;" onclick="wbFill(this)" readonly> André. André and I work on the <input class="ans-input wb-blank" id="s10-b2b" data-ans="same" placeholder="…" style="width:70px;" onclick="wbFill(this)" readonly> project.</div>
+          <div class="ex-row">😊 <strong>3</strong> &nbsp;<input class="ans-input wb-blank" id="s10-b3a" data-ans="Hello" placeholder="…" style="width:70px;" onclick="wbFill(this)" readonly>, Sophie. My <input class="ans-input wb-blank" id="s10-b3b" data-ans="name's" placeholder="…" style="width:85px;" onclick="wbFill(this)" readonly> Rachel Davies. Great to meet you.</div>
+        </div>
+        <div>
+          <div class="ex-row">🏢 <strong>4</strong> &nbsp;<input class="ans-input wb-blank" id="s10-b4a" data-ans="This" placeholder="…" style="width:55px;" onclick="wbFill(this)" readonly> is my colleague, Hayley. We went to college <input class="ans-input wb-blank" id="s10-b4b" data-ans="together" placeholder="…" style="width:95px;" onclick="wbFill(this)" readonly>.</div>
+          <div class="ex-row">✨ <strong>5</strong> &nbsp;It's <input class="ans-input wb-blank" id="s10-b5a" data-ans="good" placeholder="…" style="width:65px;" onclick="wbFill(this)" readonly> to meet you, Cori. <input class="ans-input wb-blank" id="s10-b5b" data-ans="My" placeholder="…" style="width:45px;" onclick="wbFill(this)" readonly> name's Angel.</div>
+          <div class="ex-row">👋 <strong>6</strong> &nbsp;Hello, James. <input class="ans-input wb-blank" id="s10-b6a" data-ans="It's" placeholder="…" style="width:50px;" onclick="wbFill(this)" readonly> really nice <input class="ans-input wb-blank" id="s10-b6b" data-ans="to" placeholder="…" style="width:38px;" onclick="wbFill(this)" readonly> meet you. My name's Alex.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="checkInputs('s10')" style="background:#1A4A8C;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:.95rem;font-weight:700;cursor:pointer;">✅ Check Answers</button>
+        <button onclick="resetS10()" style="background:transparent;color:#C4614A;border:2px solid #C4614A;border-radius:8px;padding:7px 20px;font-size:.92rem;font-weight:700;cursor:pointer;">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s11 · GRAMMAR — Formal vs Informal Register
+════════════════════ -->
+<div class="slide" id="s11">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">📚 Vocabulary</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Choosing the Right Register</h2>
+      <p class="inst-light"><strong>Register</strong> is the level of formality you use. Choosing correctly shows professionalism and social awareness.</p>
+
+      <!-- Visual register chart -->
+      <div style="background:#F0EAF5;border-radius:12px;padding:14px 16px;margin:12px 0;border-top:4px solid #4A1A6A;">
+        <div style="font-size:.88rem;font-weight:800;color:#4A1A6A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">📊 When to use each register</div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:1rem;align-items:center;">
+          <span style="background:#1A4A8C;color:#fff;font-size:.85rem;font-weight:700;padding:4px 12px;border-radius:10px;text-align:center;white-space:nowrap;">Very Formal</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="background:#EEF4FB;border:1px solid #1A4A8C;padding:4px 12px;border-radius:10px;font-size:.92rem;">Client meetings 🤝</span>
+            <span style="background:#EEF4FB;border:1px solid #1A4A8C;padding:4px 12px;border-radius:10px;font-size:.92rem;">CEO / senior management 👔</span>
+            <span style="background:#EEF4FB;border:1px solid #1A4A8C;padding:4px 12px;border-radius:10px;font-size:.92rem;">Job interviews 📋</span>
+          </div>
+          <span style="background:#5A90D0;color:#fff;font-size:.85rem;font-weight:700;padding:4px 12px;border-radius:10px;text-align:center;white-space:nowrap;">Formal</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="background:#EEF4FB;border:1px solid #5A90D0;padding:4px 12px;border-radius:10px;font-size:.92rem;">Business partners 🏢</span>
+            <span style="background:#EEF4FB;border:1px solid #5A90D0;padding:4px 12px;border-radius:10px;font-size:.92rem;">Official emails 📧</span>
+          </div>
+          <span style="background:#E8A030;color:#fff;font-size:.85rem;font-weight:700;padding:4px 12px;border-radius:10px;text-align:center;white-space:nowrap;">Informal</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="background:#FFF5E6;border:1px solid #E8A030;padding:4px 12px;border-radius:10px;font-size:.92rem;">Same-level colleagues 👥</span>
+            <span style="background:#FFF5E6;border:1px solid #E8A030;padding:4px 12px;border-radius:10px;font-size:.92rem;">Team chats 💬</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#EEF4FB;border-radius:10px;padding:14px 16px;border-left:4px solid #1A4A8C;">
+          <div style="font-size:.88rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;margin-bottom:8px;">🤝 Formal — Key phrases</div>
+          <div style="font-size:1.05rem;line-height:2;color:#1C2B3A;">
+            <strong>My name is</strong> Sarah. <span style="color:#1A4A8C;font-size:.88rem;">(full form)</span><br>
+            <strong>May I introduce…</strong><br>
+            <strong>It's a pleasure to meet you.</strong><br>
+            <strong>Good morning / afternoon.</strong>
+          </div>
+        </div>
+        <div style="background:#FFF5E6;border-radius:10px;padding:14px 16px;border-left:4px solid #E8A030;">
+          <div style="font-size:.88rem;font-weight:800;color:#E8A030;text-transform:uppercase;margin-bottom:8px;">😊 Informal — Key phrases</div>
+          <div style="font-size:1.05rem;line-height:2;color:#1C2B3A;">
+            <strong>My name's</strong> Sarah. / <strong>I'm</strong> Sarah. <span style="color:#E8A030;font-size:.88rem;">(contractions)</span><br>
+            <strong>This is… / [Name], meet [Name].</strong><br>
+            <strong>Nice to meet you. / You too!</strong><br>
+            <strong>Hi! / Hey!</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s12 · SPEAKING — Guided Speaking
+════════════════════ -->
+<div class="slide" id="s12">
+  <div class="banner" style="background:#1E4D8C;color:#fff;">💬 Speaking</div>
+  <div class="slide-main">
+    <div class="content" style="padding:14px 32px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Guided Speaking — Introductions</h2>
+      <p class="instruction">Follow the conversation step by step. Respond to each line using the phrases from this lesson. Use the hint if you need help.</p>
+
+      <div style="max-width:600px;margin:0 auto;">
+
+      <!-- Scenario 1 — Very Formal -->
+      <div class="gs-scenario gs-active" style="background:#EEF4FB;border-radius:12px;padding:16px 20px;border-top:4px solid #1A4A8C;">
+        <div style="margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.06em;">👔 Scenario 1 — Very Formal</div>
+          <div style="font-size:1rem;color:#5A7090;margin-top:3px;">You are a new intern. It's your first day at a law firm. You meet the Senior Partner.</div>
+        </div>
+        <div class="gs-teacher"><span>Ms. Rodriguez</span>"Good morning. I'm Ms. Rodriguez, Senior Partner here. Welcome."</div>
+        <div class="gs-student"><span>Your turn — Greet her and introduce yourself formally</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Good morning, Ms. Rodriguez. My name is…"</div>
+        </div>
+        <div class="gs-teacher"><span>Ms. Rodriguez</span>"It's good to meet you. Is today your first day?"</div>
+        <div class="gs-student"><span>Your turn — Confirm and say you're happy to be there</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Yes, it is. It's a pleasure to meet you too."</div>
+        </div>
+        <div class="gs-teacher"><span>Ms. Rodriguez</span>"Excellent. Let me introduce you to the rest of the team."</div>
+        <div class="gs-student"><span>Your turn — Thank her formally</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Thank you very much, Ms. Rodriguez."</div>
+        </div>
+      </div>
+
+      <!-- Scenario 2 — Formal/Neutral -->
+      <div class="gs-scenario" style="background:#F0EAF5;border-radius:12px;padding:18px 20px;border-top:4px solid #4A1A6A;">
+        <div style="margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:800;color:#4A1A6A;text-transform:uppercase;letter-spacing:.06em;">🌐 Scenario 2 — Formal</div>
+          <div style="font-size:1rem;color:#5A7090;margin-top:3px;">You are at a company networking event. You meet David Chen, a professional from another company.</div>
+        </div>
+        <div class="gs-teacher" style="background:#EDE0F5;"><span>David Chen</span>"Hello. I don't think we've met. I'm David Chen from TechPro."</div>
+        <div class="gs-student" style="border-left-color:#4A1A6A;background:#F8F2FF;"><span>Your turn — Introduce yourself and your role</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Hello. My name is… I work at…"</div>
+        </div>
+        <div class="gs-teacher" style="background:#EDE0F5;"><span>David Chen</span>"Nice to meet you. Do you know anyone else here?"</div>
+        <div class="gs-student" style="border-left-color:#4A1A6A;background:#F8F2FF;"><span>Your turn — Introduce a colleague to David</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"I'd like you to meet… She/He is my colleague."</div>
+        </div>
+        <div class="gs-teacher" style="background:#EDE0F5;"><span>David Chen</span>"It's a pleasure to meet you both."</div>
+        <div class="gs-student" style="border-left-color:#4A1A6A;background:#F8F2FF;"><span>Your turn — Respond politely</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"The pleasure is mine."</div>
+        </div>
+      </div>
+
+      <!-- Scenario 3 — Informal -->
+      <div class="gs-scenario" style="background:#FFF5E6;border-radius:12px;padding:18px 20px;border-top:4px solid #E8A030;">
+        <div style="margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:800;color:#E8A030;text-transform:uppercase;letter-spacing:.06em;">😊 Scenario 3 — Informal</div>
+          <div style="font-size:1rem;color:#5A7090;margin-top:3px;">It's your first week. A friendly colleague, Jake, comes to say hello in the open office.</div>
+        </div>
+        <div class="gs-teacher" style="background:#FFF0D5;"><span>Jake</span>"Hey! You must be new — I haven't seen you before!"</div>
+        <div class="gs-student" style="border-left-color:#E8A030;background:#FFF8EC;"><span>Your turn — Say hi and introduce yourself casually</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Hi! Yes, I'm… I just started this week."</div>
+        </div>
+        <div class="gs-teacher" style="background:#FFF0D5;"><span>Jake</span>"Great to meet you! What team are you on?"</div>
+        <div class="gs-student" style="border-left-color:#E8A030;background:#FFF8EC;"><span>Your turn — Tell him your team and ask about his</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Great to meet you too! I'm on the… team. What about you?"</div>
+        </div>
+        <div class="gs-teacher" style="background:#FFF0D5;"><span>Jake</span>"Cool! Hey, meet my friend Ana from marketing."</div>
+        <div class="gs-student" style="border-left-color:#E8A030;background:#FFF8EC;"><span>Your turn — Greet Ana informally</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Hey Ana! Nice to meet you."</div>
+        </div>
+      </div>
+
+      <!-- Scenario 4 — Video Call -->
+      <div class="gs-scenario" style="background:#EAF5F8;border-radius:12px;padding:18px 20px;border-top:4px solid #0E7A8A;">
+        <div style="margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:800;color:#0E7A8A;text-transform:uppercase;letter-spacing:.06em;">💻 Scenario 4 — Video Call</div>
+          <div style="font-size:1rem;color:#5A7090;margin-top:3px;">You join an international video call. Sarah, the meeting host, asks everyone to introduce themselves.</div>
+        </div>
+        <div class="gs-teacher" style="background:#D8EFF5;"><span>Sarah</span>"Hi everyone. Let's do quick introductions. Who'd like to go first?"</div>
+        <div class="gs-student" style="border-left-color:#0E7A8A;background:#EAF8FC;"><span>Your turn — Introduce yourself to the group</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Hello everyone. My name is… I'm from…"</div>
+        </div>
+        <div class="gs-teacher" style="background:#D8EFF5;"><span>Sarah</span>"Sorry, could you spell your last name for us?"</div>
+        <div class="gs-student" style="border-left-color:#0E7A8A;background:#EAF8FC;"><span>Your turn — Spell your name letter by letter</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Of course. That's [Name] — [spell it out]."</div>
+        </div>
+        <div class="gs-teacher" style="background:#D8EFF5;"><span>Sarah</span>"Great, thank you! Nice to have you on the call."</div>
+        <div class="gs-student" style="border-left-color:#0E7A8A;background:#EAF8FC;"><span>Your turn — Respond and say you're happy to be there</span>
+          <button class="hint-btn" onclick="toggleHint(this)">💡 Show hint</button>
+          <div class="hint-text">"Thank you! Nice to meet you all."</div>
+        </div>
+      </div>
+
+      <!-- Carousel navigation -->
+      <div class="gs-nav" style="max-width:600px;margin:14px auto 0;">
+        <button id="s12-prev" onclick="s12Nav(-1)" disabled>◀ Previous</button>
+        <span id="s12-counter" class="gs-counter">Scenario 1 of 4</span>
+        <button id="s12-next" onclick="s12Nav(1)">Next ▶</button>
+      </div>
+
+      </div><!-- end carousel wrapper -->
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-review · LESSON REVIEW
+════════════════════ -->
+<div class="slide" id="s-review">
+  <div class="slide-main">
+    <div class="banner" style="background:#2E2A6B;color:#fff;">🔁 Review</div>
+    <div class="content" style="padding:18px 32px;overflow-y:auto;max-height:calc(100vh - 112px);">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">What have we learned? 📚</h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;">
+        <div style="background:#EEF4FB;border-radius:12px;border-top:4px solid #1A4A8C;padding:12px 16px;">
+          <h3 style="font-size:.95rem;font-weight:800;color:#1A4A8C;margin-bottom:8px;">🗣 Introducing Yourself</h3>
+          <p style="font-size:.88rem;line-height:1.8;color:#1C2B3A;">
+            ☐ Formal: "Good morning. My name is…"<br>
+            ☐ Informal: "Hi! I'm…"<br>
+            ☐ Response: "It's a pleasure / Nice to meet you."<br>
+            ☐ Very formal: "How do you do?"
+          </p>
+        </div>
+        <div style="background:#FFF5E6;border-radius:12px;border-top:4px solid #E8A030;padding:12px 16px;">
+          <h3 style="font-size:.95rem;font-weight:800;color:#E8A030;margin-bottom:8px;">👥 Introducing Others</h3>
+          <p style="font-size:.88rem;line-height:1.8;color:#1C2B3A;">
+            ☐ Formal: "May I introduce…"<br>
+            ☐ Formal: "I'd like you to meet…"<br>
+            ☐ Informal: "This is my colleague…"<br>
+            ☐ Informal: "[Name], meet [Name]."
+          </p>
+        </div>
+        <div style="background:#EAF5F8;border-radius:12px;border-top:4px solid #0E7A8A;padding:12px 16px;">
+          <h3 style="font-size:.95rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">🔤 Alphabet &amp; Spelling</h3>
+          <p style="font-size:.88rem;line-height:1.8;color:#1C2B3A;">
+            ☐ Know all 26 letters<br>
+            ☐ Spell names clearly in business<br>
+            ☐ "That's Smith — S-M-I-T-H."
+          </p>
+        </div>
+        <div style="background:#F0EAF5;border-radius:12px;border-top:4px solid #4A1A6A;padding:12px 16px;">
+          <h3 style="font-size:.95rem;font-weight:800;color:#4A1A6A;margin-bottom:8px;">📐 Grammar: Register</h3>
+          <p style="font-size:.88rem;line-height:1.8;color:#1C2B3A;">
+            ☐ Full forms = formal ("My name is…")<br>
+            ☐ Contractions = informal ("I'm…")<br>
+            ☐ Titles (Mr./Ms./Dr.) = very formal<br>
+            ☐ Match register to your audience
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:18px;">
+        <button onclick="goTo(0)" style="background:#2E2A6B;color:#fff;border:none;border-radius:24px;padding:12px 32px;font-size:1rem;font-weight:700;cursor:pointer;margin-right:10px;">↩ Cover</button>
+        <button onclick="goToId('s-hw')" style="background:#1C2B3A;color:#fff;border:none;border-radius:24px;padding:12px 32px;font-size:1rem;font-weight:700;cursor:pointer;">📝 Homework →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw · HOMEWORK COVER
+════════════════════ -->
+<div class="slide" id="s-hw">
+  <div class="title-inner">
+    <div style="font-size:1.1rem;font-weight:500;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.18em;margin-bottom:16px;">📝 Homework</div>
+    <div class="title-main">
+      <span class="title-accent">Meeting</span><br>New Colleagues
+    </div>
+    <button onclick="goToId('s-hw1')" style="margin-top:28px;background:#E8A030;color:#fff;border:none;border-radius:28px;padding:13px 36px;font-size:1.05rem;font-weight:800;cursor:pointer;letter-spacing:.04em;box-shadow:0 4px 18px rgba(232,160,48,.35);transition:opacity .2s;" onmouseenter="this.style.opacity='.85'" onmouseleave="this.style.opacity='1'">Begin Exercises ▶</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw1 · HOMEWORK 1.1 — Mark the Correct Sentences
+════════════════════ -->
+<div class="slide" id="s-hw1">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:4px;color:#0A2836;">HW1 – Checking the Sentences</h2>
+      <p class="instruction" style="margin-bottom:12px;">Mark the Sentences That Are Correct</p>
+
+      <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-width:calc(50% - 4px);">
+        <div style="font-weight:800;color:#1A7A4A;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">Example</div>
+        <button disabled style="text-align:left;background:#fff;border:2px solid #ddd;border-radius:8px;padding:9px 12px;font-family:inherit;font-size:1.06rem;line-height:1.45;width:100%;color:#aaa;cursor:default;">It's pleasure to meet you.</button>
+        <button disabled style="text-align:left;background:#d4edda;border:2px solid #1A7A4A;border-radius:8px;padding:9px 12px;font-family:inherit;font-size:1.06rem;line-height:1.45;width:100%;color:#1A7A4A;font-weight:700;cursor:default;">It's a pleasure to meet you.</button>
+      </div>
+
+      <div id="hw1-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+
+      <div style="margin-top:16px;text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkHW1()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW1()">↺ Reset</button>
+      </div>
+      <div id="hw1-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw2 · HOMEWORK 1.2 — Word Order
+════════════════════ -->
+<div class="slide" id="s-hw2">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:4px;color:#0A2836;">HW2 – Word Order in Sentences</h2>
+      <p class="inst-light" style="margin-bottom:10px;">Click the words to build each sentence in the correct order. Click a word in your answer to remove it.</p>
+
+      <div style="background:#e8f5e9;border-left:4px solid #1A7A4A;border-radius:0 8px 8px 0;padding:9px 14px;margin-bottom:13px;">
+        <span style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;">Example</span>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;margin-bottom:6px;">
+          <span style="background:#c8daf5;color:#1A4A8C;border-radius:5px;padding:5px 10px;font-size:1rem;">my</span>
+          <span style="background:#c8daf5;color:#1A4A8C;border-radius:5px;padding:5px 10px;font-size:1rem;">Hill.</span>
+          <span style="background:#c8daf5;color:#1A4A8C;border-radius:5px;padding:5px 10px;font-size:1rem;">Fiona</span>
+          <span style="background:#c8daf5;color:#1A4A8C;border-radius:5px;padding:5px 10px;font-size:1rem;">name's</span>
+          <span style="background:#c8daf5;color:#1A4A8C;border-radius:5px;padding:5px 10px;font-size:1rem;">Hello,</span>
+        </div>
+        <span style="color:#1A7A4A;font-weight:700;font-style:italic;font-size:1.05rem;">→ Hello, my name's Fiona Hill.</span>
+      </div>
+
+      <div id="hw2-exercises" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;"></div>
+
+      <div style="margin-top:16px;text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkHW2()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW2()">↺ Reset</button>
+      </div>
+      <div id="hw2-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw-spell · HOMEWORK 1.3 — Spelling Practice
+════════════════════ -->
+<div class="slide" id="s-hw-spell">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:4px;color:#0A2836;">HW3 – Spelling Practice</h2>
+      <p class="instruction" style="margin-bottom:12px;">Listen to the audio and mark the names that are spelled out.</p>
+
+      <!-- Audio -->
+      <div style="background:#EEF8FA;border-left:4px solid #0E7A8A;border-radius:0 8px 8px 0;padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:1.4rem;">🎧</span>
+        <div>
+          <div style="font-size:1.05rem;font-weight:700;color:#0A2836;">Spelling Names</div>
+          <audio controls style="margin-top:4px;height:34px;"><source src="1_3__all.mp3" type="audio/mpeg"></audio>
+        </div>
+      </div>
+
+      <!-- Example -->
+      <div style="background:#e8f5e9;border-left:4px solid #1A7A4A;border-radius:0 8px 8px 0;padding:9px 16px;margin-bottom:14px;">
+        <span style="font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;">Example</span>
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+          <button style="background:#F5F5F5;color:#999;border:2px solid #ddd;border-radius:8px;padding:8px 18px;font-size:1.05rem;font-family:inherit;cursor:default;">George</button>
+          <button style="background:#1A7A4A;color:#fff;border:2px solid #1A7A4A;border-radius:8px;padding:8px 18px;font-size:1.05rem;font-weight:700;cursor:default;font-family:inherit;">Jorge ✓</button>
+        </div>
+      </div>
+
+      <!-- 5 pairs in 3-column grid (AEF: top-to-bottom, left-to-right) -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+
+        <!-- 1 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.88rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">1</div>
+          <div style="display:flex;gap:7px;">
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-1','A')" id="sp-1-A">Jayne</button>
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-1','B')" id="sp-1-B">Jane</button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.88rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">2</div>
+          <div style="display:flex;gap:7px;">
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-2','A')" id="sp-2-A">Adam</button>
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-2','B')" id="sp-2-B">Alan</button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.88rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">3</div>
+          <div style="display:flex;gap:7px;">
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-3','A')" id="sp-3-A">Sarah</button>
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-3','B')" id="sp-3-B">Saleh</button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.88rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">4</div>
+          <div style="display:flex;gap:7px;">
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-4','A')" id="sp-4-A">Mick</button>
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-4','B')" id="sp-4-B">Mike</button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div style="background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;">
+          <div style="font-size:.88rem;font-weight:800;color:#0E7A8A;margin-bottom:8px;">5</div>
+          <div style="display:flex;gap:7px;">
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-5','A')" id="sp-5-A">Carrie</button>
+            <button class="np-btn" onclick="hwSpellPick(this,'sp-5','B')" id="sp-5-B">Kerry</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;display:flex;gap:12px;justify-content:center;margin-top:16px;">
+        <button class="btn-check" onclick="checkHWSpell()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHWSpell()">↺ Reset</button>
+      </div>
+      <div id="hw-spell-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw-oral · HW4 — Spell Out Loud
+════════════════════ -->
+<div class="slide" id="s-hw-oral">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:4px;color:#0A2836;">HW4 – Spell Out Loud</h2>
+      <p class="inst-light" style="margin-bottom:12px;">Look at the name tags and practice spelling the names out loud.</p>
+
+      <!-- Example + sentence box side by side -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;align-items:stretch;">
+        <!-- Left: example -->
+        <div style="background:#e8f5e9;border-left:4px solid #1A7A4A;border-radius:0 8px 8px 0;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <span style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;flex-shrink:0;">Example</span>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:10px 18px;position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:110px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Alisha<br>Sharma</div>
+          </div>
+          <div style="color:#1A4A8C;font-weight:700;font-size:1.05rem;font-style:italic;letter-spacing:.04em;">A-L-I-S-H-A &nbsp; S-H-A-R-M-A</div>
+        </div>
+        <!-- Right: sentence practice box -->
+        <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 10px 10px 0;padding:12px 18px;">
+          <div style="font-size:.85rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">💬 Now make sentences</div>
+          <p class="inst-light" style="margin-bottom:6px;">Try to make sentences with the names.</p>
+          <p style="font-size:1.05rem;color:#1C2B3A;font-style:italic;">"My name's Alisha Sharma. That's A – L – I – S – H – A, S – H – A – R – M – A."</p>
+        </div>
+      </div>
+
+      <!-- 7 name tags — 4-column grid (matches book layout) -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+
+        <!-- 1: Alex Hann -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">1</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Alex<br>Hann</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">A-L-E-X &nbsp; H-A-N-N</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 2: Dev Singh -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">2</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Dev<br>Singh</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">D-E-V &nbsp; S-I-N-G-H</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 3: Francis Palmer -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">3</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Francis<br>Palmer</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">F-R-A-N-C-I-S &nbsp; P-A-L-M-E-R</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 4: Hansa Sya -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">4</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Hansa<br>Sya</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">H-A-N-S-A &nbsp; S-Y-A</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 5: Zandra Fellini -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">5</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Zandra<br>Fellini</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">Z-A-N-D-R-A &nbsp; F-E-L-L-I-N-I</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 6: Raj Dhabi -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">6</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Raj<br>Dhabi</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">R-A-J &nbsp; D-H-A-B-I</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+        <!-- 7: Katy Adenova -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="font-size:.88rem;font-weight:800;color:#6B2737;">7</div>
+          <div style="background:#fff;border:2.5px solid #2196F3;border-radius:10px;padding:12px 14px;position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:68px;">
+            <div style="width:9px;height:9px;background:#B0C8E8;border-radius:50%;border:2px solid #2196F3;position:absolute;top:-5px;left:50%;transform:translateX(-50%);"></div>
+            <div style="font-size:1rem;font-weight:700;color:#1C2B3A;text-align:center;line-height:1.4;">Katy<br>Adenova</div>
+          </div>
+          <div class="oral-spell" style="display:none;color:#1A4A8C;font-weight:700;font-size:.92rem;font-style:italic;text-align:center;">K-A-T-Y &nbsp; A-D-E-N-O-V-A</div>
+          <div style="color:#C0392B;font-size:1.1rem;">🔊</div>
+        </div>
+
+      </div>
+
+      <!-- Show/hide spellings button -->
+      <div style="text-align:center;margin-bottom:18px;">
+        <button id="oral-spell-btn" onclick="toggleOralSpell()" style="background:transparent;color:#1A4A8C;border:2px solid #1A4A8C;border-radius:20px;padding:7px 22px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;">💡 Show Spellings</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw3 · HOMEWORK 1.5 — Correct the Errors
+════════════════════ -->
+<div class="slide" id="s-hw3">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:3px;color:#0A2836;">HW5 – Useful Sentences</h2>
+      <p class="inst-light" style="margin-bottom:12px;">Each sentence has one mistake. Write the correct sentence in the box.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="hw3-grid"></div>
+
+      <div style="margin-top:16px;text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkHW3()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW3()">↺ Reset</button>
+      </div>
+      <div id="hw3-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw4 · HOMEWORK 1.6 — Cross Out the Incorrect Word
+════════════════════ -->
+<div class="slide" id="s-hw4">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:3px;color:#0A2836;">HW6 – Practicing Sentences</h2>
+      <p class="inst-light" style="margin-bottom:12px;">Click on the word that correctly belongs in the sentence.</p>
+
+      <div style="background:#e8f5e9;border-left:4px solid #1A7A4A;border-radius:0 8px 8px 0;padding:9px 14px;margin-bottom:13px;">
+        <span style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;">Example</span>
+        <div style="margin-top:6px;font-size:1.06rem;line-height:2;">
+          Hi, Luke. This
+          <span style="background:#d4edda;color:#1A7A4A;border:2px solid #1A7A4A;border-radius:5px;padding:3px 9px;font-weight:700;margin:0 3px;">is ✓</span>
+          <span style="background:#f0f0f0;color:#aaa;border:2px solid #ccc;border-radius:5px;padding:3px 9px;font-weight:700;text-decoration:line-through;margin:0 3px;">meet</span>
+          Emiko.
+        </div>
+      </div>
+
+      <div id="hw4-grid" style="display:flex;flex-direction:column;gap:7px;"></div>
+
+      <div style="margin-top:16px;text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkHW4()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW4()">↺ Reset</button>
+      </div>
+      <div id="hw4-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════
+  s-hw5 · HOMEWORK 1.7 — Number the Sentences
+════════════════════ -->
+<div class="slide" id="s-hw5">
+  <div class="banner" style="background:#6B2737;color:#fff;">✏️ Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:8px;color:#0A2836;">HW7 – Listening Practice</h2>
+
+      <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 8px 8px 0;padding:11px 16px;margin-bottom:12px;font-size:1.12rem;font-weight:500;color:#1A2840;">
+        Julia has recently started a new job. She meets some of her new co-workers at a company party.
+      </div>
+
+      <!-- Audio player -->
+      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;margin-bottom:12px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;">🔊</span>
+        <div style="flex:1;">
+          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:5px;">Listening Practice</div>
+          <audio controls style="width:100%;height:36px;">
+            <source src="1_7-practice book.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <p class="inst-light" style="margin-bottom:12px;">Read the sentences. Click the number buttons to show the correct order of the conversation.</p>
+
+      <div id="hw5-grid" style="display:flex;flex-direction:column;gap:7px;"></div>
+
+      <div style="margin-top:16px;text-align:center;display:flex;gap:12px;justify-content:center;">
+        <button class="btn-check" onclick="checkHW5()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW5()">↺ Reset</button>
+      </div>
+      <div id="hw5-result" style="text-align:center;margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /#deck -->
+
+<div id="nav">
+  <button id="prevBtn" onclick="goTo(current-1)" disabled>◀ Prev</button>
+  <div id="dots"></div>
+  <span id="counter"></span>
+  <button id="nextBtn" onclick="goTo(current+1)">Next ▶</button>
+  <button onclick="downloadNotes()" style="background:rgba(255,255,255,.12);color:#fff;border:none;padding:7px 18px;border-radius:20px;cursor:pointer;font-size:.88rem;font-weight:600;">💾 Save Notes</button>
+</div>
+
+<script>
+const slides  = Array.from(document.querySelectorAll('.slide'));
+const dotsEl  = document.getElementById('dots');
+const counter = document.getElementById('counter');
+var current   = 0;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+// scroll active dot into view
+function scrollDot(i) {
+  const dot = dotsEl.children[i];
+  if (dot) dot.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+}
+
+counter.textContent = '1 / ' + slides.length;
+
+function goToId(id){var idx=Array.from(slides).findIndex(function(s){return s.id===id;});if(idx>-1)goTo(idx);}
+function goTo(n) {
+  saveNotes();
+  document.getElementById('homeBtn').style.display = n === 0 ? 'none' : 'flex';
+  slides[current].classList.remove('active');
+  dotsEl.children[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  dotsEl.children[current].classList.add('active');
+  scrollDot(current);
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === slides.length - 1;
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+  loadNotes(current);
+  const main = slides[current].querySelector('.slide-main');
+  if (main) main.scrollTop = 0;
+
+  // Cover: toggle cover class; other slides: remove it
+  var _panel = document.getElementById('notesPanel');
+  if (current === 0) {
+    if (notesOpen) _panel.classList.add('cover');
+  } else {
+    _panel.classList.remove('cover');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement ? document.activeElement.tagName : '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.contentEditable === 'true') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+});
+
+/* ── NOTES ─────────────────────────────────────── */
+const notesData = {};
+let notesOpen = false;
+function toggleNotes() {
+  notesOpen = !notesOpen;
+  var panel = document.getElementById('notesPanel');
+  panel.classList.toggle('open', notesOpen);
+  if (current === 0) panel.classList.toggle('cover', notesOpen);
+  document.getElementById('notesBtn').textContent = notesOpen ? '✕ Close' : '📝 Notes';
+}
+function notesFormat(cmd) {
+  var ta = document.getElementById('notesTA');
+  ta.focus();
+  if (cmd === 'hilite') document.execCommand('hiliteColor', false, '#FFE600');
+  else document.execCommand(cmd, false, null);
+}
+function saveNotes() { notesData[current] = document.getElementById('notesTA').innerHTML; }
+function loadNotes(idx) { document.getElementById('notesTA').innerHTML = notesData[idx] || ''; }
+
+/* ── RANK ITEMS (cycle 1-5) ─────────────────────── */
+const rankCounts = {};
+function cycleRank(el) {
+  const key = el.textContent.trim().slice(2);
+  const cur = parseInt(el.querySelector('.rank-num').textContent) || 0;
+  const next = cur >= 5 ? 0 : cur + 1;
+  el.querySelector('.rank-num').textContent = next || '?';
+  el.style.borderColor = next ? '#14607A' : '';
+  el.style.background = next ? '#D4EEF5' : '#EAF5F8';
+}
+
+/* ── TICK/CROSS ─────────────────────────────────── */
+
+/* ─── VOCAB PAIR CAROUSEL ─── */
+var vocabPairs = [
+  {v1:"argue",m1:"speak angrily to somebody",v2:"discuss",m2:"talk about something"},
+  {v1:"notice",m1:"see / observe",v2:"realize",m2:"understand fully; become aware of something"},
+  {v1:"avoid",m1:"try not to do something",v2:"prevent",m2:"stop something from happening"},
+  {v1:"lend",m1:"give something to somebody that you want them to give back",v2:"borrow",m2:"ask for something that you intend to give back"},
+  {v1:"mind",m1:"have a problem / feel strongly",v2:"matter",m2:"be a problem"},
+  {v1:"remember",m1:"not forget",v2:"remind",m2:"help somebody to remember"},
+  {v1:"expect",m1:"think that something will happen",v2:"wait",m2:"stay where you are until something happens"},
+  {v1:"wish",m1:"want something to be true, even if unlikely or impossible",v2:"hope",m2:"want something to happen"},
+  {v1:"beat",m1:"defeat somebody",v2:"win",m2:"be successful in a competition"},
+  {v1:"refuse",m1:"say you don't want to do something",v2:"deny",m2:"say that something isn't true"},
+  {v1:"raise",m1:"make something go up",v2:"rise",m2:"go up"},
+  {v1:"lay",m1:"put something or somebody in a horizontal position",v2:"lie",m2:"put your body in a horizontal position"},
+  {v1:"steal",m1:"take money or property that isn't yours",v2:"rob",m2:"take something from a person by threat or force"},
+  {v1:"advise",m1:"tell somebody what you think they should do",v2:"warn",m2:"tell somebody that something unpleasant is likely to happen"}
+];
+var vocabIdx = 0;
+function showVocabPair(n) {
+  vocabIdx = ((n % vocabPairs.length) + vocabPairs.length) % vocabPairs.length;
+  var p = vocabPairs[vocabIdx];
+  document.getElementById('svoc1-v1').textContent = p.v1;
+  document.getElementById('svoc1-m1').textContent = '= ' + p.m1;
+  document.getElementById('svoc1-m1').style.display = 'none';
+  document.getElementById('svoc1-hint1').style.display = 'inline-block';
+  document.getElementById('svoc1-v2').textContent = p.v2;
+  document.getElementById('svoc1-m2').textContent = '= ' + p.m2;
+  document.getElementById('svoc1-m2').style.display = 'none';
+  document.getElementById('svoc1-hint2').style.display = 'inline-block';
+  document.getElementById('svoc1-counter').textContent = (vocabIdx+1) + ' / ' + vocabPairs.length;
+  document.querySelectorAll('.svoc1-dot').forEach(function(d,i){
+    d.style.background = i === vocabIdx ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.3)';
+    d.style.transform = i === vocabIdx ? 'scale(1.35)' : 'scale(1)';
+  });
+}
+
+function revealVocabMeaning(n) {
+  document.getElementById('svoc1-m' + n).style.display = 'block';
+  document.getElementById('svoc1-hint' + n).style.display = 'none';
+}
+function nextVocabPair(){ showVocabPair(vocabIdx+1); }
+function prevVocabPair(){ showVocabPair(vocabIdx-1); }
+
+/* ─── VOCAB SENTENCE EXERCISE ─── */
+function cycleVtog(el) {
+  var opts = el.dataset.opts.split('|');
+  var cur = opts.indexOf(el.textContent);
+  el.textContent = opts[(cur + 1) % opts.length];
+  el.style.background = '#EEE0F5';
+  el.style.color = '#4A1A6A';
+  el.style.borderColor = '#9B4DCA';
+}
+function checkVocab() {
+  var correct = 0, total = 0;
+  document.querySelectorAll('#svoc2 .vtoggle').forEach(function(el) {
+    total++;
+    var chosen = el.textContent.trim();
+    var ans = el.dataset.ans;
+    var ok = chosen.toLowerCase() === ans.toLowerCase();
+    el.style.background = ok ? '#d4edda' : '#fddede';
+    el.style.borderColor = ok ? '#1A7A4A' : '#C4614A';
+    el.style.color = ok ? '#1A7A4A' : '#C4614A';
+    if(ok) correct++;
+  });
+  var sc = document.getElementById('vocab-score');
+  sc.style.display = 'inline-block';
+  sc.innerHTML = correct + ' / ' + total;
+  sc.style.background = correct === total ? '#d4edda' : '#fddede';
+  sc.style.color = correct === total ? '#1A7A4A' : '#C4614A';
+}
+function resetVocab() {
+  document.querySelectorAll('#svoc2 .vtoggle').forEach(function(el){
+    el.textContent = el.dataset.opts.split('|')[0];
+    el.style.background = '#EEE0F5';
+    el.style.color = '#4A1A6A';
+    el.style.borderColor = '#9B4DCA';
+  });
+  var sc = document.getElementById('vocab-score');
+  if(sc) sc.style.display = 'none';
+}
+function toggleTick(row, correct) {
+  // Store the correct answer on first interaction
+  if (!row.dataset.correct) row.dataset.correct = correct;
+  var badge = row.querySelector('.tick-badge');
+  var cur = badge.textContent;
+  // Cycle student's own choice: ? → ✓ → ✗ → ?
+  if (cur === '?') {
+    row.classList.remove('tick-no'); row.classList.add('tick-yes');
+    badge.textContent = '✓';
+  } else if (cur === '✓') {
+    row.classList.remove('tick-yes'); row.classList.add('tick-no');
+    badge.textContent = '✗';
+  } else {
+    row.classList.remove('tick-yes', 'tick-no');
+    badge.textContent = '?';
+  }
+}
+
+/* ── GENERIC CHECK (data-ans with | alternatives) ─ */
+function checkInputs(slideId, cls) {
+  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
+  document.querySelectorAll(sel).forEach(function(inp) {
+    if (inp.disabled) return;
+    var alts = inp.dataset.ans.split('|').map(function(a){ return a.trim().toLowerCase().replace(/[.!?,]+$/,''); });
+    var val = inp.value.trim().toLowerCase().replace(/[.!?,]+$/,'');
+    var ok = alts.includes(val);
+    if (!val) return;
+    inp.style.background = ok ? '#d4edda' : '#fddede';
+    inp.style.borderBottomColor = ok ? '#1A7A4A' : '#C4614A';
+    inp.classList.toggle('correct', ok); inp.classList.toggle('wrong', !ok);
+  });
+}
+function resetInputs(slideId, cls) {
+  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
+  document.querySelectorAll(sel).forEach(function(inp) {
+    if (inp.disabled || inp.readOnly) return;
+    inp.value = ''; inp.style.background = 'transparent';
+    inp.style.borderBottomColor = '#1A4A8C';
+    inp.classList.remove('correct', 'wrong');
+  });
+}
+
+/* ── WORD BANK ───────────────────────────────────── */
+var wbActiveChip = null;
+function wbSelect(chip) {
+  if (chip.classList.contains('wb-used')) return;
+  if (wbActiveChip && wbActiveChip !== chip) wbActiveChip.classList.remove('wb-active');
+  if (wbActiveChip === chip) { chip.classList.remove('wb-active'); wbActiveChip = null; return; }
+  chip.classList.add('wb-active');
+  wbActiveChip = chip;
+}
+function wbFill(input) {
+  if (!wbActiveChip) return;
+  var prevId = input.dataset.chipId;
+  if (prevId) { var pc = document.getElementById(prevId); if (pc) pc.classList.remove('wb-used','wb-active'); }
+  input.value = wbActiveChip.dataset.word;
+  input.dataset.chipId = wbActiveChip.id;
+  input.style.background = 'transparent'; input.style.borderBottomColor = '#1A4A8C';
+  input.classList.remove('correct','wrong');
+  wbActiveChip.classList.remove('wb-active'); wbActiveChip.classList.add('wb-used');
+  wbActiveChip = null;
+}
+function resetS4() {
+  resetInputs('s4');
+  document.querySelectorAll('#s4 .wb-chip').forEach(function(c){ c.classList.remove('wb-used','wb-active'); });
+  document.querySelectorAll('#s4 .ans-input').forEach(function(i){ i.dataset.chipId = ''; });
+  wbActiveChip = null;
+}
+function resetS10() {
+  document.querySelectorAll('#s10 .wb-chip').forEach(function(c){
+    if (c.dataset.preused) return; // keep introduce + work as used
+    c.classList.remove('wb-used','wb-active');
+  });
+  document.querySelectorAll('#s10 .wb-blank').forEach(function(i){
+    i.value = ''; i.dataset.chipId = '';
+    i.style.background = 'transparent'; i.style.borderBottomColor = '#1A4A8C';
+    i.classList.remove('correct','wrong');
+  });
+  wbActiveChip = null;
+}
+
+/* ── GUIDED SPEAKING ─────────────────────────────── */
+function toggleHint(btn) {
+  var hint = btn.nextElementSibling;
+  var showing = hint.style.display === 'block';
+  hint.style.display = showing ? 'none' : 'block';
+  btn.textContent = showing ? '💡 Show hint' : '🙈 Hide hint';
+}
+var s12Idx = 0;
+function s12Nav(dir) {
+  var scenarios = document.querySelectorAll('#s12 .gs-scenario');
+  scenarios[s12Idx].classList.remove('gs-active');
+  s12Idx = Math.max(0, Math.min(scenarios.length - 1, s12Idx + dir));
+  scenarios[s12Idx].classList.add('gs-active');
+  document.getElementById('s12-counter').textContent = 'Scenario ' + (s12Idx+1) + ' of ' + scenarios.length;
+  document.getElementById('s12-prev').disabled = s12Idx === 0;
+  document.getElementById('s12-next').disabled = s12Idx === scenarios.length - 1;
+}
+
+/* ── NAME PAIRS — s6 ─────────────────────────────── */
+// Correct answers: 1=A(GEORGE), 2=B(KATY), 3=A(FRANCIS), 4=B(LORNA), 5=B(ZANDRA), 6=A(BORIS)
+var s6Answers = { '1':'A', '2':'B', '3':'A', '4':'B', '5':'B', '6':'A' };
+function npPick(btn, pairId, choice) {
+  var key = pairId.replace('s6-','');
+  ['A','B'].forEach(function(c){
+    var b = document.getElementById(pairId+'-'+c);
+    if (b) b.classList.remove('np-sel','np-correct','np-wrong');
+  });
+  btn.classList.add('np-sel');
+}
+function checkS6() {
+  Object.keys(s6Answers).forEach(function(key) {
+    var correct = s6Answers[key];
+    ['A','B'].forEach(function(c) {
+      var btn = document.getElementById('s6-'+key+'-'+c);
+      if (!btn) return;
+      if (btn.classList.contains('np-sel')) {
+        btn.classList.remove('np-sel');
+        btn.classList.add(c === correct ? 'np-correct' : 'np-wrong');
+      }
+    });
+  });
+}
+function resetS6() {
+  document.querySelectorAll('#s6 .np-btn').forEach(function(b){
+    b.classList.remove('np-sel','np-correct','np-wrong');
+  });
+}
+
+/* ── MULTIPLE CHOICE ─────────────────────────────── */
+function mcPick(el, qId) {
+  document.querySelectorAll('[data-q="'+qId+'"]').forEach(function(opt){
+    opt.classList.remove('mc-sel');
+    opt.querySelector('.mc-dot').textContent = '';
+  });
+  el.classList.add('mc-sel');
+  el.querySelector('.mc-dot').textContent = '●';
+}
+function checkMC() {
+  document.querySelectorAll('.mc-opt[data-correct]').forEach(function(el){
+    if (!el.classList.contains('mc-sel')) return;
+    var ok = el.dataset.correct === 'true';
+    el.classList.remove('mc-sel');
+    el.classList.toggle('mc-ok', ok);
+    el.classList.toggle('mc-bad', !ok);
+    el.querySelector('.mc-dot').textContent = ok ? '✔' : '✗';
+  });
+}
+function resetMC() {
+  document.querySelectorAll('.mc-opt[data-correct]').forEach(function(el){
+    el.classList.remove('mc-sel','mc-ok','mc-bad');
+    el.querySelector('.mc-dot').textContent = '';
+  });
+}
+
+/* ── DOWNLOAD NOTES ───────────────────────────── */
+var slideIds = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s-review","s-hw","s-hw1","s-hw2","s-hw-spell","s-hw-oral","s-hw3","s-hw4","s-hw5"];
+var slideLabels = [
+  "Cover","Lead-In — Warm-Up","Key Language 1.1 — Introducing Yourself",
+  "Exercise 1.2 — Fill in the Gaps","Pronunciation 1.3 — The Alphabet",
+  "Listening 1.4 — Mark the Names","Key Language 1.5 — Introducing Others",
+  "Exercise 1.6 — Correct the Errors","Listening 1.7 — Jill's First Day",
+  "Speaking 1.8 — Fill in the Gaps Aloud","Grammar — Formal vs Informal Register",
+  "Speaking — Business Roleplay","Lesson Review",
+  "Homework","HW 1.1 — Mark Correct Sentences","HW 1.2 — Word Order",
+  "HW 1.3 — Spelling Practice","HW4 — Spell Out Loud",
+  "HW 1.5 — Correct the Errors","HW 1.6 — Cross Out Incorrect Word","HW 1.7 — Number the Sentences"
+];
+function downloadNotes() {
+  saveNotes();
+  var hasAny = false, cards = '';
+  slideIds.forEach(function(sid, idx){
+    var note = notesData[idx] || '';
+    if (!note.replace(/<[^>]*>/g,'').trim()) return;
+    hasAny = true;
+    cards += '<div class="card"><div class="card-header">Slide '+(idx+1)+' &mdash; '+slideLabels[idx]+'</div><div class="card-body">'+note+'</div></div>';
+  });
+  if (!hasAny) { alert('No notes to save yet!'); return; }
+  var date = new Date().toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>BEfE L1 Notes</title><style>'
+    +"body{font-family:'Segoe UI',system-ui,sans-serif;max-width:720px;margin:16px auto;color:#1C2B3A;padding:0 20px}"
+    +'h1{font-size:1.5rem;color:#1A4A8C;margin-bottom:4px}'
+    +'.date{font-size:.9rem;color:#888;margin-bottom:14px}'
+    +'.card{border:1px solid #ddd;border-radius:10px;margin-bottom:12px;overflow:hidden}'
+    +'.card-header{background:#1A4A8C;color:#fff;padding:7px 14px;font-size:.88rem;font-weight:700}'
+    +'.card-body{padding:12px 14px;font-size:.97rem;line-height:1.7}'
+    +'.card-body [style*="background-color"]{color:#1a1a1a!important}'
+    +'@media print{body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:1cm}}'
+    +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
+    +'</style></head><body>'
+    +'<h1>Business English for Everyone &ndash; Lesson 1 Notes</h1>'
+    +'<div class="lesson-url"><a href="https://business-course-lvl1.netlify.app/" style="color:#1A4A8C;">https://business-course-lvl1.netlify.app/</a></div>'
+    +'<div class="date">'+date+'</div>'+cards+'</body></html>';
+  var win = window.open('','_blank');
+  win.document.write(html); win.document.close(); win.focus();
+  setTimeout(function(){win.print();},400);
+}
+
+goTo(0);
+
+/* ══════════════════════════════════════════════════
+   HOMEWORK EXERCISES
+══════════════════════════════════════════════════ */
+
+/* ── HW 1.1: MARK CORRECT SENTENCES ─────────────── */
+var hw1Data = [
+  { a: "My name Ali Patel.",               b: "My name's Ali Patel.",             c: 'b' },
+  { a: "Hi, I'm Jeff.",                    b: "Hi, I Jeff.",                      c: 'a' },
+  { a: "It good to meet you, Jane.",       b: "It's good to meet you, Jane.",     c: 'b' },
+  { a: "Pleased to meet you.",             b: "Please to meet you.",              c: 'a' },
+  { a: "I'm name is Deepak Kaur.",         b: "My name is Deepak Kaur.",          c: 'b' },
+  { a: "Great to meet you, Tanya.",        b: "Pleasure meet you, Tanya.",        c: 'a' },
+  { a: "It's nice to meet you, too.",      b: "It's a nice meet you, too.",       c: 'a' },
+  { a: "Good hello. My name is Ben Lewis.",b: "Good morning. My name is Ben Lewis.", c: 'b' },
+  { a: "It's a great to meet you, Gill.",  b: "It's great to meet you, Gill.",    c: 'b' },
+  { a: "Good evening. My name is Karen.",  b: "Great evening. My name is Karen.", c: 'a' }
+];
+var hw1Sel = {};
+
+function buildHW1() {
+  var grid = document.getElementById('hw1-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  // AEF standard: top-to-bottom, left-to-right — fill left column (1-5) then right (6-10)
+  var leftCol  = document.createElement('div');
+  leftCol.style.cssText  = 'display:flex;flex-direction:column;gap:8px;';
+  var rightCol = document.createElement('div');
+  rightCol.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+
+  hw1Data.forEach(function(item, i) {
+    var box = document.createElement('div');
+    box.style.cssText = 'background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;';
+
+    var numSpan = document.createElement('div');
+    numSpan.style.cssText = 'font-weight:800;color:#6B2737;font-size:.88rem;margin-bottom:2px;';
+    numSpan.textContent = i + 1;
+    box.appendChild(numSpan);
+
+    var makeBtn = function(choice, text) {
+      var btn = document.createElement('button');
+      btn.id = 'hw1-' + i + '-' + choice;
+      btn.textContent = text;
+      btn.style.cssText = 'text-align:left;background:#fff;border:2px solid #ddd;border-radius:8px;padding:9px 12px;cursor:pointer;font-family:inherit;font-size:1.06rem;line-height:1.45;transition:all .15s;width:100%;';
+      btn.onclick = function() { hw1Pick(i, choice); };
+      return btn;
+    };
+
+    box.appendChild(makeBtn('a', item.a));
+    box.appendChild(makeBtn('b', item.b));
+
+    if (i < 5) { leftCol.appendChild(box); }
+    else        { rightCol.appendChild(box); }
+  });
+
+  grid.appendChild(leftCol);
+  grid.appendChild(rightCol);
+}
+
+function hw1Pick(i, choice) {
+  hw1Sel[i] = choice;
+  ['a','b'].forEach(function(c) {
+    var btn = document.getElementById('hw1-' + i + '-' + c);
+    if (!btn) return;
+    btn.style.background = (c === choice) ? '#1A4A8C' : '#F5F5F5';
+    btn.style.color      = (c === choice) ? '#fff'    : '';
+    btn.style.borderColor= (c === choice) ? '#1A4A8C' : '#ddd';
+  });
+}
+
+function checkHW1() {
+  var score = 0, answered = 0;
+  hw1Data.forEach(function(item, i) {
+    ['a','b'].forEach(function(c) {
+      var b = document.getElementById('hw1-' + i + '-' + c);
+      if (b) { b.style.background='#F5F5F5'; b.style.color=''; b.style.borderColor='#ddd'; }
+    });
+    var sel = hw1Sel[i]; if (!sel) return; answered++;
+    var selBtn  = document.getElementById('hw1-' + i + '-' + sel);
+    var corrBtn = document.getElementById('hw1-' + i + '-' + item.c);
+    if (sel === item.c) {
+      selBtn.style.background='#d4edda'; selBtn.style.borderColor='#1A7A4A'; score++;
+    } else {
+      selBtn.style.background='#fddede'; selBtn.style.borderColor='#c0392b';
+      corrBtn.style.background='#d4edda'; corrBtn.style.borderColor='#1A7A4A';
+    }
+  });
+  var res = document.getElementById('hw1-result');
+  if (!answered) { res.textContent='Select an answer for each item.'; res.style.color='#888'; return; }
+  res.textContent = score + ' / ' + hw1Data.length + ' correct';
+  res.style.color = score === hw1Data.length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHW1() {
+  hw1Sel = {};
+  hw1Data.forEach(function(_, i) {
+    ['a','b'].forEach(function(c) {
+      var b = document.getElementById('hw1-' + i + '-' + c);
+      if (b) { b.style.background='#F5F5F5'; b.style.color=''; b.style.borderColor='#ddd'; }
+    });
+  });
+  var res = document.getElementById('hw1-result'); if (res) res.textContent='';
+}
+
+/* ── HW 1.2: WORD ORDER ─────────────────────────── */
+var hw2Data = [
+  { tiles:['name','afternoon.','is','Good','Tom.','My'],        answer:'Good afternoon. My name is Tom.' },
+  { tiles:['too.','Nice','you,','meet','to'],                  answer:'Nice to meet you, too.'        },
+  { tiles:['good','Jim.','you,','to',"It's",'meet'],           answer:"It's good to meet you, Jim."  },
+  { tiles:['meet','Pleased','you.','to'],                      answer:'Pleased to meet you.'          },
+  { tiles:['a','to','meet',"It's",'you.','pleasure'],          answer:"It's a pleasure to meet you." },
+  { tiles:['name','Good','is','My','Roy.','evening.'],         answer:'Good evening. My name is Roy.' }
+];
+var hw2State = [];
+
+function buildHW2() {
+  var container = document.getElementById('hw2-exercises');
+  if (!container) return;
+  container.innerHTML = '';
+  hw2State = hw2Data.map(function(d) { return { pool: d.tiles.slice(), answer: [] }; });
+
+  // AEF column order: top-to-bottom, left-to-right — 1-3 left, 4-6 right
+  var leftCol  = document.createElement('div');
+  leftCol.style.cssText  = 'display:flex;flex-direction:column;gap:12px;';
+  var rightCol = document.createElement('div');
+  rightCol.style.cssText = 'display:flex;flex-direction:column;gap:12px;';
+
+  hw2Data.forEach(function(_, i) {
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:11px 14px;';
+    wrap.innerHTML =
+      '<div style="font-weight:800;color:#6B2737;font-size:.85rem;margin-bottom:7px;">' + (i+1) + '</div>'
+      + '<div id="hw2-pool-' + i + '" style="display:flex;flex-wrap:wrap;gap:5px;min-height:34px;"></div>'
+      + '<div style="font-size:.88rem;color:#aaa;margin:6px 0 3px;">Your sentence — click a word to remove it:</div>'
+      + '<div id="hw2-ans-' + i + '" style="display:flex;flex-wrap:wrap;gap:5px;min-height:34px;border-top:1.5px dashed #C8D6E0;padding-top:7px;"></div>'
+      + '<div id="hw2-fb-' + i + '" style="min-height:1.1em;font-size:1rem;margin-top:5px;font-weight:700;"></div>';
+    if (i < 3) { leftCol.appendChild(wrap); }
+    else        { rightCol.appendChild(wrap); }
+  });
+
+  container.appendChild(leftCol);
+  container.appendChild(rightCol);
+  renderHW2();
+}
+
+function renderHW2() {
+  hw2Data.forEach(function(_, i) {
+    var poolEl = document.getElementById('hw2-pool-' + i);
+    var ansEl  = document.getElementById('hw2-ans-'  + i);
+    if (!poolEl || !ansEl) return;
+    poolEl.innerHTML = '';
+    hw2State[i].pool.forEach(function(word, wi) {
+      var btn = document.createElement('button');
+      btn.textContent = word;
+      btn.style.cssText = 'background:#1A4A8C;color:#fff;border:none;border-radius:6px;padding:5px 11px;cursor:pointer;font-size:1.05rem;font-family:inherit;';
+      btn.onmouseenter = function(){ this.style.opacity='.75'; };
+      btn.onmouseleave = function(){ this.style.opacity='1';   };
+      btn.onclick = (function(idx){ return function(){ hw2ToAns(i,idx); }; })(wi);
+      poolEl.appendChild(btn);
+    });
+    ansEl.innerHTML = '';
+    if (!hw2State[i].answer.length) {
+      ansEl.innerHTML = '<span style="color:#ccc;font-style:italic;font-size:1rem;line-height:2;">Click words above to build your sentence…</span>';
+    } else {
+      hw2State[i].answer.forEach(function(word, wi) {
+        var btn = document.createElement('button');
+        btn.textContent = word;
+        btn.style.cssText = 'background:#1A7A4A;color:#fff;border:none;border-radius:6px;padding:5px 11px;cursor:pointer;font-size:.9rem;font-family:inherit;';
+        btn.onmouseenter = function(){ this.style.opacity='.75'; };
+        btn.onmouseleave = function(){ this.style.opacity='1';   };
+        btn.onclick = (function(idx){ return function(){ hw2ToPool(i,idx); }; })(wi);
+        ansEl.appendChild(btn);
+      });
+    }
+  });
+}
+
+function hw2ToAns(si, ti) {
+  var w = hw2State[si].pool.splice(ti,1)[0];
+  hw2State[si].answer.push(w);
+  var fb = document.getElementById('hw2-fb-'+si); if(fb){ fb.textContent=''; fb.style.color=''; }
+  renderHW2();
+}
+function hw2ToPool(si, ti) {
+  var w = hw2State[si].answer.splice(ti,1)[0];
+  hw2State[si].pool.push(w);
+  var fb = document.getElementById('hw2-fb-'+si); if(fb){ fb.textContent=''; fb.style.color=''; }
+  renderHW2();
+}
+
+function checkHW2() {
+  var score = 0;
+  hw2Data.forEach(function(d, i) {
+    var fb    = document.getElementById('hw2-fb-'+i);
+    var ansEl = document.getElementById('hw2-ans-'+i);
+    if (!fb || !hw2State[i].answer.length) return;
+    var joined = hw2State[i].answer.join(' ');
+    if (joined === d.answer) {
+      score++; fb.textContent='✓ Correct!'; fb.style.color='#1A7A4A';
+      if(ansEl) ansEl.style.borderTopColor='#1A7A4A';
+    } else {
+      fb.textContent='✗ Try again!'; fb.style.color='#c0392b';
+      if(ansEl) ansEl.style.borderTopColor='#c0392b';
+    }
+  });
+  var answered = hw2State.filter(function(s){ return s.answer.length>0; }).length;
+  var res = document.getElementById('hw2-result');
+  if (!answered) { res.textContent='Build some sentences first!'; res.style.color='#888'; return; }
+  res.textContent = score+' / '+hw2Data.length+' correct';
+  res.style.color = score===hw2Data.length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHW2() {
+  hw2State = hw2Data.map(function(d){ return { pool:d.tiles.slice(), answer:[] }; });
+  hw2Data.forEach(function(_, i) {
+    var fb=document.getElementById('hw2-fb-'+i); if(fb){ fb.textContent=''; fb.style.color=''; }
+    var a=document.getElementById('hw2-ans-'+i); if(a) a.style.borderTopColor='#C8D6E0';
+  });
+  var res=document.getElementById('hw2-result'); if(res) res.textContent='';
+  renderHW2();
+}
+
+/* ── HW 1.3: SPELLING PRACTICE ──────────────────── */
+var hwSpellAnswers = { 'sp-1':'A', 'sp-2':'B', 'sp-3':'B', 'sp-4':'A', 'sp-5':'A' };
+var hwSpellSel = {};
+
+function hwSpellPick(btn, pairId, choice) {
+  hwSpellSel[pairId] = choice;
+  var other = choice === 'A' ? 'B' : 'A';
+  var selBtn  = document.getElementById(pairId + '-' + choice);
+  var otherBtn= document.getElementById(pairId + '-' + other);
+  if (selBtn)  { selBtn.classList.add('np-sel');    otherBtn && otherBtn.classList.remove('np-sel'); }
+}
+
+function checkHWSpell() {
+  var score = 0, answered = 0;
+  Object.keys(hwSpellAnswers).forEach(function(pid) {
+    var sel   = hwSpellSel[pid];
+    var corr  = hwSpellAnswers[pid];
+    var other = corr === 'A' ? 'B' : 'A';
+    var corrBtn  = document.getElementById(pid + '-' + corr);
+    var wrongBtn = document.getElementById(pid + '-' + other);
+    if (corrBtn)  { corrBtn.classList.remove('np-sel','np-correct','np-wrong'); }
+    if (wrongBtn) { wrongBtn.classList.remove('np-sel','np-correct','np-wrong'); }
+    if (!sel) return; answered++;
+    var selBtn   = document.getElementById(pid + '-' + sel);
+    if (sel === corr) {
+      score++;
+      if (selBtn) selBtn.classList.add('np-correct');
+    } else {
+      if (selBtn)  selBtn.classList.add('np-wrong');
+      if (corrBtn) corrBtn.classList.add('np-correct');
+    }
+  });
+  var res = document.getElementById('hw-spell-result');
+  if (!answered) { res.textContent='Select an answer for each pair.'; res.style.color='#888'; return; }
+  res.textContent = score + ' / ' + Object.keys(hwSpellAnswers).length + ' correct';
+  res.style.color = score === Object.keys(hwSpellAnswers).length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHWSpell() {
+  hwSpellSel = {};
+  Object.keys(hwSpellAnswers).forEach(function(pid) {
+    ['A','B'].forEach(function(c) {
+      var b = document.getElementById(pid + '-' + c);
+      if (b) b.className = 'np-btn';
+    });
+  });
+  var res = document.getElementById('hw-spell-result'); if (res) res.textContent = '';
+}
+
+/* ── HW 1.5: CORRECT ERRORS ─────────────────────── */
+var hw3Data = [
+  { wrong:"This our new designer.",              right:"This is our new designer."            },
+  { wrong:"Raj and I works together.",           right:"Raj and I work together."             },
+  { wrong:"I like you to meet our CEO.",         right:"I'd like you to meet our CEO."        },
+  { wrong:"Hi, I'm name's Lola.",                right:"Hi, my name's Lola.",  alt:"Hi, I'm Lola."  },
+  { wrong:"It great to meet you, Emily.",        right:"It's great to meet you, Emily."       },
+  { wrong:"I may introduce Ewan Carlton?",       right:"May I introduce Ewan Carlton?"        },
+  { wrong:"Farah, this my colleague, Leon.",     right:"Farah, this is my colleague, Leon."   }
+];
+
+function buildHW3() {
+  var grid = document.getElementById('hw3-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  // AEF column order: left = example + 1,2,3 / right = 4,5,6,7
+  var leftCol  = document.createElement('div');
+  leftCol.style.cssText  = 'display:flex;flex-direction:column;gap:10px;';
+  var rightCol = document.createElement('div');
+  rightCol.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
+
+  // Example cell
+  var exCell = document.createElement('div');
+  exCell.style.cssText = 'background:#e8f5e9;border-left:4px solid #1A7A4A;border-radius:0 8px 8px 0;padding:10px 13px;';
+  exCell.innerHTML =
+    '<div style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;margin-bottom:4px;">Example</div>'
+    + '<div style="font-size:1.05rem;color:#888;font-style:italic;margin-bottom:6px;">May you introduce Amy Daniels?</div>'
+    + '<input class="ans-input correct" value="May I introduce Amy Daniels." readonly style="width:100%;display:block;text-align:left;background:#b8dfc8;border-bottom-color:#1A7A4A;">';
+  leftCol.appendChild(exCell);
+
+  hw3Data.forEach(function(item, i) {
+    var cell = document.createElement('div');
+    cell.style.cssText = 'background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:10px 13px;';
+    cell.innerHTML =
+      '<div style="font-weight:800;color:#6B2737;font-size:.85rem;margin-bottom:3px;">' + (i+1) + '</div>'
+      + '<div style="font-size:1.05rem;color:#888;font-style:italic;margin-bottom:6px;">' + item.wrong + '</div>'
+      + '<input id="hw3-inp-' + i + '" class="ans-input" placeholder="Write the correct sentence…" style="width:100%;display:block;text-align:left;">';
+    if (i < 3) { leftCol.appendChild(cell); }
+    else        { rightCol.appendChild(cell); }
+  });
+
+  grid.appendChild(leftCol);
+  grid.appendChild(rightCol);
+}
+
+function checkHW3() {
+  var score = 0, answered = 0;
+  var norm = function(s){ return s.replace(/\s+/g,' ').trim().toLowerCase().replace(/[.?!,]+$/,''); };
+  hw3Data.forEach(function(item, i) {
+    var inp = document.getElementById('hw3-inp-'+i); if(!inp) return;
+    var val = inp.value.trim(); if(!val) return; answered++;
+    if (norm(val)===norm(item.right) || (item.alt && norm(val)===norm(item.alt))) {
+      inp.style.background='#d4edda'; inp.style.borderBottomColor='#1A7A4A'; score++;
+    } else {
+      inp.style.background='#fddede'; inp.style.borderBottomColor='#c0392b';
+    }
+  });
+  var res=document.getElementById('hw3-result');
+  if(!answered){ res.textContent='Write your corrected sentences first.'; res.style.color='#888'; return; }
+  res.textContent=score+' / '+hw3Data.length+' correct';
+  res.style.color=score===hw3Data.length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHW3() {
+  hw3Data.forEach(function(_, i) {
+    var inp=document.getElementById('hw3-inp-'+i);
+    if(inp){ inp.value=''; inp.style.background=''; inp.style.borderBottomColor=''; }
+  });
+  var res=document.getElementById('hw3-result'); if(res) res.textContent='';
+}
+
+/* ── HW 1.6: CROSS OUT INCORRECT WORD ───────────── */
+var hw4Data = [
+  { pre:"Good morning.",  w1:"I'm",      w2:"My",       post:"name's Saira Khan.", wrong:'a' },
+  { pre:"",               w1:"Bye",       w2:"I'm",      post:"Harry.",             wrong:'a' },
+  { pre:"",               w1:"I'm",       w2:"It's",     post:"Andrew Shaw.",       wrong:'b' },
+  { pre:"",               w1:"It's",      w2:"It",       post:"good to meet you.",  wrong:'b' },
+  { pre:"Pleased",        w1:"to",        w2:"I",        post:"meet you.",           wrong:'b' },
+  { pre:"It's a",        w1:"pleased",   w2:"pleasure", post:"to meet you.",        wrong:'a' },
+  { pre:"",               w1:"May",       w2:"This",     post:"I introduce our new HR assistant?", wrong:'b' },
+  { pre:"Keira,",         w1:"meets",     w2:"meet",     post:"John.",              wrong:'a' },
+  { pre:"",               w1:"Great",     w2:"Greater",  post:"to meet you.",       wrong:'b' },
+  { pre:"I",              w1:"would",     w2:"had",      post:"like you to meet Dan.", wrong:'b' },
+  { pre:"Colin and I",    w1:"works",     w2:"work",     post:"together.",          wrong:'a' }
+];
+var hw4Sel = {};
+
+function buildHW4() {
+  var grid = document.getElementById('hw4-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  hw4Data.forEach(function(item, i) {
+    var row = document.createElement('div');
+    row.id = 'hw4-row-' + i;
+    row.style.cssText = 'background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:9px 14px;display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:1.06rem;line-height:1.8;transition:background .2s,border-color .2s;';
+    var html = '<span style="font-weight:800;color:#6B2737;font-size:.88rem;min-width:20px;">' + (i+1) + '</span>';
+    if (item.pre) html += '<span>' + item.pre + '</span>';
+    html += '<button id="hw4-' + i + '-a" onclick="hw4Pick(' + i + ',\'a\')" style="background:#E8F0FB;color:#1A4A8C;border:2px solid #B0C4DE;border-radius:5px;padding:3px 10px;cursor:pointer;font-family:inherit;font-size:1.05rem;font-weight:700;transition:all .15s;">' + item.w1 + '</button>';
+    html += '<span style="color:#bbb;font-size:.82rem;">/</span>';
+    html += '<button id="hw4-' + i + '-b" onclick="hw4Pick(' + i + ',\'b\')" style="background:#E8F0FB;color:#1A4A8C;border:2px solid #B0C4DE;border-radius:5px;padding:3px 10px;cursor:pointer;font-family:inherit;font-size:1.05rem;font-weight:700;transition:all .15s;">' + item.w2 + '</button>';
+    if (item.post) html += '<span>' + item.post + '</span>';
+    row.innerHTML = html;
+    grid.appendChild(row);
+  });
+}
+
+function hw4Pick(i, choice) {
+  hw4Sel[i] = choice;
+  var other = choice === 'a' ? 'b' : 'a';
+  var selBtn = document.getElementById('hw4-'+i+'-'+choice);
+  var othBtn = document.getElementById('hw4-'+i+'-'+other);
+  // Selected word: highlighted blue (student's correct pick)
+  if (selBtn) { selBtn.style.background='#1A4A8C'; selBtn.style.borderColor='#1A4A8C'; selBtn.style.color='#fff'; selBtn.style.textDecoration='none'; }
+  // Other word: automatically crossed out
+  if (othBtn) { othBtn.style.background='#f0f0f0'; othBtn.style.borderColor='#ccc'; othBtn.style.color='#aaa'; othBtn.style.textDecoration='line-through'; }
+}
+
+function checkHW4() {
+  var score=0, answered=0;
+  hw4Data.forEach(function(item, i) {
+    var row = document.getElementById('hw4-row-'+i);
+    var sel = hw4Sel[i];
+    if (!sel) { if(row){ row.style.background='#F8FAFC'; row.style.borderColor='#D0DDE8'; } return; }
+    answered++;
+    var keepKey = item.wrong==='a' ? 'b' : 'a';
+    if (sel===keepKey) {
+      if(row){ row.style.background='#e8f5e9'; row.style.borderColor='#1A7A4A'; }
+      score++;
+    } else {
+      if(row){ row.style.background='#fddede'; row.style.borderColor='#c0392b'; }
+    }
+  });
+  var res=document.getElementById('hw4-result');
+  if(!answered){ res.textContent='Click the correct word in each sentence.'; res.style.color='#888'; return; }
+  res.textContent=score+' / '+hw4Data.length+' correct';
+  res.style.color=score===hw4Data.length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHW4() {
+  hw4Sel = {};
+  hw4Data.forEach(function(_, i) {
+    var row = document.getElementById('hw4-row-'+i);
+    if(row){ row.style.background='#F8FAFC'; row.style.borderColor='#D0DDE8'; }
+    ['a','b'].forEach(function(c) {
+      var b=document.getElementById('hw4-'+i+'-'+c);
+      if(b){ b.style.background='#E8F0FB'; b.style.borderColor='#B0C4DE'; b.style.color='#1A4A8C'; b.style.textDecoration='none'; }
+    });
+  });
+  var res=document.getElementById('hw4-result'); if(res) res.textContent='';
+}
+
+/* ── HW 1.7: NUMBER SENTENCES IN ORDER ──────────── */
+var hw5Data = [
+  { text:"Meet Jim. He's our CEO.",                    correct:5 },
+  { text:"It's nice to meet you, Julia.",              correct:6 },
+  { text:"Hi, Jim. It's great to meet you, too.",      correct:7 },
+  { text:"And this is Gary, our Marketing Manager.",   correct:4 },
+  { text:"May I introduce Julia Parker?",              correct:1 },
+  { text:"It's a pleasure to meet you, too, Claire.",  correct:3 },
+  { text:"Pleased to meet you, Julia.",                correct:2 }
+];
+var hw5Sel = {};
+
+function buildHW5() {
+  var grid = document.getElementById('hw5-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  hw5Data.forEach(function(item, i) {
+    var row = document.createElement('div');
+    row.style.cssText = 'background:#F8FAFC;border:1.5px solid #D0DDE8;border-radius:10px;padding:9px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+    var numBtns = '<div style="display:flex;gap:4px;flex-shrink:0;">';
+    for (var n=1; n<=7; n++) {
+      numBtns += '<button id="hw5-' + i + '-' + n + '" onclick="hw5Pick(' + i + ',' + n + ')" '
+        + 'style="width:28px;height:28px;border-radius:50%;border:2px solid #D0DDE8;background:#fff;cursor:pointer;font-size:.9rem;font-weight:700;color:#999;transition:all .15s;">'
+        + n + '</button>';
+    }
+    numBtns += '</div><span style="font-size:1.06rem;color:#1C2B3A;">' + item.text + '</span>';
+    row.innerHTML = numBtns;
+    grid.appendChild(row);
+  });
+}
+
+function hw5Pick(si, num) {
+  // If this number is already on another sentence, remove it
+  Object.keys(hw5Sel).forEach(function(k) {
+    if (hw5Sel[k]===num && parseInt(k)!==si) {
+      var ob=document.getElementById('hw5-'+k+'-'+num);
+      if(ob){ ob.style.background='#fff'; ob.style.color='#999'; ob.style.borderColor='#D0DDE8'; }
+      delete hw5Sel[k];
+    }
+  });
+  // Toggle off if same number clicked again
+  if (hw5Sel[si]===num) {
+    var b=document.getElementById('hw5-'+si+'-'+num);
+    if(b){ b.style.background='#fff'; b.style.color='#999'; b.style.borderColor='#D0DDE8'; }
+    delete hw5Sel[si]; return;
+  }
+  // Remove old selection for this sentence
+  if (hw5Sel[si]!==undefined) {
+    var pb=document.getElementById('hw5-'+si+'-'+hw5Sel[si]);
+    if(pb){ pb.style.background='#fff'; pb.style.color='#999'; pb.style.borderColor='#D0DDE8'; }
+  }
+  hw5Sel[si]=num;
+  var selB=document.getElementById('hw5-'+si+'-'+num);
+  if(selB){ selB.style.background='#1A4A8C'; selB.style.color='#fff'; selB.style.borderColor='#1A4A8C'; }
+}
+
+function checkHW5() {
+  var score=0, answered=0;
+  hw5Data.forEach(function(item, i) {
+    for(var n=1;n<=7;n++){ var b=document.getElementById('hw5-'+i+'-'+n); if(b){ b.style.background='#fff'; b.style.color='#999'; b.style.borderColor='#D0DDE8'; } }
+    var sel=hw5Sel[i]; if(sel===undefined) return; answered++;
+    var selB=document.getElementById('hw5-'+i+'-'+sel);
+    if (sel===item.correct) {
+      score++; if(selB){ selB.style.background='#1A7A4A'; selB.style.color='#fff'; selB.style.borderColor='#1A7A4A'; }
+    } else {
+      if(selB){ selB.style.background='#c0392b'; selB.style.color='#fff'; selB.style.borderColor='#c0392b'; }
+      var corrB=document.getElementById('hw5-'+i+'-'+item.correct);
+      if(corrB){ corrB.style.background='#d4edda'; corrB.style.color='#1A7A4A'; corrB.style.borderColor='#1A7A4A'; }
+    }
+  });
+  var res=document.getElementById('hw5-result');
+  if(!answered){ res.textContent='Assign numbers to the sentences first.'; res.style.color='#888'; return; }
+  res.textContent=score+' / '+hw5Data.length+' correct';
+  res.style.color=score===hw5Data.length ? '#1A7A4A' : '#c0392b';
+}
+
+function resetHW5() {
+  hw5Sel={};
+  hw5Data.forEach(function(_,i){
+    for(var n=1;n<=7;n++){ var b=document.getElementById('hw5-'+i+'-'+n); if(b){ b.style.background='#fff'; b.style.color='#999'; b.style.borderColor='#D0DDE8'; } }
+  });
+  var res=document.getElementById('hw5-result'); if(res) res.textContent='';
+}
+
+/* ── INIT ALL HW EXERCISES ───────────────────────── */
+/* ── HW4 ORAL: TOGGLE SPELLINGS ─────────────────── */
+function toggleOralSpell() {
+  var els = document.querySelectorAll('#s-hw-oral .oral-spell');
+  var btn = document.getElementById('oral-spell-btn');
+  var show = els[0] && els[0].style.display === 'none';
+  els.forEach(function(el){ el.style.display = show ? 'block' : 'none'; });
+  if (btn) btn.textContent = show ? '🙈 Hide Spellings' : '💡 Show Spellings';
+}
+
+buildHW1(); buildHW2(); buildHW3(); buildHW4(); buildHW5();
+
+</script>
+</body>
+</html>
