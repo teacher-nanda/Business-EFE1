@@ -145,8 +145,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 }
 .grammar-theory h3 { font-size: 1.05rem; font-weight: 800; color: #1A5C2A; margin-bottom: 10px; }
 .grammar-theory .form-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-.grammar-theory .form-table th { padding: 8px 12px; background: #1A5C2A; color: #fff; font-size: .95rem; font-weight: 700; text-align: left; }
-.grammar-theory .form-table td { padding: 8px 12px; border: 1px solid #c8e0cc; font-size: .95rem; }
+.grammar-theory .form-table th { padding: 8px 12px; background: #1A5C2A; color: #fff; font-size: 1.05rem; font-weight: 700; text-align: left; }
+.grammar-theory .form-table td { padding: 8px 12px; border: 1px solid #c8e0cc; font-size: 1.05rem; }
 .grammar-theory .form-table td:first-child { font-weight: 700; color: #1A5C2A; background: #DFF0E2; }
 .grammar-theory .ex { font-style: italic; color: #1A3A28; margin-top: 8px; padding-left: 12px; border-left: 3px solid #2E8B57; }
 
@@ -165,14 +165,14 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 }
 .audio-icon { font-size: 2.5rem; }
 .audio-info h3 { font-size: 1.05rem; font-weight: 700; color: #14607A; margin-bottom: 4px; }
-.audio-info p  { font-size: .9rem; color: #5A7080; }
+.audio-info p  { font-size: 1rem; color: #5A7080; }
 
 /* ── IMAGE PLACEHOLDER ────────────────────────── */
 .img-placeholder {
   background: #F0F4F0; border: 2px dashed #8AB89A;
   border-radius: 12px; padding: 40px 20px;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: #5A7A60; font-size: .9rem; text-align: center;
+  color: #5A7A60; font-size: 1rem; text-align: center;
 }
 .img-placeholder .img-icon { font-size: 2.5rem; }
 
@@ -204,8 +204,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 }
 .speak-card .speak-num { font-weight: 800; color: #4A1A7A; margin-bottom: 6px; font-size: 1rem; }
 .speak-card .speak-q { font-size: 1.12rem; color: #1C2B3A; line-height: 1.5; }
-.speak-card .speak-ex { font-size: .88rem; color: #666; font-style: italic; margin-top: 6px; }
-.speak-card .speak-tag { font-size: .75rem; font-weight: 800; color: #7A2A5A; text-transform: uppercase; letter-spacing: 1px; background: #F0D8EB; border-radius: 20px; padding: 2px 10px; display: inline-block; margin-bottom: 6px; }
+.speak-card .speak-ex { font-size: 1.05rem; color: #555; font-style: italic; margin-top: 0; max-height: 0; overflow: hidden; transition: max-height .35s ease, margin-top .2s ease; }
+.speak-card .speak-ex.open { max-height: 120px; margin-top: 8px; }
+.speak-toggle { background: none; border: 1px solid #C8A0D8; border-radius: 14px; color: #7A2A5A; font-size: 1rem; font-weight: 700; cursor: pointer; padding: 3px 12px; margin-top: 8px; transition: background .15s; }
+.speak-toggle:hover { background: #F0D8EB; }
+.speak-card .speak-tag { font-size: 0.92rem; font-weight: 800; color: #7A2A5A; text-transform: uppercase; letter-spacing: 1px; background: #F0D8EB; border-radius: 20px; padding: 2px 10px; display: inline-block; margin-bottom: 6px; }
 
 /* ── LISTENING QUESTIONS ─────────────────────── */
 .tfng-row {
@@ -217,7 +220,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 .tfng-btns { display: flex; gap: 6px; }
 .tfng-btn {
   padding: 5px 12px; border-radius: 20px; border: 2px solid #ccc;
-  background: #f0f0f0; color: #555; font-size: .88rem; font-weight: 700;
+  background: #f0f0f0; color: #555; font-size: 1rem; font-weight: 700;
   cursor: pointer; transition: all .15s; font-family: inherit;
 }
 .tfng-btn:hover { border-color: #1A7A4A; }
@@ -245,7 +248,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 .word-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px; background: #EEF7F0; border-radius: 10px; margin: 10px 0; border: 1px solid #c8e0cc; }
 .wb-chip {
   background: #1A5C2A; color: #fff; font-weight: 700; padding: 5px 16px; border-radius: 20px;
-  font-size: .92rem; cursor: pointer; transition: all .15s; border: 2px solid transparent;
+  font-size: 1rem; cursor: pointer; transition: all .15s; border: 2px solid transparent;
   user-select: none; display: inline-block;
 }
 .wb-chip:hover:not(.wb-used){ opacity:.85; }
@@ -259,26 +262,26 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 .btn-check {
   background: #1A5C2A; color: #fff; border: none;
   padding: 9px 22px; border-radius: 20px; cursor: pointer;
-  font-size: .92rem; font-weight: 700; transition: background .2s;
+  font-size: 1rem; font-weight: 700; transition: background .2s;
 }
 .btn-check:hover { background: #154A22; }
 .btn-reset {
   background: transparent; color: #C4614A; border: 2px solid #C4614A;
   padding: 7px 20px; border-radius: 20px; cursor: pointer;
-  font-size: .92rem; font-weight: 700; transition: all .2s;
+  font-size: 1rem; font-weight: 700; transition: all .2s;
 }
 .btn-reset:hover { background: #C4614A; color: #fff; }
 .btn-show {
   background: #1A4A8C; color: #fff; border: none;
   padding: 9px 22px; border-radius: 20px; cursor: pointer;
-  font-size: .92rem; font-weight: 700; transition: background .2s;
+  font-size: 1rem; font-weight: 700; transition: background .2s;
 }
 .btn-show:hover { background: #143A74; }
 
 /* ── HW TOKENS ────────────────────────────────── */
 .hw-tok {
   display:inline-block; cursor:pointer; border:2px solid #ccc; border-radius:6px;
-  padding:2px 10px; font-size:.95rem; font-weight:700; background:#f0f0f0; color:#555;
+  padding:2px 10px; font-size:1.05rem; font-weight:700; background:#f0f0f0; color:#555;
   transition:all .18s; vertical-align:middle; min-width:40px; text-align:center;
   user-select:none;
 }
@@ -286,7 +289,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 /* ── NOTE CALLOUT ──────────────────────────────── */
 .note-callout {
   background:#FFF8E8; border:1px solid #E8D080; border-radius:10px;
-  padding:10px 14px; margin:10px 0; font-size:.95rem; color:#5A4000;
+  padding:10px 14px; margin:10px 0; font-size:1.05rem; color:#5A4000;
   display:flex; align-items:flex-start; gap:8px; line-height:1.5;
 }
 
@@ -328,7 +331,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 }
 .s7-num-btn {
   width:36px; height:36px; border-radius:50%; border:2px solid #ccc;
-  background:#f5f5f5; color:#666; font-weight:800; font-size:.95rem;
+  background:#f5f5f5; color:#666; font-weight:800; font-size:1.05rem;
   cursor:pointer; transition:all .2s; flex-shrink:0; font-family:inherit;
 }
 </style>
@@ -357,9 +360,9 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
     <div class="title-main"><span class="title-accent">Everyday</span> Work Activities</div>
   </div>
   <!-- Course Home -->
-  <button onclick="location.href='index.html'" style="position:absolute;bottom:70px;left:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:.95rem;font-weight:700;backdrop-filter:blur(4px);">🏠 Course Home</button>
+  <button onclick="location.href='index.html'" style="position:absolute;bottom:70px;left:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">🏠 Course Home</button>
   <!-- Homework jump -->
-  <button onclick="goToId('s-hw')" style="position:absolute;bottom:70px;right:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:.95rem;font-weight:700;backdrop-filter:blur(4px);">📝 Homework</button>
+  <button onclick="goToId('s-hw')" style="position:absolute;bottom:70px;right:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">📝 Homework</button>
 </div>
 
 <!-- ════════════════════════════════════════════
@@ -370,26 +373,30 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="slide-main">
     <div class="content">
       <h2>Lesson 1 &amp; 2 Connection</h2>
-      <p class="instruction">Let's connect what you already know! Answer these questions with your teacher.</p>
+      <p class="instruction">Let's connect what you already know! Answer these questions.</p>
       <div class="speaking-grid" style="grid-template-columns:1fr 1fr;">
         <div class="speak-card">
           <div class="speak-tag">🔁 Lesson 1 Review</div>
           <div class="speak-q">Introduce yourself as if we're meeting for the first time at a professional event. Use everything you learned in Lesson 1!</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "Good morning! My name's [your name]. It's great to meet you. I'm a [job title] at [company]."</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">🆕 Lesson 2 Preview</div>
           <div class="speak-q">What do you do at work every day? Try to tell me 2 or 3 things — don't worry about grammar yet!</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "Every day I… / In the morning I usually… / My colleague…"</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">⏰ Your Routine</div>
           <div class="speak-q">What time do you start and finish work? What is the first thing you do when you arrive at the office?</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "I start at 9am. I finish at 6pm. When I arrive, I usually check my emails."</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">👥 Colleagues</div>
           <div class="speak-q">Tell me one thing your manager or a colleague does every day. How about your whole team?</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "My manager has a meeting every morning. We usually have lunch together."</div>
         </div>
       </div>
@@ -426,12 +433,12 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <div style="background:#FFF8E8;border-radius:12px;padding:16px 18px;border-left:4px solid #C8891E;">
           <div style="font-size:1rem;font-weight:800;color:#7A4A10;margin-bottom:10px;">⏰ Common time expressions:</div>
           <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;">
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">every day</span>
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">every morning</span>
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">on Mondays</span>
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">usually</span>
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">twice a day</span>
-            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:.9rem;font-weight:700;">at 11am</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">every day</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">every morning</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">on Mondays</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">usually</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">twice a day</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">at 11am</span>
           </div>
         </div>
       </div>
@@ -441,7 +448,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <span style="font-size:2rem;">🔊</span>
         <div style="flex:1;">
           <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Listen &amp; Repeat — Section 2.1</div>
-          <div style="font-size:.9rem;color:#5A7080;">Listen to your teacher model the example sentence, then repeat together.</div>
+          <div style="font-size:1rem;color:#5A7080;">Listen to your teacher model the example sentence, then repeat together.</div>
         </div>
       </div>
     </div>
@@ -533,36 +540,36 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <p class="instruction">Click the green block on each verb to reveal it — then say the rule out loud!</p>
 
       <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-        <button onclick="revealAllVerbs(true)" style="background:#1A5C2A;color:#fff;border:none;border-radius:20px;padding:6px 18px;cursor:pointer;font-size:.88rem;font-weight:700;font-family:inherit;transition:background .2s;">👁️ Reveal All</button>
-        <button onclick="revealAllVerbs(false)" style="background:transparent;color:#1A5C2A;border:2px solid #1A5C2A;border-radius:20px;padding:4px 16px;cursor:pointer;font-size:.88rem;font-weight:700;font-family:inherit;transition:all .2s;">Hide All</button>
+        <button onclick="revealAllVerbs(true)" style="background:#1A5C2A;color:#fff;border:none;border-radius:20px;padding:6px 18px;cursor:pointer;font-size:1rem;font-weight:700;font-family:inherit;transition:background .2s;">👁️ Reveal All</button>
+        <button onclick="revealAllVerbs(false)" style="background:transparent;color:#1A5C2A;border:2px solid #1A5C2A;border-radius:20px;padding:4px 16px;cursor:pointer;font-size:1rem;font-weight:700;font-family:inherit;transition:all .2s;">Hide All</button>
       </div>
 
       <div class="two-col" style="margin-top:4px;" id="s5-examples">
         <div class="col-section">
           <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">I am</span>
+            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">I am</span>
             I'<span class="verb-hide" onclick="vReveal(this)">m</span> a lifeguard at the local pool.
           </div>
           <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">they</span>
+            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">they</span>
             They <span class="verb-hide" onclick="vReveal(this)">have</span> a meeting every morning.
           </div>
           <div class="ex-row">
-            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">she</span>
+            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">she</span>
             Stephanie <span class="verb-hide" onclick="vReveal(this)">works</span> from home on Mondays.
           </div>
         </div>
         <div class="col-section">
           <div class="ex-row">
-            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">she is</span>
+            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">she is</span>
             Mia <span class="verb-hide" onclick="vReveal(this)">is</span> an excellent tour guide.
           </div>
           <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">we</span>
+            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">we</span>
             We usually <span class="verb-hide" onclick="vReveal(this)">stop</span> for tea and coffee at 11.
           </div>
           <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:2px 10px;font-size:.82rem;font-weight:700;margin-right:8px;">we are</span>
+            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">we are</span>
             We <span class="verb-hide" onclick="vReveal(this)">are</span> always busy in the evening.
           </div>
         </div>
@@ -573,7 +580,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <span style="font-size:2rem;">🔊</span>
         <div>
           <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Listen &amp; Repeat — Section 2.3</div>
-          <div style="font-size:.9rem;color:#5A7080;">Listen to the audio for section 2.3, then repeat each sentence focusing on the verb form.</div>
+          <div style="font-size:1rem;color:#5A7080;">Listen to the audio for section 2.3, then repeat each sentence focusing on the verb form.</div>
         </div>
       </div>
 
@@ -599,21 +606,25 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <div class="speak-card">
           <div class="speak-tag">✏️ My Job</div>
           <div class="speak-q">Tell me about your job using the present simple. Say at least 4 sentences.</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "I work in a marketing agency. I prepare reports every morning. I have meetings with clients. I usually finish at 6pm."</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">👩‍💼 My Manager</div>
           <div class="speak-q">Tell me what your manager or boss does every day. Remember to use he/she + verb-s!</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "My manager has a team meeting every Monday. She checks our reports. He travels a lot."</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">👥 My Team</div>
           <div class="speak-q">Tell me about your team or colleagues. What do you all do regularly? Use "we" or "they".</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "We have lunch together every day. They work very hard. We usually stop for coffee at 11."</div>
         </div>
         <div class="speak-card">
           <div class="speak-tag">🔗 L1 + L2 Connection</div>
           <div class="speak-q">Now combine Lesson 1 and Lesson 2! Introduce yourself AND say what you do every day.</div>
+          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
           <div class="speak-ex">e.g. "Hi! My name's [name]. I'm a designer. Every day, I create visuals and I have calls with clients."</div>
         </div>
       </div>
@@ -631,7 +642,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <h2>Exercise 2.4 — Match the Pictures</h2>
       <p class="instruction">Open your course book to page 17. Assign each sentence to the correct picture number — click a number to match!</p>
 
-      <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 8px 8px 0;padding:9px 14px;margin-bottom:14px;font-size:.95rem;color:#1A2840;">
+      <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 8px 8px 0;padding:9px 14px;margin-bottom:14px;font-size:1.05rem;color:#1A2840;">
         📖 <strong>Course Book p.17</strong> — Look at pictures 1–5, then click the matching number for each sentence below.
       </div>
 
@@ -645,7 +656,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <!-- Grammar focus -->
       <div style="margin-top:16px;background:#EEF7F0;border-radius:12px;padding:14px 18px;border-left:4px solid #1A7A4A;">
         <div style="font-weight:800;color:#1A5C2A;margin-bottom:8px;font-size:1rem;">🔍 Grammar Focus — Identify the subject &amp; verb form:</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:.95rem;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:1.05rem;">
           <div style="background:#fff;border-radius:8px;padding:8px 12px;border:1px solid #c8e0cc;"><strong>A:</strong> He → <em>brings</em> (+s)</div>
           <div style="background:#fff;border-radius:8px;padding:8px 12px;border:1px solid #c8e0cc;"><strong>B:</strong> I → <em>read</em></div>
           <div style="background:#fff;border-radius:8px;padding:8px 12px;border:1px solid #c8e0cc;"><strong>C:</strong> She → <em>walks</em> (+s)</div>
@@ -676,7 +687,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <span class="wb-chip" data-word="drinks" onclick="s8ChipClick(this)">drinks</span>
         <span class="wb-chip" data-word="eats" onclick="s8ChipClick(this)">eats</span>
       </div>
-      <div style="font-size:.85rem;color:#5A7A60;margin:-2px 0 8px 2px;">① Click a word chip &nbsp;→&nbsp; ② Click a blank to fill it in</div>
+      <div style="font-size:1rem;color:#5A7A60;margin:-2px 0 8px 2px;">① Click a word chip &nbsp;→&nbsp; ② Click a blank to fill it in</div>
 
       <div class="two-col" style="margin-top:8px;">
         <div class="col-section" id="s8-left">
@@ -715,7 +726,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <span style="font-size:2rem;">🎧</span>
         <div style="flex:1;">
           <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Track 2.6</div>
-          <div style="font-size:.9rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play the audio from the course book (track 2.6).</div>
+          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play the audio from the course book (track 2.6).</div>
         </div>
       </div>
 
@@ -850,7 +861,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 
       <!-- Example -->
       <div style="background:#F0F7F2;border-radius:10px;padding:14px 16px;border-left:3px solid #1A7A4A;margin-bottom:14px;">
-        <div style="font-size:.85rem;font-weight:700;color:#1A7A4A;margin-bottom:4px;">Example</div>
+        <div style="font-size:1rem;font-weight:700;color:#1A7A4A;margin-bottom:4px;">Example</div>
         <div style="color:#C4614A;text-decoration:line-through;font-size:1.06rem;margin-bottom:6px;">I be a teaching assistant at the local school.</div>
         <div style="font-size:1.06rem;color:#1C2B3A;">✅ I'm a teaching assistant at the local school.</div>
       </div>
@@ -877,10 +888,10 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 
       <!-- Example -->
       <div style="background:#F0F7F2;border-radius:10px;padding:12px 16px;border-left:3px solid #1A7A4A;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-        <span style="font-size:.85rem;font-weight:700;color:#1A7A4A;white-space:nowrap;">Example</span>
+        <span style="font-size:1rem;font-weight:700;color:#1A7A4A;white-space:nowrap;">Example</span>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button style="background:#f0f0f0;color:#aaa;border:2px solid #ccc;border-radius:8px;padding:6px 14px;font-size:.95rem;font-weight:700;cursor:default;text-decoration:line-through;">The office close at 7 o'clock.</button>
-          <button style="background:#1A7A4A;color:#fff;border:2px solid #1A7A4A;border-radius:8px;padding:6px 14px;font-size:.95rem;font-weight:700;cursor:default;">The office closes at 7 o'clock. ✓</button>
+          <button style="background:#f0f0f0;color:#aaa;border:2px solid #ccc;border-radius:8px;padding:6px 14px;font-size:1.05rem;font-weight:700;cursor:default;text-decoration:line-through;">The office close at 7 o'clock.</button>
+          <button style="background:#1A7A4A;color:#fff;border:2px solid #1A7A4A;border-radius:8px;padding:6px 14px;font-size:1.05rem;font-weight:700;cursor:default;">The office closes at 7 o'clock. ✓</button>
         </div>
       </div>
 
@@ -973,7 +984,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <div style="font-size:2.5rem;">📖</div>
         <div>
           <div style="font-weight:700;color:#5A7A60;margin-bottom:4px;">Practice Book — page 15</div>
-          <div style="font-size:.9rem;">Open your practice book to exercise 2.1. Match pictures 1–8 to the sentences below.</div>
+          <div style="font-size:1rem;">Open your practice book to exercise 2.1. Match pictures 1–8 to the sentences below.</div>
         </div>
       </div>
 
@@ -1028,7 +1039,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         <span style="font-size:2rem;">🎧</span>
         <div>
           <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Practice Book — Track 2.4</div>
-          <div style="font-size:.9rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play exercise 2.4 from the practice book audio.</div>
+          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play exercise 2.4 from the practice book audio.</div>
         </div>
       </div>
 
@@ -1299,7 +1310,7 @@ function buildHW1() {
       + '<span style="color:#C4614A;font-style:italic;">'+item.wrong+'</span></div>'
       + '<input type="text" id="hw1-inp-'+i+'" placeholder="Write the corrected sentence..." '
       + 'style="width:100%;text-align:left;font-size:1.05rem;padding:6px 8px;border:none;border-bottom:2px solid #1A7A4A;background:transparent;font-family:inherit;font-weight:400;color:#1C2B3A;outline:none;" />'
-      + '<div id="hw1-ans-'+i+'" style="display:none;background:#DFF0E2;border-radius:6px;padding:6px 12px;font-size:.95rem;color:#1A5C2A;border-left:3px solid #1A7A4A;">✅ '+item.right+'</div>';
+      + '<div id="hw1-ans-'+i+'" style="display:none;background:#DFF0E2;border-radius:6px;padding:6px 12px;font-size:1.05rem;color:#1A5C2A;border-left:3px solid #1A7A4A;">✅ '+item.right+'</div>';
     grid.appendChild(row);
   });
 }
@@ -1350,8 +1361,8 @@ function buildHW2() {
     row.id = 'hw2-row-'+i;
     row.style.cssText = 'background:#F4F8FA;border-radius:10px;padding:10px 14px;border:2px solid #dde;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
     row.innerHTML = '<span style="font-weight:700;color:#1A5C2A;min-width:24px;">'+(i+1)+'.</span>'
-      + '<button id="hw2-'+i+'-a" onclick="hw2Pick('+i+',\'a\')" style="flex:1;min-width:180px;background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:.95rem;font-weight:600;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;">'+item.a+'</button>'
-      + '<button id="hw2-'+i+'-b" onclick="hw2Pick('+i+',\'b\')" style="flex:1;min-width:180px;background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:.95rem;font-weight:600;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;">'+item.b+'</button>';
+      + '<button id="hw2-'+i+'-a" onclick="hw2Pick('+i+',\'a\')" style="flex:1;min-width:180px;background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;font-weight:600;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;">'+item.a+'</button>'
+      + '<button id="hw2-'+i+'-b" onclick="hw2Pick('+i+',\'b\')" style="flex:1;min-width:180px;background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;font-weight:600;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;">'+item.b+'</button>';
     grid.appendChild(row);
   });
 }
@@ -1424,7 +1435,7 @@ function buildHW3() {
     var row = document.createElement('div');
     row.id = 'hw3-row-'+i;
     row.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:8px;background:#F4F8FA;border-radius:10px;padding:10px 14px;border:2px solid #dde;font-size:1.06rem;transition:all .2s;';
-    var btnStyle = 'background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:6px;padding:3px 10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;';
+    var btnStyle = 'background:#f0f0f0;color:#555;border:2px solid #ccc;border-radius:6px;padding:3px 10px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;';
     row.innerHTML = '<span style="font-weight:700;color:#1A5C2A;margin-right:2px;">'+(i+1)+'.</span> '
       + item.pre + ' '
       + '<button id="hw3-'+i+'-a" onclick="hw3Pick('+i+',\'a\')" style="'+btnStyle+'">'+item.a+'</button>'
@@ -1697,13 +1708,19 @@ function buildS4Quiz() {
     row.style.cssText = 'display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border-radius:9px;padding:9px 14px;border:1.5px solid #c8e0cc;font-size:1.05rem;color:#1C2B3A;';
     row.innerHTML = '<span style="font-weight:800;color:#1A5C2A;min-width:20px;">'+(i+1)+'.</span> '
       + item.pre + ' '
-      + '<button id="s4q-'+i+'-0" onclick="s4Pick('+i+',0)" style="border:2px solid #ccc;border-radius:8px;padding:5px 16px;font-size:.95rem;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;transition:all .15s;font-family:inherit;">'+item.opts[0]+'</button>'
-      + ' <span style="color:#bbb;font-size:.85rem;">or</span> '
-      + '<button id="s4q-'+i+'-1" onclick="s4Pick('+i+',1)" style="border:2px solid #ccc;border-radius:8px;padding:5px 16px;font-size:.95rem;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;transition:all .15s;font-family:inherit;">'+item.opts[1]+'</button>'
+      + '<button id="s4q-'+i+'-0" onclick="s4Pick('+i+',0)" style="border:2px solid #ccc;border-radius:8px;padding:5px 16px;font-size:1.05rem;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;transition:all .15s;font-family:inherit;">'+item.opts[0]+'</button>'
+      + ' <span style="color:#bbb;font-size:1rem;">or</span> '
+      + '<button id="s4q-'+i+'-1" onclick="s4Pick('+i+',1)" style="border:2px solid #ccc;border-radius:8px;padding:5px 16px;font-size:1.05rem;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;transition:all .15s;font-family:inherit;">'+item.opts[1]+'</button>'
       + ' ' + item.post;
     cont.appendChild(row);
   });
 }
+function toggleEx(btn) {
+  var ex = btn.nextElementSibling;
+  var open = ex.classList.toggle('open');
+  btn.textContent = open ? '🙈 Hide example' : '💡 See an example';
+}
+
 function s4Pick(i, j) {
   var ok = j === s4QuizData[i].ans;
   [0,1].forEach(function(k) {
