@@ -244,6 +244,35 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 .mc-opt.mc-bad { background: #C4614A; border-color: #C4614A; color: #fff; }
 .mc-dot { width: 16px; font-size: 1rem; flex-shrink: 0; }
 
+/* ── S5 FIND THE MISTAKE ─────────────────────── */
+.s5-sent { display:flex; flex-wrap:wrap; align-items:center; gap:6px; background:#fff; border-radius:10px; padding:12px 16px; border:1.5px solid #c8e0cc; font-size:1.12rem; color:#1C2B3A; }
+.s5-word { cursor:pointer; padding:2px 5px; border-radius:5px; transition:background .15s; }
+.s5-word:hover:not(.found):not(.done) { background:#E8F5EC; }
+.s5-word.flash { background:#FFDDDD; animation:s5flash .4s ease; }
+.s5-word.found { background:#FDECEA; color:#C4614A; text-decoration:line-through; cursor:default; }
+.s5-fix { color:#1A7A4A; font-weight:800; margin-left:2px; }
+@keyframes s5flash { 0%{background:#FFDDDD} 100%{background:transparent} }
+
+/* ── S2 FORMAL/INFORMAL QUIZ ─────────────────── */
+.s2-card {
+  background: #F8F9FB; border: 2px solid #e0e4ea;
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 16px;
+  transition: border-color .2s;
+}
+.s2-phrase { flex: 1; font-size: 1.1rem; font-style: italic; color: #1C2B3A; font-weight: 600; }
+.s2-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.s2-btn {
+  padding: 7px 20px; border-radius: 20px; border: 2px solid;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  font-family: inherit; transition: all .15s;
+}
+.s2-btn-f { color: #1A4A8C; border-color: #1A4A8C; background: transparent; }
+.s2-btn-f:hover:not(:disabled) { background: #1A4A8C; color: #fff; }
+.s2-btn-i { color: #7A2A5A; border-color: #7A2A5A; background: transparent; }
+.s2-btn-i:hover:not(:disabled) { background: #7A2A5A; color: #fff; }
+.s2-btn:disabled { cursor: default; opacity: .85; }
+
 /* ── WORD BANK ────────────────────────────────── */
 .word-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px; background: #EEF7F0; border-radius: 10px; margin: 10px 0; border: 1px solid #c8e0cc; }
 .wb-chip {
@@ -359,8 +388,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 ════════════════════════════════════════════ -->
 <div class="slide" id="s1">
   <div class="title-inner">
-    <div class="title-label">Business English for Everyone</div>
-    <div class="title-sub">with Teacher Nanda</div>
+    <div class="title-label">Business English</div>
+    <div class="title-sub">with teacher Nanda</div>
     <div class="title-main"><span class="title-accent">Everyday</span> Work Activities</div>
   </div>
   <!-- Course Home -->
@@ -370,39 +399,31 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 </div>
 
 <!-- ════════════════════════════════════════════
-  s2 · WARM-UP — SPEAKING
+  s2 · WARM-UP — FORMAL OR INFORMAL?
 ════════════════════════════════════════════ -->
 <div class="slide" id="s2">
   <div class="banner" style="background:#2A5C8A;color:#fff;">🎯 Warm-Up</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Lesson 1 &amp; 2 Connection</h2>
-      <p class="instruction">Let's connect what you already know! Answer these questions.</p>
-      <div class="speaking-grid" style="grid-template-columns:1fr 1fr;">
-        <div class="speak-card">
-          <div class="speak-tag">🔁 Lesson 1 Review</div>
-          <div class="speak-q">Introduce yourself as if we're meeting for the first time at a professional event. Use everything you learned in Lesson 1!</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "Good morning! My name's [your name]. It's great to meet you. I'm a [job title] at [company]."</div>
+      <h2>Formal or Informal?</h2>
+      <p class="instruction">Look at each phrase from Lesson 1. Click <strong>Formal</strong> or <strong>Informal</strong> for each one.</p>
+
+      <div id="s2-cards"></div>
+
+      <div id="s2-score" style="margin-top:14px;font-size:1.1rem;font-weight:700;text-align:center;min-height:1.6em;color:#1A5C2A;"></div>
+
+      <div id="s2-bridge" style="display:none;margin-top:16px;">
+        <div style="background:linear-gradient(135deg,#0F3D20,#1A6B35);border-radius:16px;padding:22px 24px;color:#fff;box-shadow:0 4px 18px rgba(10,50,20,.25);display:flex;gap:18px;align-items:center;">
+          <div style="font-size:2.6rem;flex-shrink:0;">🗣️</div>
+          <div>
+            <div style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#52D980;margin-bottom:6px;">Now you speak!</div>
+            <div style="font-size:1.22rem;font-weight:700;line-height:1.4;">Tell me at least 2 things you do at work every day.</div>
+          </div>
         </div>
-        <div class="speak-card">
-          <div class="speak-tag">🆕 Lesson 2 Preview</div>
-          <div class="speak-q">What do you do at work every day? Try to tell me 2 or 3 things — don't worry about grammar yet!</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "Every day I… / In the morning I usually… / My colleague…"</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">⏰ Your Routine</div>
-          <div class="speak-q">What time do you start and finish work? What is the first thing you do when you arrive at the office?</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "I start at 9am. I finish at 6pm. When I arrive, I usually check my emails."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">👥 Colleagues</div>
-          <div class="speak-q">Tell me one thing your manager or a colleague does every day. How about your whole team?</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "My manager has a meeting every morning. We usually have lunch together."</div>
-        </div>
+      </div>
+
+      <div class="hw-btns">
+        <button class="btn-reset" onclick="buildS2()">↺ Reset</button>
       </div>
     </div>
   </div>
@@ -415,13 +436,15 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <h2>2.1 Key Language — The Present Simple</h2>
-      <p class="inst-light">Use the present simple to talk about things you do regularly, such as your daily tasks or everyday work routines.</p>
+      <h2>Key Language — The Present Simple</h2>
 
-      <div class="grammar-theory">
-        <h3>📌 When to use the Present Simple</h3>
-        Use the present simple to talk about things that <strong>happen regularly</strong> as part of a routine.
-        <div class="ex">"Every morning, we <strong>prepare</strong> the food and Justin <strong>sets</strong> the tables."</div>
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div class="grammar-theory" style="flex:1;">
+          <h3>📌 When to use the Present Simple</h3>
+          Use the present simple to talk about things you <strong>do regularly</strong>, such as your daily tasks or everyday work routines.
+          <div class="ex">"Every morning, we <strong>prepare</strong> the food and Justin <strong>sets</strong> the tables."</div>
+        </div>
+        <img src="Gemini_Generated_Image_ol5mzool5mzool5m.png" alt="Everyday work activities" style="width:600px;object-fit:contain;border-radius:14px;flex-shrink:0;box-shadow:0 3px 12px rgba(0,0,0,.15);">
       </div>
 
       <div class="two-col" style="margin-top:14px;">
@@ -443,16 +466,9 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
             <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">usually</span>
             <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">twice a day</span>
             <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">at 11am</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">once every two months</span>
+            <span style="background:#C8891E;color:#fff;border-radius:20px;padding:4px 12px;font-size:1rem;font-weight:700;">twice every week</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Audio note -->
-      <div style="margin-top:14px;background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:14px;">
-        <span style="font-size:2rem;">🔊</span>
-        <div style="flex:1;">
-          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Listen &amp; Repeat — Section 2.1</div>
-          <div style="font-size:1rem;color:#5A7080;">Listen to your teacher model the example sentence, then repeat together.</div>
         </div>
       </div>
     </div>
@@ -466,8 +482,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <h2>2.2 How to Form the Present Simple</h2>
-      <p class="inst-light">With regular verbs, use the <strong>base form</strong> with I, you, we, they. With he, she, it — add <strong>-s</strong> to the base form.</p>
+      <h2>How to Form the Present Simple</h2>
+      <p class="inst-light">With regular verbs, use the <strong>base form of the verb</strong> to make the present simple with "I," "you," "we," and "they."<br>With "he," "she," and "it," <strong>add "s"</strong> to the base form.</p>
 
       <div class="grammar-theory">
         <table class="form-table">
@@ -479,12 +495,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
           <tr>
             <td>I / You / We / They</td>
             <td><strong>prepare</strong></td>
-            <td>the food every morning.</td>
+            <td rowspan="2" style="vertical-align:middle;">the food every morning.</td>
           </tr>
           <tr>
             <td>He / She</td>
             <td><strong>prepare<u>s</u></strong></td>
-            <td>the food every morning.</td>
           </tr>
         </table>
       </div>
@@ -540,58 +555,65 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <h2>2.3 Further Examples — The Present Simple</h2>
-      <p class="instruction">Click the green block on each verb to reveal it — then say the rule out loud!</p>
+      <h2>Further Examples — The Present Simple</h2>
 
-      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-        <button onclick="revealAllVerbs(true)" style="background:#1A5C2A;color:#fff;border:none;border-radius:20px;padding:6px 18px;cursor:pointer;font-size:1rem;font-weight:700;font-family:inherit;transition:background .2s;">👁️ Reveal All</button>
-        <button onclick="revealAllVerbs(false)" style="background:transparent;color:#1A5C2A;border:2px solid #1A5C2A;border-radius:20px;padding:4px 16px;cursor:pointer;font-size:1rem;font-weight:700;font-family:inherit;transition:all .2s;">Hide All</button>
-      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;">
 
-      <div class="two-col" style="margin-top:4px;" id="s5-examples">
-        <div class="col-section">
-          <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">I am</span>
-            I'<span class="verb-hide" onclick="vReveal(this)">m</span> a lifeguard at the local pool.
-          </div>
-          <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">they</span>
-            They <span class="verb-hide" onclick="vReveal(this)">have</span> a meeting every morning.
-          </div>
-          <div class="ex-row">
-            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">she</span>
-            Stephanie <span class="verb-hide" onclick="vReveal(this)">works</span> from home on Mondays.
+        <!-- Row 1 left -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="lifeguard.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div>
+            <div style="font-size:.8rem;color:#888;margin-bottom:3px;">"Be" with "I" is "I am." The short form is "I'm."</div>
+            <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">I'<strong style="color:#1A6B35;">m</strong> a lifeguard at the local pool.</div>
           </div>
         </div>
-        <div class="col-section">
-          <div class="ex-row">
-            <span style="background:#1A5C2A;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">she is</span>
-            Mia <span class="verb-hide" onclick="vReveal(this)">is</span> an excellent tour guide.
-          </div>
-          <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">we</span>
-            We usually <span class="verb-hide" onclick="vReveal(this)">stop</span> for tea and coffee at 11.
-          </div>
-          <div class="ex-row">
-            <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 11px;font-size:1.05rem;font-weight:700;margin-right:8px;">we are</span>
-            We <span class="verb-hide" onclick="vReveal(this)">are</span> always busy in the evening.
+
+        <!-- Row 1 right -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="tour-guide.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div>
+            <div style="font-size:.8rem;color:#888;margin-bottom:3px;">Present simple form of "be" with "he," "she," and "it."</div>
+            <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">Mia <strong style="color:#1A6B35;">is</strong> an excellent tour guide.</div>
           </div>
         </div>
-      </div>
 
-      <!-- Audio -->
-      <div style="margin-top:16px;background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:14px;">
-        <span style="font-size:2rem;">🔊</span>
-        <div>
-          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Listen &amp; Repeat — Section 2.3</div>
-          <div style="font-size:1rem;color:#5A7080;">Listen to the audio for section 2.3, then repeat each sentence focusing on the verb form.</div>
+        <!-- Row 2 left -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="meeting.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">They <strong style="color:#1A6B35;">have</strong> a meeting every morning.</div>
         </div>
+
+        <!-- Row 2 right -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="tea-time.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">We usually <strong style="color:#1A6B35;">stop</strong> for tea and coffee at 11.</div>
+        </div>
+
+        <!-- Row 3 left -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="girl.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">Stephanie <strong style="color:#1A6B35;">works</strong> from home on Mondays.</div>
+        </div>
+
+        <!-- Row 3 right -->
+        <div style="display:flex;align-items:center;gap:14px;background:#F8F9FB;border-radius:14px;padding:12px 16px;">
+          <img src="family.png" alt="" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;">
+          <div>
+            <div style="font-size:.8rem;color:#888;margin-bottom:3px;">Present simple form of "be" with "we," "you," and "they."</div>
+            <div style="font-size:1.15rem;font-weight:600;color:#1C2B3A;line-height:1.4;">We <strong style="color:#1A6B35;">are</strong> always busy in the evening.</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="note-callout">
-        <span>📌</span>
-        <span>Notice: with <strong>I / you / we / they</strong> → base form (stop, have, prepare). With <strong>he / she / it</strong> → add -s (works, stops, prepares). But "be" is special: <em>am / is / are</em>.</span>
+      <!-- 🔍 Find the Mistake -->
+      <div style="margin-top:18px;background:#F0FAF3;border-radius:14px;padding:16px 20px;border-left:4px solid #1A7A4A;">
+        <div style="font-weight:800;color:#1A5C2A;margin-bottom:4px;font-size:1rem;">🔍 Find the Mistake</div>
+        <div style="font-size:1rem;color:#4A6A54;margin-bottom:12px;">Each sentence has one wrong verb. Click on it!</div>
+        <div id="s5-quiz" style="display:flex;flex-direction:column;gap:10px;"></div>
+        <button class="btn-reset" onclick="resetS5Quiz()" style="margin-top:14px;">↺ Try Again</button>
       </div>
+
     </div>
   </div>
 </div>
@@ -603,35 +625,61 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#7A2A5A;color:#fff;">💬 Speaking</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Present Simple — Let's Practice!</h2>
-      <p class="instruction">Use what you just learned. Speak in complete sentences using the present simple.</p>
+      <h2>Putting It Together</h2>
+      <p class="instruction">Use the sentence frames below. Complete each one out loud — then put it all together at the end!</p>
 
-      <div class="speaking-grid">
-        <div class="speak-card">
-          <div class="speak-tag">✏️ My Job</div>
-          <div class="speak-q">Tell me about your job using the present simple. Say at least 4 sentences.</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "I work in a marketing agency. I prepare reports every morning. I have meetings with clients. I usually finish at 6pm."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">👩‍💼 My Manager</div>
-          <div class="speak-q">Tell me what your manager or boss does every day. Remember to use he/she + verb-s!</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "My manager has a team meeting every Monday. She checks our reports. He travels a lot."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">👥 My Team</div>
-          <div class="speak-q">Tell me about your team or colleagues. What do you all do regularly? Use "we" or "they".</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "We have lunch together every day. They work very hard. We usually stop for coffee at 11."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">🔗 L1 + L2 Connection</div>
-          <div class="speak-q">Now combine Lesson 1 and Lesson 2! Introduce yourself AND say what you do every day.</div>
-          <button class="speak-toggle" onclick="toggleEx(this)">💡 See an example</button>
-          <div class="speak-ex">e.g. "Hi! My name's [name]. I'm a designer. Every day, I create visuals and I have calls with clients."</div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;font-size:.88rem;font-weight:700;">
+        <span style="background:#1A4A8C;color:#fff;border-radius:20px;padding:3px 12px;">🔵 Lesson 1</span>
+        <span style="background:#1A6B35;color:#fff;border-radius:20px;padding:3px 12px;">🟢 Lesson 2</span>
+      </div>
+
+      <!-- Step 1 -->
+      <div style="display:flex;gap:12px;margin-bottom:10px;">
+        <div style="background:#1A4A8C;color:#fff;border-radius:10px;padding:6px 12px;font-weight:800;font-size:1rem;flex-shrink:0;align-self:flex-start;">1</div>
+        <div style="flex:1;background:#EEF4FB;border-radius:0 12px 12px 0;border-left:4px solid #1A4A8C;padding:12px 16px;">
+          <div style="font-size:.85rem;font-weight:700;color:#1A4A8C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">🔵 Introduce yourself</div>
+          <div style="font-size:1.1rem;color:#1C2B3A;line-height:2;">
+            "Hi! My name's <span style="border-bottom:2px solid #1A4A8C;padding:0 24px;"></span>."<br>
+            "I work as a <span style="border-bottom:2px solid #1A4A8C;padding:0 36px;"></span> at <span style="border-bottom:2px solid #1A4A8C;padding:0 36px;"></span>."<br>
+            "It's great to meet you!"
+          </div>
         </div>
       </div>
+
+      <!-- Step 2 -->
+      <div style="display:flex;gap:12px;margin-bottom:10px;">
+        <div style="background:#1A6B35;color:#fff;border-radius:10px;padding:6px 12px;font-weight:800;font-size:1rem;flex-shrink:0;align-self:flex-start;">2</div>
+        <div style="flex:1;background:#EEF7F0;border-radius:0 12px 12px 0;border-left:4px solid #1A6B35;padding:12px 16px;">
+          <div style="font-size:.85rem;font-weight:700;color:#1A6B35;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">🟢 Your daily routine</div>
+          <div style="font-size:1.1rem;color:#1C2B3A;line-height:2;">
+            "Every day, I <span style="border-bottom:2px solid #1A6B35;padding:0 48px;"></span>."<br>
+            "I usually <span style="border-bottom:2px solid #1A6B35;padding:0 48px;"></span> in the morning."<br>
+            "I <span style="border-bottom:2px solid #1A6B35;padding:0 36px;"></span> at <span style="border-bottom:2px solid #1A6B35;padding:0 24px;"></span> every week."
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="display:flex;gap:12px;margin-bottom:14px;">
+        <div style="background:#1A6B35;color:#fff;border-radius:10px;padding:6px 12px;font-weight:800;font-size:1rem;flex-shrink:0;align-self:flex-start;">3</div>
+        <div style="flex:1;background:#EEF7F0;border-radius:0 12px 12px 0;border-left:4px solid #1A6B35;padding:12px 16px;">
+          <div style="font-size:.85rem;font-weight:700;color:#1A6B35;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">🟢 A colleague — use he / she + verb-s!</div>
+          <div style="font-size:1.1rem;color:#1C2B3A;line-height:2;">
+            "My colleague <span style="border-bottom:2px solid #1A6B35;padding:0 36px;"></span> is a <span style="border-bottom:2px solid #1A6B35;padding:0 36px;"></span>."<br>
+            "He / She usually <span style="border-bottom:2px solid #1A6B35;padding:0 48px;"></span>s every <span style="border-bottom:2px solid #1A6B35;padding:0 30px;"></span>."
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenge -->
+      <div style="background:linear-gradient(135deg,#0F3D20,#1A6B35);border-radius:16px;padding:18px 22px;color:#fff;display:flex;gap:16px;align-items:center;">
+        <div style="font-size:2.2rem;flex-shrink:0;">🎯</div>
+        <div>
+          <div style="font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#52D980;margin-bottom:4px;">Challenge</div>
+          <div style="font-size:1.12rem;font-weight:700;line-height:1.4;">Now put it all together — give a 60-second "work bio" using steps 1, 2 and 3!</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -643,7 +691,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Exercise 2.4 — Match the Pictures</h2>
+      <h2>Match the Pictures</h2>
       <p class="instruction">Open your course book to page 17. Assign each sentence to the correct picture number — click a number to match!</p>
 
       <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 8px 8px 0;padding:9px 14px;margin-bottom:14px;font-size:1.05rem;color:#1A2840;">
@@ -679,7 +727,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Exercise 2.5 — Fill in the Gaps</h2>
+      <h2>Fill in the Gaps</h2>
       <p class="instruction">Fill in the gaps using the words in the panel.</p>
 
       <!-- Word bank -->
@@ -718,7 +766,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#0E7A8A;color:#fff;">🎧 Listening</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Exercise 2.6 — Listen and Answer the Questions</h2>
+      <h2>Listen and Answer the Questions</h2>
 
       <!-- Context box -->
       <div style="background:#EEF4FB;border-left:4px solid #1A4A8C;border-radius:0 8px 8px 0;padding:11px 16px;margin-bottom:12px;font-size:1.12rem;font-weight:500;color:#1A2840;">
@@ -729,8 +777,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px dashed #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
         <span style="font-size:2rem;">🎧</span>
         <div style="flex:1;">
-          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Track 2.6</div>
-          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play the audio from the course book (track 2.6).</div>
+          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Audio</div>
+          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added.</div>
         </div>
       </div>
 
@@ -982,13 +1030,13 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:8px;color:#0A2010;">HW5 – Match the Pictures</h2>
-      <p class="instruction">Look at the pictures in your practice book (exercise 2.1) and match each to the correct sentence below.</p>
+      <p class="instruction">Look at the pictures in your practice book and match each to the correct sentence below.</p>
 
       <div class="img-placeholder" style="padding:14px 20px;margin-bottom:14px;flex-direction:row;gap:14px;text-align:left;align-items:center;">
         <div style="font-size:2.5rem;">📖</div>
         <div>
           <div style="font-weight:700;color:#5A7A60;margin-bottom:4px;">Practice Book — page 15</div>
-          <div style="font-size:1rem;">Open your practice book to exercise 2.1. Match pictures 1–8 to the sentences below.</div>
+          <div style="font-size:1rem;">Open your practice book and match pictures 1–8 to the sentences below.</div>
         </div>
       </div>
 
@@ -1042,8 +1090,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px dashed #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
         <span style="font-size:2rem;">🎧</span>
         <div>
-          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Practice Book — Track 2.4</div>
-          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added. Ask your teacher to play exercise 2.4 from the practice book audio.</div>
+          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Audio</div>
+          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added.</div>
         </div>
       </div>
 
@@ -1637,22 +1685,22 @@ var slideIds = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s-review","s
 var slideLabels = [
   "Cover",
   "Warm-Up — My Daily Routine",
-  "Key Language 2.1 — The Present Simple",
-  "Grammar 2.2 — How to Form",
-  "Grammar 2.3 — Further Examples",
+  "Key Language — The Present Simple",
+  "How to Form the Present Simple",
+  "Further Examples — The Present Simple",
   "Speaking — Present Simple Practice",
-  "Exercise 2.4 — Match the Pictures",
-  "Exercise 2.5 — Fill in the Gaps",
-  "Listening 2.6 — Zoe's New Job",
+  "Match the Pictures",
+  "Fill in the Gaps",
+  "Listening — Zoe's New Job",
   "Speaking — Your Daily Routine",
   "Lesson Review",
   "Homework",
-  "HW 2.1 — Rewrite the Sentences",
-  "HW 2.2 — Mark Correct Sentences",
-  "HW 2.3 — Cross Out the Incorrect Word",
-  "HW 2.4 — Fill in the Gaps",
-  "HW 2.5 — Match the Pictures",
-  "HW 2.6 — Listening Practice"
+  "HW — Rewrite the Sentences",
+  "HW — Mark Correct Sentences",
+  "HW — Cross Out the Incorrect Word",
+  "HW — Fill in the Gaps",
+  "HW — Match the Pictures",
+  "HW — Listening Practice"
 ];
 
 function downloadNotes() {
@@ -1715,6 +1763,58 @@ var s4QuizData = [
   { pre:"They",   post:"tea and coffee at 11.",          opts:["drink",  "drinks" ], ans:0 },
   { pre:"Mia",    post:"the new manager.",               opts:["is",     "are"    ], ans:0 }
 ];
+
+/* ── S5 FIND THE MISTAKE ── */
+var s5Sentences = [
+  { words:["She","work","from","home","on","Mondays."],          errIdx:1, fix:"works"  },
+  { words:["They","has","a","meeting","every","morning."],       errIdx:1, fix:"have"   },
+  { words:["I","are","a","lifeguard","at","the","local","pool."],errIdx:1, fix:"am"     },
+  { words:["We","usually","stops","for","coffee","at","11."],    errIdx:2, fix:"stop"   },
+  { words:["Mia","are","an","excellent","tour","guide."],        errIdx:1, fix:"is"     }
+];
+var s5Done = [];
+
+function buildS5Quiz() {
+  var cont = document.getElementById('s5-quiz');
+  if (!cont) return;
+  cont.innerHTML = '';
+  s5Done = [];
+  s5Sentences.forEach(function(item, si) {
+    s5Done.push(false);
+    var row = document.createElement('div');
+    row.className = 's5-sent';
+    row.innerHTML = '<span style="font-weight:800;color:#1A5C2A;margin-right:4px;">'+(si+1)+'.</span>';
+    item.words.forEach(function(word, wi) {
+      var sp = document.createElement('span');
+      sp.className = 's5-word';
+      sp.id = 's5-'+si+'-'+wi;
+      sp.textContent = word;
+      sp.onclick = function() { s5WordClick(si, wi); };
+      row.appendChild(sp);
+    });
+    cont.appendChild(row);
+  });
+}
+
+function s5WordClick(si, wi) {
+  if (s5Done[si]) return;
+  var item = s5Sentences[si];
+  var sp = document.getElementById('s5-'+si+'-'+wi);
+  if (wi === item.errIdx) {
+    sp.classList.add('found');
+    sp.onclick = null;
+    var fix = document.createElement('span');
+    fix.className = 's5-fix';
+    fix.textContent = '→ ' + item.fix + ' ✓';
+    sp.parentNode.insertBefore(fix, sp.nextSibling);
+    s5Done[si] = true;
+  } else {
+    sp.classList.add('flash');
+    setTimeout(function() { sp.classList.remove('flash'); }, 400);
+  }
+}
+
+function resetS5Quiz() { buildS5Quiz(); }
 
 function buildS4Quiz() {
   var cont = document.getElementById('s4-quiz');
@@ -1828,8 +1928,56 @@ function resetS7() {
   });
 }
 
+/* ── S2 FORMAL / INFORMAL QUIZ ── */
+var s2Data = [
+  { phrase: '"Good morning. My name is Alisha Sharma."', ans: 'F' },
+  { phrase: '"Hi, I\'m Lee!"',                           ans: 'I' },
+  { phrase: '"It\'s a pleasure to meet you, Mr. Ali."', ans: 'F' },
+  { phrase: '"May I introduce our sales manager?"',      ans: 'F' },
+  { phrase: '"Amit, meet Edward — we work together!"',  ans: 'I' },
+  { phrase: '"Great to meet you!"',                      ans: 'I' }
+];
+var s2Answered = 0;
+var s2Correct  = 0;
+
+function buildS2() {
+  s2Answered = 0; s2Correct = 0;
+  document.getElementById('s2-score').textContent = '';
+  document.getElementById('s2-bridge').style.display = 'none';
+  var html = '';
+  s2Data.forEach(function(item, i) {
+    html += '<div class="s2-card" id="s2-card-' + i + '">'
+      + '<div class="s2-phrase">' + item.phrase + '</div>'
+      + '<div class="s2-btns">'
+      + '<button id="s2-' + i + '-F" class="s2-btn s2-btn-f" onclick="s2Pick(' + i + ',\'F\')">Formal</button>'
+      + '<button id="s2-' + i + '-I" class="s2-btn s2-btn-i" onclick="s2Pick(' + i + ',\'I\')">Informal</button>'
+      + '</div></div>';
+  });
+  document.getElementById('s2-cards').innerHTML = html;
+}
+
+function s2Pick(i, choice) {
+  var correct = s2Data[i].ans === choice;
+  var fBtn = document.getElementById('s2-' + i + '-F');
+  var iBtn = document.getElementById('s2-' + i + '-I');
+  fBtn.disabled = true; iBtn.disabled = true;
+  var hit = document.getElementById('s2-' + i + '-' + choice);
+  var miss = document.getElementById('s2-' + i + '-' + (choice === 'F' ? 'I' : 'F'));
+  hit.style.cssText += ';background:' + (correct ? '#1A7A4A' : '#C4614A') + ';color:#fff;border-color:' + (correct ? '#1A7A4A' : '#C4614A');
+  if (!correct) { miss.style.cssText += ';background:#1A7A4A;color:#fff;border-color:#1A7A4A'; }
+  s2Answered++;
+  if (correct) s2Correct++;
+  if (s2Answered === s2Data.length) {
+    var all = s2Correct === s2Data.length;
+    document.getElementById('s2-score').textContent = (all ? '🎉 ' : '✅ ') + s2Correct + ' / ' + s2Data.length + ' correct!';
+    document.getElementById('s2-bridge').style.display = 'block';
+  }
+}
+
 /* ── INIT ── */
+buildS2();
 buildS4Quiz();
+buildS5Quiz();
 buildS7();
 buildS8();
 buildS9();
