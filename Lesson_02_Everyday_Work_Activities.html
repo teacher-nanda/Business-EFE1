@@ -217,13 +217,10 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   font-size: 1.06rem; color: #1C2B3A; flex-wrap: wrap;
 }
 .tfng-q { flex: 1; min-width: 200px; }
-.s29-subj, .s29-end {
-  background: #fff; border: 2px solid #BDD4F0; border-radius: 8px;
-  padding: 8px 10px; font-size: 1rem; font-weight: 700; color: #1C2B3A;
-  cursor: pointer; transition: all .15s; font-family: inherit; width: 100%; text-align: center;
+.s29-chip {
+  background: #C8891E; color: #fff; border-radius: 20px;
+  padding: 4px 13px; font-size: .9rem; font-weight: 600; display: inline-block;
 }
-.s29-subj:hover, .s29-end:hover { border-color: #0E5C8A; background: #EEF4FC; }
-.s29-subj.s29-active, .s29-end.s29-active { background: #0E5C8A; color: #fff; border-color: #0E5C8A; }
 
 .tfng-btns { display: flex; gap: 6px; }
 .tfng-btn {
@@ -901,15 +898,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   s2-7 · COMMON MISTAKES
 ════════════════════════════════════════════ -->
 <div class="slide" id="s2-7">
-  <div class="banner" style="background:linear-gradient(135deg,#8B2500,#C0392B);color:#fff;">⚠️ Common Mistakes</div>
+  <div class="banner" style="background:#C0392B;color:#fff;">⚠️ Common Mistakes</div>
   <div class="slide-main">
     <div class="content">
-      <p class="inst">Common mistakes: the present simple with "he," "she," and "it"</p>
-
-      <div style="background:#FFF5F5;border-radius:14px;padding:16px 20px;border-left:5px solid #C0392B;margin-bottom:18px;font-size:1.05rem;color:#5C1A1A;line-height:1.6;">
-        It's easy to forget to add <strong>"s"</strong> to the base form of the verb in the present simple
-        with third-person singular pronouns, <strong>"he," "she," and "it."</strong>
-      </div>
+      <h2>Common Mistakes</h2>
+      <p class="inst-light">It's easy to forget to add <strong>"s"</strong> to the base form of the verb in the present simple with third-person singular pronouns, <strong>"he," "she," and "it."</strong></p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
         <div style="background:#EFF9F0;border:2.5px solid #27AE60;border-radius:14px;padding:20px 18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
@@ -953,10 +946,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   s2-8 · CROSS OUT THE INCORRECT WORD
 ════════════════════════════════════════════ -->
 <div class="slide" id="s2-8">
-  <div class="banner" style="background:linear-gradient(135deg,#1A4A8C,#2471C2);color:#fff;">⚙️ Cross Out the Incorrect Word</div>
+  <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content">
-      <p class="inst">Cross out the incorrect word in each sentence.</p>
+      <h2>Select the Correct Word</h2>
+      <p class="instruction">Click the correct word — the incorrect one will be crossed out automatically.</p>
 
       <!-- Example (pre-answered) -->
       <div style="background:#EEF7F0;border:2px solid #1A7A4A;border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
@@ -985,17 +979,25 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   s2-9 · USE THE CHART — SPEAKING
 ════════════════════════════════════════════ -->
 <div class="slide" id="s2-9">
-  <div class="banner" style="background:linear-gradient(135deg,#0E5C8A,#1B8EC2);color:#fff;">🗣️ Use the Chart</div>
+  <div class="banner" style="background:#7A2A5A;color:#fff;">💬 Speaking</div>
   <div class="slide-main">
     <div class="content">
-      <p class="inst">Use the chart to create eight correct sentences and say them out loud.</p>
+      <h2>Use the Chart</h2>
+      <p class="instruction">Use the chart to create eight correct sentences and say them out loud.</p>
 
-      <!-- Chart builder -->
-      <div style="background:#EEF4FC;border-radius:14px;padding:16px;border:2px solid #BDD4F0;margin-bottom:14px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-          <!-- Subjects -->
-          <div>
-            <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;color:#0E5C8A;letter-spacing:.05em;margin-bottom:8px;text-align:center;">① Subject</div>
+      <!-- Chart: example left + 3-column chart right -->
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+
+        <!-- Example box (book-style, left) -->
+        <div style="background:#fff;border:2px solid #C8A8E8;border-radius:12px;padding:14px 18px;flex-shrink:0;font-style:italic;color:#3A1460;font-size:1.05rem;line-height:1.7;min-width:140px;box-shadow:2px 2px 0 #C8A8E8;">
+          I work from<br>Monday to Friday.
+        </div>
+
+        <!-- 3-column chart -->
+        <div style="flex:1;display:flex;align-items:center;gap:8px;min-width:260px;flex-wrap:nowrap;">
+
+          <!-- Subjects (purple box) -->
+          <div style="border:2px solid #9B59B6;border-radius:12px;padding:10px 10px;flex-shrink:0;">
             <div style="display:flex;flex-direction:column;gap:6px;" id="s29-subj-wrap">
               <button class="s29-subj" onclick="s29PickSubj(this,'I','work','have')">I</button>
               <button class="s29-subj" onclick="s29PickSubj(this,'You','work','have')">You</button>
@@ -1003,21 +1005,29 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
               <button class="s29-subj" onclick="s29PickSubj(this,'My manager','works','has')">My manager</button>
             </div>
           </div>
-          <!-- Endings -->
-          <div>
-            <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;color:#0E5C8A;letter-spacing:.05em;margin-bottom:8px;text-align:center;">② Ending</div>
+
+          <!-- Arrow -->
+          <div style="color:#9B59B6;font-size:1.2rem;flex-shrink:0;">▶</div>
+
+          <!-- Verbs (auto-highlighted) -->
+          <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+            <div id="s29-v-work"  style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">work</div>
+            <div id="s29-v-works" style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">works</div>
+            <div id="s29-v-have"  style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">have</div>
+            <div id="s29-v-has"   style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">has</div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="color:#27AE60;font-size:1.2rem;flex-shrink:0;">▶</div>
+
+          <!-- Endings (green box) -->
+          <div style="border:2px solid #27AE60;border-radius:12px;padding:10px 10px;flex:1;">
             <div style="display:flex;flex-direction:column;gap:6px;" id="s29-end-wrap">
               <button class="s29-end" onclick="s29PickEnd(this,'work','from Monday to Friday.')">from Monday to Friday.</button>
               <button class="s29-end" onclick="s29PickEnd(this,'have','a meeting every morning.')">a meeting every morning.</button>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Example -->
-      <div style="background:#EEF7F0;border-radius:10px;padding:8px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;font-size:.92rem;">
-        <span style="background:#1A5C2A;color:#fff;border-radius:8px;padding:2px 8px;font-size:.8rem;font-weight:700;flex-shrink:0;">Example</span>
-        <span style="font-style:italic;color:#1A2E1A;">I work from Monday to Friday.</span>
       </div>
 
       <!-- Sentence output -->
@@ -1038,10 +1048,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   s2-10 · READING — MEET THE MANAGER
 ════════════════════════════════════════════ -->
 <div class="slide" id="s2-10">
-  <div class="banner" style="background:linear-gradient(135deg,#5A2580,#8244B0);color:#fff;">📖 Read the Article and Answer the Questions</div>
+  <div class="banner" style="background:#0E7A8A;color:#fff;">📖 Reading</div>
   <div class="slide-main">
     <div class="content">
-      <p class="inst">Read the article and answer the questions.</p>
+      <h2>Read the Article and Answer the Questions</h2>
+      <p class="instruction">Read the article and answer the questions.</p>
 
       <!-- Article -->
       <div style="background:#FBF7FF;border:2px solid #C8A8E8;border-radius:14px;padding:16px 20px;margin-bottom:16px;">
@@ -1755,6 +1766,7 @@ function buildS2_8() {
 }
 
 function s2_8Pick(qIdx, optIdx) {
+  // optIdx = the word the student thinks is CORRECT
   var prev = s2_8Sel[qIdx];
   for (var k = 0; k < 2; k++) {
     var b = document.getElementById('s28-'+qIdx+'-'+k);
@@ -1762,31 +1774,30 @@ function s2_8Pick(qIdx, optIdx) {
   }
   if (prev === optIdx) { delete s2_8Sel[qIdx]; return; }
   s2_8Sel[qIdx] = optIdx;
-  var sel = document.getElementById('s28-'+qIdx+'-'+optIdx);
-  if (sel) { sel.style.background='#FDDEDE'; sel.style.color='#C0392B'; sel.style.borderColor='#C0392B'; sel.style.textDecoration='line-through'; }
+  var wrongIdx = 1 - optIdx;
+  var correctBtn = document.getElementById('s28-'+qIdx+'-'+optIdx);
+  if (correctBtn) { correctBtn.style.background='#EEF7F0'; correctBtn.style.color='#1A5C2A'; correctBtn.style.borderColor='#1A7A4A'; }
+  var wrongBtn = document.getElementById('s28-'+qIdx+'-'+wrongIdx);
+  if (wrongBtn) { wrongBtn.style.background='#FDDEDE'; wrongBtn.style.color='#C0392B'; wrongBtn.style.borderColor='#C0392B'; wrongBtn.style.textDecoration='line-through'; }
 }
 
 function checkS2_8() {
   var score = 0;
   s2_8Data.forEach(function(item, i) {
-    var wrongIdx = item.opts.indexOf(item.ans);
+    var wrongIdx   = item.opts.indexOf(item.ans);
+    var correctIdx = 1 - wrongIdx;
+    // reset both
     for (var k = 0; k < 2; k++) {
       var b = document.getElementById('s28-'+i+'-'+k);
       if (b) { b.style.background='#fff'; b.style.color='#1C2B3A'; b.style.borderColor='#BDD4F0'; b.style.textDecoration='none'; }
     }
-    var sel = s2_8Sel[i];
-    if (sel === wrongIdx) {
-      score++;
-      var wb = document.getElementById('s28-'+i+'-'+wrongIdx);
-      if (wb) { wb.style.background='#EEF7F0'; wb.style.color='#1A5C2A'; wb.style.borderColor='#1A7A4A'; wb.style.textDecoration='line-through'; }
-    } else {
-      var wb2 = document.getElementById('s28-'+i+'-'+wrongIdx);
-      if (wb2) { wb2.style.background='#FDDEDE'; wb2.style.color='#C0392B'; wb2.style.borderColor='#C0392B'; wb2.style.textDecoration='line-through'; }
-      if (sel !== undefined && sel !== wrongIdx) {
-        var sb = document.getElementById('s28-'+i+'-'+sel);
-        if (sb) { sb.style.background='#FEF0F0'; sb.style.borderColor='#E07060'; }
-      }
-    }
+    // always reveal correct state
+    var cb = document.getElementById('s28-'+i+'-'+correctIdx);
+    if (cb) { cb.style.background='#EEF7F0'; cb.style.color='#1A5C2A'; cb.style.borderColor='#1A7A4A'; }
+    var wb = document.getElementById('s28-'+i+'-'+wrongIdx);
+    if (wb) { wb.style.background='#FDDEDE'; wb.style.color='#C0392B'; wb.style.borderColor='#C0392B'; wb.style.textDecoration='line-through'; }
+    // student clicked correct word?
+    if (s2_8Sel[i] === correctIdx) score++;
   });
   var res = document.getElementById('s2-8-result');
   if (res) res.innerHTML = score === s2_8Data.length
@@ -1811,10 +1822,35 @@ function resetS2_8() {
 ═══════════════════════════════════════════ */
 var s29State = { subj: null, verbW: null, verbH: null, endType: null, endText: null, used: {} };
 
+function s29UpdateVerbs() {
+  ['work','works','have','has'].forEach(function(v) {
+    var el = document.getElementById('s29-v-' + v);
+    if (el) { el.style.background='#f0f0f0'; el.style.color='#bbb'; }
+  });
+  if (!s29State.subj) return;
+  var vW = s29State.verbW, vH = s29State.verbH;
+  if (s29State.endType) {
+    // one specific verb active
+    var active   = s29State.endType === 'work' ? vW : vH;
+    var inactive = s29State.endType === 'work' ? vH : vW;
+    var aEl = document.getElementById('s29-v-' + active);
+    var iEl = document.getElementById('s29-v-' + inactive);
+    if (aEl) { aEl.style.background='#7A2A5A'; aEl.style.color='#fff'; }
+    if (iEl) { iEl.style.background='#f0f0f0'; iEl.style.color='#ddd'; }
+  } else {
+    // both verbs for this subject available
+    [vW, vH].forEach(function(v) {
+      var el = document.getElementById('s29-v-' + v);
+      if (el) { el.style.background='#EAD8F5'; el.style.color='#5A2580'; }
+    });
+  }
+}
+
 function s29PickSubj(el, name, verbW, verbH) {
   document.querySelectorAll('.s29-subj').forEach(function(e){ e.classList.remove('s29-active'); });
   el.classList.add('s29-active');
   s29State.subj = name; s29State.verbW = verbW; s29State.verbH = verbH;
+  s29UpdateVerbs();
   s29Build();
 }
 
@@ -1822,6 +1858,7 @@ function s29PickEnd(el, endType, endText) {
   document.querySelectorAll('.s29-end').forEach(function(e){ e.classList.remove('s29-active'); });
   el.classList.add('s29-active');
   s29State.endType = endType; s29State.endText = endText;
+  s29UpdateVerbs();
   s29Build();
 }
 
@@ -1853,6 +1890,7 @@ function s29Random() {
 function s29Reset() {
   s29State = { subj: null, verbW: null, verbH: null, endType: null, endText: null, used: {} };
   document.querySelectorAll('.s29-subj, .s29-end').forEach(function(e){ e.classList.remove('s29-active'); });
+  s29UpdateVerbs();
   var out = document.getElementById('s29-output');
   if (out) out.innerHTML = '<span style="color:#AAB8CC;font-size:1rem;font-weight:400;font-style:italic;">Pick a subject and an ending to build your sentence</span>';
   var cntEl = document.getElementById('s29-count');
@@ -2279,7 +2317,7 @@ var slideLabels = [
   "Listening — Zoe's New Job",
   "Speaking — Your Daily Routine",
   "Common Mistakes",
-  "Cross Out the Incorrect Word",
+  "Select the Correct Word",
   "Use the Chart — Speaking",
   "Reading — Meet the Manager",
   "Lesson Review",
