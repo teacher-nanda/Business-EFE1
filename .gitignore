@@ -1,0 +1,10 @@
+# Backup files — never commit these to GitHub
+*backup*
+*BACKUP*
+*_backup_*
+
+# macOS
+.DS_Store
+
+# Practice book PDF (large file, not needed for the website)
+*.pdf
