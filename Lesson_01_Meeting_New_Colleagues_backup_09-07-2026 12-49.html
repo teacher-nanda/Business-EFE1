@@ -488,24 +488,6 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2836; margin-bottom: 14px; 
   display:inline-block;padding:3px 12px;border-radius:20px;
   font-size:.8rem;font-weight:700;letter-spacing:.04em;
 }
-/* ── PRINT / SAVE AS PDF ─────────────────────────── */
-@media print {
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  html, body { background: #fff !important; color: #111 !important; overflow: visible !important; height: auto !important; }
-  .slide { position: relative !important; opacity: 1 !important; display: block !important;
-    page-break-after: always; width: 100% !important; height: auto !important;
-    min-height: 0 !important; overflow: visible !important; background: #fff !important; }
-  /* force all text dark */
-  .slide *, .slide-main *, .banner { color: #111 !important; }
-  /* keep banner backgrounds so slides are identifiable */
-  .banner { color: #fff !important; }
-  /* nav / toolbar hidden */
-  #nav, #toolbar, .nav-bar, button.nav-btn, #notes-panel,
-  #progress-bar, #slide-counter, .slide-nav { display: none !important; }
-  /* highlighted / coloured chips keep their bg */
-  [style*="background:#"], [style*="background: #"],
-  .tag-pill, .spec-seg { -webkit-print-color-adjust: exact !important; }
-}
 </style>
 </head>
 <body>
