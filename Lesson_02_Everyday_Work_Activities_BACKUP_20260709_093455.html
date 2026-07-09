@@ -217,6 +217,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   font-size: 1.06rem; color: #1C2B3A; flex-wrap: wrap;
 }
 .tfng-q { flex: 1; min-width: 200px; }
+.s29-chip {
+  background: #C8891E; color: #fff; border-radius: 20px;
+  padding: 4px 13px; font-size: .9rem; font-weight: 600; display: inline-block;
+}
+
 .tfng-btns { display: flex; gap: 6px; }
 .tfng-btn {
   padding: 5px 12px; border-radius: 20px; border: 2px solid #ccc;
@@ -692,11 +697,11 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="slide-main">
     <div class="content">
       <h2>Match the Pictures</h2>
-      <p class="instruction">Look at the pictures. Match each sentence (A–E) to the correct picture number.</p>
+      <p class="instruction">Match the pictures to the correct sentences.</p>
 
       <!-- Example: pre-matched -->
       <div style="background:#FFF8E7;border:2px solid #F59E0B;border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <img src="Screenshot 2026-07-09 at 07.52.25.png" style="width:110px;height:80px;object-fit:cover;border-radius:8px;border:2px solid #F59E0B;flex-shrink:0;">
+        <img src="Screenshot 2026-07-09 at 07.52.25.png" style="width:110px;object-fit:contain;border-radius:8px;border:2px solid #F59E0B;flex-shrink:0;">
         <div style="flex:1;min-width:180px;">
           <div style="font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#92400E;margin-bottom:4px;">Example ✓</div>
           <div style="font-size:1.05rem;color:#1C2B3A;"><strong>B.</strong> I <strong>read</strong> the bulletin board every morning.</div>
@@ -707,19 +712,19 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <!-- Picture strip 1–4 -->
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
         <div style="text-align:center;">
-          <img src="Screenshot 2026-07-09 at 07.52.29.png" id="s7-img-1" style="width:100%;height:90px;object-fit:cover;border-radius:8px;border:2px solid #dde;">
+          <img src="Screenshot 2026-07-09 at 07.52.29.png" id="s7-img-1" style="width:100%;object-fit:contain;border-radius:8px;border:2px solid #dde;">
           <div style="font-weight:800;font-size:1.1rem;margin-top:5px;color:#1A5C2A;">1</div>
         </div>
         <div style="text-align:center;">
-          <img src="Screenshot 2026-07-09 at 07.52.33.png" id="s7-img-2" style="width:100%;height:90px;object-fit:cover;border-radius:8px;border:2px solid #dde;">
+          <img src="Screenshot 2026-07-09 at 07.52.33.png" id="s7-img-2" style="width:100%;object-fit:contain;border-radius:8px;border:2px solid #dde;">
           <div style="font-weight:800;font-size:1.1rem;margin-top:5px;color:#1A5C2A;">2</div>
         </div>
         <div style="text-align:center;">
-          <img src="Screenshot 2026-07-09 at 07.52.36.png" id="s7-img-3" style="width:100%;height:90px;object-fit:cover;border-radius:8px;border:2px solid #dde;">
+          <img src="Screenshot 2026-07-09 at 07.52.36.png" id="s7-img-3" style="width:100%;object-fit:contain;border-radius:8px;border:2px solid #dde;">
           <div style="font-weight:800;font-size:1.1rem;margin-top:5px;color:#1A5C2A;">3</div>
         </div>
         <div style="text-align:center;">
-          <img src="Screenshot 2026-07-09 at 07.52.40.png" id="s7-img-4" style="width:100%;height:90px;object-fit:cover;border-radius:8px;border:2px solid #dde;">
+          <img src="Screenshot 2026-07-09 at 07.52.40.png" id="s7-img-4" style="width:100%;object-fit:contain;border-radius:8px;border:2px solid #dde;">
           <div style="font-weight:800;font-size:1.1rem;margin-top:5px;color:#1A5C2A;">4</div>
         </div>
       </div>
@@ -758,14 +763,19 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 
       <!-- Word bank -->
       <div class="word-bank" id="s8-bank">
-        <span class="wb-chip" data-word="have" onclick="s8ChipClick(this)">have</span>
-        <span class="wb-chip" data-word="is" onclick="s8ChipClick(this)">is</span>
-        <span class="wb-chip" data-word="travels" onclick="s8ChipClick(this)">travels</span>
-        <span class="wb-chip" data-word="leaves" onclick="s8ChipClick(this)">leaves</span>
-        <span class="wb-chip" data-word="drinks" onclick="s8ChipClick(this)">drinks</span>
         <span class="wb-chip" data-word="eats" onclick="s8ChipClick(this)">eats</span>
+        <span class="wb-chip" data-word="is" onclick="s8ChipClick(this)">is</span>
+        <span class="wb-chip" data-word="drinks" onclick="s8ChipClick(this)">drinks</span>
+        <span class="wb-chip" data-word="leaves" onclick="s8ChipClick(this)">leaves</span>
+        <span class="wb-chip wb-used wb-example" style="cursor:default;">have</span>
+        <span class="wb-chip" data-word="travels" onclick="s8ChipClick(this)">travels</span>
       </div>
       <div style="font-size:1rem;color:#5A7A60;margin:-2px 0 8px 2px;">① Click a word chip &nbsp;→&nbsp; ② Click a blank to fill it in</div>
+
+      <!-- Example: pre-filled -->
+      <div style="background:#F0F7F2;border-radius:10px;padding:10px 16px;border-left:3px solid #1A7A4A;margin-bottom:10px;font-size:1.06rem;">
+        <strong style="color:#1A7A4A;">Example:</strong> We <span style="background:#1A7A4A;color:#fff;border-radius:5px;padding:1px 8px;font-weight:700;">have</span> a meeting every day.
+      </div>
 
       <div class="two-col" style="margin-top:8px;">
         <div class="col-section" id="s8-left">
@@ -799,16 +809,28 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
         Zoe has started a new job in a café. Her manager tells her about her everyday tasks at work.
       </div>
 
-      <!-- Audio placeholder -->
-      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px dashed #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
-        <span style="font-size:2rem;">🎧</span>
-        <div style="flex:1;">
-          <div style="font-weight:700;color:#14607A;font-size:1rem;margin-bottom:4px;">Audio</div>
-          <div style="font-size:1rem;color:#5A7080;">⚠️ Audio file not yet added.</div>
-        </div>
+      <!-- Audio player -->
+      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;flex-shrink:0;">🎧</span>
+        <audio controls style="flex:1;width:100%;accent-color:#14607A;">
+          <source src="2_6.mp3" type="audio/mpeg">
+        </audio>
       </div>
 
       <p class="instruction">Listen to the audio. Mark True, False, or Not given for each statement.</p>
+
+      <!-- Example: pre-answered True -->
+      <div style="background:#F0F7F2;border-radius:10px;padding:10px 16px;border-left:3px solid #1A7A4A;margin-bottom:10px;">
+        <div style="font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#1A7A4A;margin-bottom:8px;">Example ✓</div>
+        <div class="tfng-row" style="pointer-events:none;">
+          <div class="tfng-q"><span style="font-weight:800;color:#1A5C2A;margin-right:6px;">1.</span>The café opens at 10am.</div>
+          <div class="tfng-btns">
+            <button class="tfng-btn correct" style="pointer-events:none;">True</button>
+            <button class="tfng-btn" style="pointer-events:none;">False</button>
+            <button class="tfng-btn" style="pointer-events:none;">Not given</button>
+          </div>
+        </div>
+      </div>
 
       <div id="s9-qs" style="margin-top:8px;"></div>
 
@@ -822,37 +844,249 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 </div>
 
 <!-- ════════════════════════════════════════════
-  s10 · SPEAKING — YOUR DAILY ROUTINE
+  s10 · SPEAKING — LET'S TALK!
 ════════════════════════════════════════════ -->
 <div class="slide" id="s10">
   <div class="banner" style="background:#7A2A5A;color:#fff;">💬 Speaking</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Your Daily Routine — Full Activity</h2>
-      <p class="instruction">Bring together everything from Lessons 1 and 2. Speak as much as you can!</p>
+      <h2>Let's Talk! 💬</h2>
+      <p class="instruction">Choose a topic and answer the questions out loud. Use present simple, time expressions, and everything from Lessons 1 and 2. Click a question to mark it done!</p>
 
-      <div class="speaking-grid">
-        <div class="speak-card" style="grid-column:1/-1;background:#EEF7F0;border-left:4px solid #1A7A4A;">
-          <div class="speak-tag" style="background:#DFF0E2;color:#1A5C2A;">⭐ Full Challenge</div>
-          <div class="speak-q" style="font-size:1.15rem;">Complete self-introduction! Tell me: <strong>who you are</strong> (Lesson 1) + <strong>what you do every day</strong> (Lesson 2). Aim for 5 or more sentences!</div>
-          <div class="speak-ex">e.g. "Good morning! My name's [name]. It's great to meet you. I'm a marketing manager at [company]. Every day, I prepare campaigns and check my emails. My team usually has a meeting at 10am. I travel to work by train. I usually leave the office at 6pm."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">🎭 Role-play</div>
-          <div class="speak-q">You just started a new job. Introduce yourself to your new colleague AND describe what you will do every day in your new role.</div>
-          <div class="speak-ex">e.g. "Hi! My name's [name]. I'm the new sales assistant. I usually start by checking the orders every morning..."</div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">🎤 Interview Me!</div>
-          <div class="speak-q">Now YOU ask the questions! Interview your teacher about their daily routine. Use these question starters:</div>
-          <div class="speak-ex"><em>Do you...? / What do you...? / When do you...? / Does your colleague...? / How often do you...?</em></div>
-        </div>
-        <div class="speak-card">
-          <div class="speak-tag">📅 My Perfect Workday</div>
-          <div class="speak-q">Describe your perfect workday from morning to evening. Use time expressions: every morning, at noon, in the afternoon, usually, every day, sometimes.</div>
-          <div class="speak-ex">e.g. "Every morning, I arrive at 8:30. I usually have coffee and check my emails. At noon, I eat lunch with my team. In the afternoon, I prepare reports..."</div>
+      <!-- Topic tabs -->
+      <div id="s10-tabs" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+        <button class="s10-tab" onclick="s10Switch(0)"
+          style="background:#1A5C2A;color:#fff;border:2px solid #1A5C2A;border-radius:22px;padding:8px 18px;font-size:1rem;font-weight:800;cursor:pointer;">🏢 Work Life</button>
+        <button class="s10-tab" onclick="s10Switch(1)"
+          style="background:#f0f0f0;color:#555;border:2px solid #ddd;border-radius:22px;padding:8px 18px;font-size:1rem;font-weight:800;cursor:pointer;">🌅 Daily Life</button>
+        <button class="s10-tab" onclick="s10Switch(2)"
+          style="background:#f0f0f0;color:#555;border:2px solid #ddd;border-radius:22px;padding:8px 18px;font-size:1rem;font-weight:800;cursor:pointer;">🙋 About You</button>
+        <button class="s10-tab" onclick="s10Switch(3)"
+          style="background:#f0f0f0;color:#555;border:2px solid #ddd;border-radius:22px;padding:8px 18px;font-size:1rem;font-weight:800;cursor:pointer;">⚡ Fun Round</button>
+      </div>
+
+      <!-- Questions area -->
+      <div id="s10-area" style="background:#EEF7F0;border-radius:14px;padding:14px 16px;border-left:4px solid #1A5C2A;min-height:190px;transition:background .3s,border-color .3s;"></div>
+
+      <!-- Controls -->
+      <div class="hw-btns" style="margin-top:10px;">
+        <button class="btn-check" onclick="s10Random()">🎲 Random Question</button>
+        <button class="btn-reset" onclick="s10Reset()">↺ Reset</button>
+      </div>
+
+      <!-- Random question highlight -->
+      <div id="s10-rand" style="display:none;margin-top:10px;border-radius:12px;padding:14px 20px;color:#fff;font-size:1.08rem;font-weight:700;line-height:1.5;text-align:center;transition:background .3s;"></div>
+
+      <!-- Sentence helpers -->
+      <div style="margin-top:12px;background:#EEF4FB;border-radius:12px;padding:10px 14px;border-left:3px solid #1A4A8C;">
+        <div style="font-weight:800;color:#1A4A8C;font-size:.85rem;margin-bottom:6px;">💡 Sentence starters</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">I usually…</span>
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">Every morning, I…</span>
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">My colleague… + verb-s</span>
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">My name's…</span>
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">I'm a…</span>
+          <span style="background:#1A4A8C;color:#fff;border-radius:14px;padding:2px 12px;font-size:.92rem;">I travel to… by…</span>
         </div>
       </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  s2-7 · COMMON MISTAKES
+════════════════════════════════════════════ -->
+<div class="slide" id="s2-7">
+  <div class="banner" style="background:#C0392B;color:#fff;">⚠️ Common Mistakes</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Common Mistakes</h2>
+      <p class="inst-light">It's easy to forget to add <strong>"s"</strong> to the base form of the verb in the present simple with third-person singular pronouns, <strong>"he," "she," and "it."</strong></p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div style="background:#EFF9F0;border:2.5px solid #27AE60;border-radius:14px;padding:20px 18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-size:.85rem;font-weight:700;color:#1A7A4A;text-transform:uppercase;letter-spacing:.06em;">✅ Correct</div>
+          <div style="font-size:1.45rem;font-weight:800;color:#1A2E1A;line-height:1.4;">
+            The CEO <span style="background:#C8F0D4;border-radius:6px;padding:2px 8px;color:#1A5C2A;">works</span> on Sundays.
+          </div>
+          <div style="font-size:.9rem;color:#1A5C2A;font-style:italic;">Add "s" to the base form</div>
+        </div>
+        <div style="background:#FEF0F0;border:2.5px solid #C0392B;border-radius:14px;padding:20px 18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-size:.85rem;font-weight:700;color:#C0392B;text-transform:uppercase;letter-spacing:.06em;">❌ Wrong</div>
+          <div style="font-size:1.45rem;font-weight:800;color:#1A2E1A;line-height:1.4;">
+            The CEO <span style="background:#FDDEDE;border-radius:6px;padding:2px 8px;color:#C0392B;text-decoration:line-through;">work</span> on Sundays.
+          </div>
+          <div style="font-size:.9rem;color:#C0392B;font-style:italic;">Missing "s" — this is wrong!</div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#1A3A2A,#1A5C2A);color:#fff;border-radius:14px;padding:18px 24px;">
+        <div style="font-size:.82rem;opacity:.75;text-align:center;margin-bottom:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">📐 Remember the rule</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+          <div style="text-align:center;padding:10px;">
+            <div style="font-size:.82rem;opacity:.75;margin-bottom:6px;">I / You / We / They</div>
+            <div style="font-size:1.15rem;font-weight:800;">work · eat · travel</div>
+          </div>
+          <div style="text-align:center;padding:10px;border-left:2px solid rgba(255,255,255,.25);">
+            <div style="font-size:.82rem;opacity:.75;margin-bottom:6px;">He / She / It</div>
+            <div style="font-size:1.15rem;font-weight:800;">
+              work<span style="background:rgba(255,220,0,.35);border-radius:3px;padding:0 4px;margin-left:1px;">s</span> ·
+              eat<span style="background:rgba(255,220,0,.35);border-radius:3px;padding:0 4px;margin-left:1px;">s</span> ·
+              travel<span style="background:rgba(255,220,0,.35);border-radius:3px;padding:0 4px;margin-left:1px;">s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  s2-8 · CROSS OUT THE INCORRECT WORD
+════════════════════════════════════════════ -->
+<div class="slide" id="s2-8">
+  <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Select the Correct Word</h2>
+      <p class="instruction">Click the correct word — the incorrect one will be crossed out automatically.</p>
+
+      <!-- Example (pre-answered) -->
+      <div style="background:#EEF7F0;border:2px solid #1A7A4A;border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-size:.8rem;font-weight:700;background:#1A5C2A;color:#fff;border-radius:8px;padding:2px 8px;flex-shrink:0;">Example</span>
+        <span style="font-size:1rem;color:#1A2E1A;line-height:1.6;">
+          She
+          <span style="display:inline-block;background:#FDDEDE;color:#C0392B;border-radius:6px;padding:1px 10px;font-weight:700;text-decoration:line-through;margin:0 3px;">make</span>
+          /
+          <span style="display:inline-block;background:#D4EFDA;color:#1A5C2A;border-radius:6px;padding:1px 10px;font-weight:700;margin:0 3px;">makes</span>
+          tea and coffee before the team meeting every Friday.
+        </span>
+      </div>
+
+      <div id="s2-8-grid" style="display:flex;flex-direction:column;gap:10px;"></div>
+
+      <div class="hw-btns" style="margin-top:14px;">
+        <button class="btn-check" onclick="checkS2_8()">✅ Check</button>
+        <button class="btn-reset" onclick="resetS2_8()">↺ Reset</button>
+      </div>
+      <div id="s2-8-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  s2-9 · USE THE CHART — SPEAKING
+════════════════════════════════════════════ -->
+<div class="slide" id="s2-9">
+  <div class="banner" style="background:#7A2A5A;color:#fff;">💬 Speaking</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Spin &amp; Speak!</h2>
+      <p class="instruction">Use the arrows to choose a subject and a verb — then say a full sentence with the correct verb form and your own ending!</p>
+
+      <!-- Slot machine -->
+      <div style="background:#111827;border-radius:16px;padding:16px 16px 12px;margin-bottom:12px;">
+
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
+          <div style="text-align:center;color:#E8C0FF;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;">👤 Who</div>
+          <div style="text-align:center;color:#B8EAB8;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;">🔤 Verb (base form)</div>
+        </div>
+
+        <!-- Drum columns -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;">
+          <div id="slot-col-who" style="border-radius:10px;overflow:hidden;border:2px solid #7A2A5A;"></div>
+          <div id="slot-col-verb" style="border-radius:10px;overflow:hidden;border:2px solid #1A5C2A;"></div>
+        </div>
+
+        <!-- Per-column controls -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="display:flex;justify-content:center;gap:8px;">
+            <button onclick="slotMove('who',-1)" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▲</button>
+            <button onclick="slotRandom('who')" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.9rem;font-family:inherit;">🔀</button>
+            <button onclick="slotMove('who',1)" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▼</button>
+          </div>
+          <div style="display:flex;justify-content:center;gap:8px;">
+            <button onclick="slotMove('verb',-1)" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▲</button>
+            <button onclick="slotRandom('verb')" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.9rem;font-family:inherit;">🔀</button>
+            <button onclick="slotMove('verb',1)" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▼</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="btn-check" onclick="slotRandomAll()" style="background:#7A2A5A;border-color:#5A1A42;font-size:1rem;padding:10px 26px;">🎰 Spin All!</button>
+        <button class="btn-reset" onclick="slotResetAll()">↺ Reset</button>
+      </div>
+
+      <!-- Sentence display -->
+      <div id="s29-sentence" style="background:#F9F5FF;border:2px solid #C8A8E8;border-radius:12px;padding:12px 18px;margin-bottom:12px;font-size:1.1rem;font-weight:700;color:#3A1460;text-align:center;min-height:46px;display:flex;align-items:center;justify-content:center;">
+        <span style="color:#C8A8E8;font-size:.95rem;font-weight:400;font-style:italic;">Use the arrows or hit Spin All to get your challenge!</span>
+      </div>
+
+      <!-- Ending ideas -->
+      <div>
+        <div style="font-size:.78rem;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;">💡 Ending ideas</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="s29-chip">every day</span>
+          <span class="s29-chip">on Mondays</span>
+          <span class="s29-chip">every morning</span>
+          <span class="s29-chip">at 9am</span>
+          <span class="s29-chip">from Monday to Friday</span>
+          <span class="s29-chip">twice a week</span>
+          <span class="s29-chip">at lunchtime</span>
+          <span class="s29-chip">in the afternoon</span>
+          <span class="s29-chip">before the meeting</span>
+          <span class="s29-chip">with my team</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  s2-10 · READING — MEET THE MANAGER
+════════════════════════════════════════════ -->
+<div class="slide" id="s2-10">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">📖 Reading</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Read the Article and Answer the Questions</h2>
+      <p class="instruction">Read the article and answer the questions.</p>
+
+      <!-- Article -->
+      <div style="background:#FBF7FF;border:2px solid #C8A8E8;border-radius:14px;padding:16px 20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <span style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:#8244B0;color:#fff;border-radius:6px;padding:2px 8px;">OUR TEAM</span>
+        </div>
+        <h3 style="color:#3A1460;font-size:1.4rem;margin:4px 0 2px;">Meet the manager</h3>
+        <p style="font-size:.88rem;color:#8244B0;font-weight:600;margin:0 0 10px;font-style:italic;">Our Head of Customer Services describes a typical working day</p>
+        <div style="display:grid;grid-template-columns:3fr 2fr;gap:14px;align-items:start;">
+          <div style="font-size:.95rem;color:#2A1A3A;line-height:1.65;">
+            <p style="margin:0 0 8px;"><strong>S</strong>umiko Akimoto, our Head of Customer Services, describes a typical day at work. "Every morning, even in the winter, I ride my bicycle to work. I arrive at work early and then walk through the departments to talk to the staff. It is important for me to know what is happening in the company so that I can share any useful information with clients. Next, I read my emails and use them to help me write a list of things to do during the day. I rarely do everything on the list, but it's useful to help me plan my day.</p>
+            <p style="margin:0;">During my morning coffee break, I talk to my team members about my list and sometimes delegate tasks to them. At lunchtime, many of my colleagues go to a local Italian restaurant to eat, but I stay in the office and eat a packed lunch. I like to deal with all my emails by 5 o'clock. Sometimes I can leave work at 5:30, but I usually leave at 6 o'clock. To help me relax after work, I turn off my phone as soon as I get home."</p>
+          </div>
+          <div style="background:#D8C0F0;border-radius:10px;height:140px;display:flex;align-items:center;justify-content:center;color:#5A2580;font-size:2.5rem;">👩‍💼</div>
+        </div>
+      </div>
+
+      <!-- Example (pre-answered) -->
+      <div style="background:#EEF7F0;border:2px solid #1A7A4A;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-size:.8rem;font-weight:700;background:#1A5C2A;color:#fff;border-radius:8px;padding:2px 8px;flex-shrink:0;">Example</span>
+        <span style="font-size:1rem;color:#1A2E1A;flex:1;">Sumiko cycles to work every day.</span>
+        <span style="background:#1A5C2A;color:#fff;border-radius:7px;padding:4px 14px;font-weight:700;font-size:.95rem;">True ✓</span>
+      </div>
+
+      <!-- Questions -->
+      <div id="s2-10-qs" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+      <div class="hw-btns" style="margin-top:14px;">
+        <button class="btn-check" onclick="checkS2_10()">✅ Check</button>
+        <button class="btn-reset" onclick="resetS2_10()">↺ Reset</button>
+      </div>
+      <div id="s2-10-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
     </div>
   </div>
 </div>
@@ -1056,15 +1290,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2 style="font-size:1.85rem;font-weight:800;margin-bottom:8px;color:#0A2010;">HW5 – Match the Pictures</h2>
-      <p class="instruction">Look at the pictures in your practice book and match each to the correct sentence below.</p>
-
-      <div class="img-placeholder" style="padding:14px 20px;margin-bottom:14px;flex-direction:row;gap:14px;text-align:left;align-items:center;">
-        <div style="font-size:2.5rem;">📖</div>
-        <div>
-          <div style="font-weight:700;color:#5A7A60;margin-bottom:4px;">Practice Book — page 15</div>
-          <div style="font-size:1rem;">Open your practice book and match pictures 1–8 to the sentences below.</div>
-        </div>
-      </div>
+      <p class="instruction">Match each picture to the correct sentence.</p>
 
       <div class="two-col">
         <div class="col-section">
@@ -1236,7 +1462,6 @@ function norm(s) {
    EXERCISE 2.5 — S8 FILL IN THE GAPS
 ═══════════════════════════════════════════ */
 var s8Data = [
-  { pre: "We",  post: "a meeting every day.",        ans: "have"    },
   { pre: "She", post: "a hairdresser.",              ans: "is"      },
   { pre: "He",  post: "by train every morning.",    ans: "travels" },
   { pre: "She", post: "work at 6pm every day.",     ans: "leaves"  },
@@ -1295,7 +1520,7 @@ function resetS8() {
     var inp = document.getElementById('s8-inp-'+i);
     inp.value = ''; inp.classList.remove('correct','wrong');
   });
-  document.querySelectorAll('#s8-bank .wb-chip').forEach(function(c){
+  document.querySelectorAll('#s8-bank .wb-chip:not(.wb-example)').forEach(function(c){
     c.style.outline='none';
     c.classList.remove('wb-used');
   });
@@ -1308,12 +1533,11 @@ function resetS8() {
    LISTENING 2.6 — S9 TRUE/FALSE/NOT GIVEN
 ═══════════════════════════════════════════ */
 var s9Data = [
-  { q: "The café opens at 10am.",                   ans: "T" },
-  { q: "All the staff arrive at 8am.",              ans: "F" },
-  { q: "Zoe checks the tables before the café opens.", ans: "T" },
-  { q: "Everyone has a break at 11:30pm.",          ans: "F" },
+  { q: "All the staff arrive at 8am.",              ans: "F"  },
+  { q: "Zoe checks the tables before the café opens.", ans: "T"  },
+  { q: "Everyone has a break at 11:30pm.",          ans: "F"  },
   { q: "Employees eat lunch in the kitchen.",       ans: "NG" },
-  { q: "The café closes at 6pm.",                   ans: "T" }
+  { q: "The café closes at 6pm.",                   ans: "T"  }
 ];
 var s9Sel = {};
 
@@ -1322,7 +1546,7 @@ function buildS9() {
   s9Data.forEach(function(item, i) {
     var row = document.createElement('div');
     row.className = 'tfng-row';
-    row.innerHTML = '<div class="tfng-q"><span style="font-weight:800;color:#1A5C2A;margin-right:6px;">'+(i+1)+'.</span>'+item.q+'</div>'
+    row.innerHTML = '<div class="tfng-q"><span style="font-weight:800;color:#1A5C2A;margin-right:6px;">'+(i+2)+'.</span>'+item.q+'</div>'
       + '<div class="tfng-btns">'
       + '<button class="tfng-btn" id="s9-'+i+'-T"  onclick="s9Pick('+i+',\'T\' )">True</button>'
       + '<button class="tfng-btn" id="s9-'+i+'-F"  onclick="s9Pick('+i+',\'F\' )">False</button>'
@@ -1373,6 +1597,376 @@ function resetS9() {
   });
   var res = document.getElementById('s9-result');
   res.textContent = '';
+}
+
+/* ═══════════════════════════════════════════
+   S10 — LET'S TALK! SPEAKING TOPICS
+═══════════════════════════════════════════ */
+var s10Topics = [
+  {
+    label:'🏢 Work Life', color:'#1A5C2A', bg:'#EEF7F0',
+    qs:[
+      'Do you work from home or in an office? Which do you prefer?',
+      'What time do you usually start work? And what time do you finish?',
+      'What is the first thing you do when you arrive at work?',
+      'Does your team have a meeting every day? What do you talk about?',
+      'What do you usually eat for lunch? Do you eat at your desk or go out?',
+      'How do you travel to work — by bus, car, train, or on foot?',
+      'Tell me about a typical Tuesday — from the moment you arrive to when you leave!',
+      'Do you work with colleagues from other countries? How do you usually communicate?'
+    ]
+  },
+  {
+    label:'🌅 Daily Life', color:'#0E7A8A', bg:'#EDF7F9',
+    qs:[
+      'What time do you usually wake up? Are you a morning person?',
+      'What do you do every morning before you leave the house?',
+      'Do you cook at home every day, or do you prefer to eat out?',
+      'What do you usually do in the evenings after work?',
+      'Do you exercise? How often, and what do you do?',
+      'What is your weekend morning routine like?',
+      'What is one thing you do every single day without fail?',
+      'How often do you meet friends or family? What do you usually do together?'
+    ]
+  },
+  {
+    label:'🙋 About You', color:'#7A2A5A', bg:'#F8F0F5',
+    qs:[
+      'Introduce yourself: your name, your job title, and where you work.',
+      'How long have you worked at your current company?',
+      'Tell me about a colleague you work with every day. What does he or she do?',
+      'What is your favourite part of your workday, and why?',
+      'What do you usually do at the weekend?',
+      'Do you have a hobby or activity you do regularly? Tell me about it!',
+      'What is one thing you do every day that makes you happy?',
+      'Describe yourself in 3 sentences: who you are, where you work, and one daily habit.'
+    ]
+  },
+  {
+    label:'⚡ Fun Round', color:'#C4614A', bg:'#FEF6F3',
+    qs:[
+      'Describe the WORST morning routine you can imagine!',
+      'You are a superhero. What do you do every day? Use present simple!',
+      'Your colleague is very strange. Describe their day — use he / she + verb‑s!',
+      'You work on a tropical island. What is your daily routine?',
+      'What do you think your teacher does every morning before class?',
+      'If you could change ONE thing about your daily routine, what would it be?',
+      'Describe a robot\'s daily routine. What does it do every day at work?',
+      'You are the president of a country. Describe your typical working day!'
+    ]
+  }
+];
+var s10Active = 0;
+var s10Done   = {};
+
+function s10Switch(idx) {
+  s10Active = idx;
+  var tabs  = document.querySelectorAll('.s10-tab');
+  tabs.forEach(function(b, i) {
+    var t = s10Topics[i];
+    if (i === idx) {
+      b.style.background  = t.color;
+      b.style.color       = '#fff';
+      b.style.borderColor = t.color;
+    } else {
+      b.style.background  = '#f0f0f0';
+      b.style.color       = '#555';
+      b.style.borderColor = '#ddd';
+    }
+  });
+  var rd = document.getElementById('s10-rand');
+  if (rd) rd.style.display = 'none';
+  s10Render();
+}
+
+function s10Render() {
+  var t    = s10Topics[s10Active];
+  var area = document.getElementById('s10-area');
+  if (!area) return;
+  area.style.background  = t.bg;
+  area.style.borderColor = t.color;
+
+  function card(q, i) {
+    var key  = s10Active + '-' + i;
+    var done = s10Done[key];
+    return '<div onclick="s10Toggle(\'' + key + '\')" style="'
+      + 'background:#fff;border-radius:10px;padding:10px 14px;margin-bottom:10px;'
+      + 'border:2px solid ' + (done ? t.color : '#e0e0e0') + ';'
+      + 'cursor:pointer;display:flex;gap:10px;align-items:flex-start;'
+      + (done ? 'opacity:.5;' : '') + '">'
+      + '<span style="font-size:1rem;font-weight:800;color:' + t.color
+      + ';flex-shrink:0;min-width:22px;">' + (done ? '✓' : (i + 1) + '.') + '</span>'
+      + '<span style="font-size:1rem;color:#1C2B3A;line-height:1.5;'
+      + (done ? 'text-decoration:line-through;' : '') + '">' + q + '</span>'
+      + '</div>';
+  }
+
+  var half = Math.ceil(t.qs.length / 2);
+  var left = '', right = '';
+  t.qs.forEach(function(q, i) {
+    if (i < half) left  += card(q, i);
+    else          right += card(q, i);
+  });
+
+  area.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;">'
+    + '<div>' + left  + '</div>'
+    + '<div>' + right + '</div>'
+    + '</div>';
+}
+
+function s10Toggle(key) {
+  s10Done[key] = !s10Done[key];
+  s10Render();
+}
+
+function s10Random() {
+  var t     = s10Topics[s10Active];
+  var avail = t.qs.filter(function(q, i) { return !s10Done[s10Active + '-' + i]; });
+  if (!avail.length) avail = t.qs;
+  var q  = avail[Math.floor(Math.random() * avail.length)];
+  var el = document.getElementById('s10-rand');
+  if (!el) return;
+  el.style.display    = 'block';
+  el.style.background = 'linear-gradient(135deg,' + t.color + 'cc,' + t.color + ')';
+  el.innerHTML = '<div style="font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.8;margin-bottom:6px;">🎲 Your question</div>'
+    + '<div>' + q + '</div>';
+}
+
+function s10Reset() {
+  s10Done = {};
+  var el = document.getElementById('s10-rand');
+  if (el) el.style.display = 'none';
+  s10Render();
+}
+
+/* ═══════════════════════════════════════════
+   EXERCISE 2.8 — CROSS OUT THE INCORRECT WORD
+═══════════════════════════════════════════ */
+var s2_8Data = [
+  { pre:"The head of marketing ", opts:["speak","speaks"], post:" for about an hour at every team meeting.", ans:"speak" },
+  { pre:"Arianna and Gabriel ", opts:["read","reads"], post:" their emails first thing every morning.", ans:"reads" },
+  { pre:"The photocopier ", opts:["stop","stops"], post:" working if we don't load the paper carefully.", ans:"stop" },
+  { pre:"The owners of the hotel ", opts:["visit","visits"], post:" it at the end of every month.", ans:"visits" },
+  { pre:"The cleaner ", opts:["start","starts"], post:" work at 6am every day. The office is always clean in the mornings.", ans:"start" }
+];
+var s2_8Sel = {};
+
+function buildS2_8() {
+  var grid = document.getElementById('s2-8-grid');
+  if (!grid) return;
+  s2_8Data.forEach(function(item, i) {
+    var row = document.createElement('div');
+    row.style.cssText = 'background:#F4F8FA;border-radius:10px;padding:11px 14px;border-left:3px solid #BDD4F0;display:flex;align-items:center;gap:6px;flex-wrap:wrap;';
+    row.innerHTML = '<span style="font-size:1rem;font-weight:800;color:#1A4A8C;min-width:20px;flex-shrink:0;">' + (i+1) + '.</span>'
+      + '<span style="font-size:1rem;color:#1C2B3A;">' + item.pre + '</span>'
+      + '<button id="s28-'+i+'-0" onclick="s2_8Pick('+i+',0)" style="border:2px solid #BDD4F0;border-radius:8px;padding:3px 12px;font-size:1rem;font-weight:700;cursor:pointer;background:#fff;color:#1C2B3A;font-family:inherit;transition:all .15s;">' + item.opts[0] + '</button>'
+      + '<span style="color:#888;font-size:1rem;">/</span>'
+      + '<button id="s28-'+i+'-1" onclick="s2_8Pick('+i+',1)" style="border:2px solid #BDD4F0;border-radius:8px;padding:3px 12px;font-size:1rem;font-weight:700;cursor:pointer;background:#fff;color:#1C2B3A;font-family:inherit;transition:all .15s;">' + item.opts[1] + '</button>'
+      + '<span style="font-size:1rem;color:#1C2B3A;">' + item.post + '</span>';
+    grid.appendChild(row);
+  });
+}
+
+function s2_8Pick(qIdx, optIdx) {
+  // optIdx = the word the student thinks is CORRECT
+  var prev = s2_8Sel[qIdx];
+  for (var k = 0; k < 2; k++) {
+    var b = document.getElementById('s28-'+qIdx+'-'+k);
+    if (b) { b.style.background='#fff'; b.style.color='#1C2B3A'; b.style.borderColor='#BDD4F0'; b.style.textDecoration='none'; }
+  }
+  if (prev === optIdx) { delete s2_8Sel[qIdx]; return; }
+  s2_8Sel[qIdx] = optIdx;
+  var wrongIdx = 1 - optIdx;
+  var correctBtn = document.getElementById('s28-'+qIdx+'-'+optIdx);
+  if (correctBtn) { correctBtn.style.background='#EEF7F0'; correctBtn.style.color='#1A5C2A'; correctBtn.style.borderColor='#1A7A4A'; }
+  var wrongBtn = document.getElementById('s28-'+qIdx+'-'+wrongIdx);
+  if (wrongBtn) { wrongBtn.style.background='#FDDEDE'; wrongBtn.style.color='#C0392B'; wrongBtn.style.borderColor='#C0392B'; wrongBtn.style.textDecoration='line-through'; }
+}
+
+function checkS2_8() {
+  var score = 0;
+  s2_8Data.forEach(function(item, i) {
+    var wrongIdx   = item.opts.indexOf(item.ans);
+    var correctIdx = 1 - wrongIdx;
+    // reset both
+    for (var k = 0; k < 2; k++) {
+      var b = document.getElementById('s28-'+i+'-'+k);
+      if (b) { b.style.background='#fff'; b.style.color='#1C2B3A'; b.style.borderColor='#BDD4F0'; b.style.textDecoration='none'; }
+    }
+    // always reveal correct state
+    var cb = document.getElementById('s28-'+i+'-'+correctIdx);
+    if (cb) { cb.style.background='#EEF7F0'; cb.style.color='#1A5C2A'; cb.style.borderColor='#1A7A4A'; }
+    var wb = document.getElementById('s28-'+i+'-'+wrongIdx);
+    if (wb) { wb.style.background='#FDDEDE'; wb.style.color='#C0392B'; wb.style.borderColor='#C0392B'; wb.style.textDecoration='line-through'; }
+    // student clicked correct word?
+    if (s2_8Sel[i] === correctIdx) score++;
+  });
+  var res = document.getElementById('s2-8-result');
+  if (res) res.innerHTML = score === s2_8Data.length
+    ? '<span style="color:#1A7A4A;">✅ Perfect! ' + score + '/' + s2_8Data.length + '</span>'
+    : '<span style="color:#C0392B;">' + score + '/' + s2_8Data.length + ' — Try again!</span>';
+}
+
+function resetS2_8() {
+  s2_8Sel = {};
+  s2_8Data.forEach(function(item, i) {
+    for (var k = 0; k < 2; k++) {
+      var b = document.getElementById('s28-'+i+'-'+k);
+      if (b) { b.style.background='#fff'; b.style.color='#1C2B3A'; b.style.borderColor='#BDD4F0'; b.style.textDecoration='none'; }
+    }
+  });
+  var res = document.getElementById('s2-8-result');
+  if (res) res.textContent = '';
+}
+
+/* ═══════════════════════════════════════════
+   EXERCISE 2.9 — SPIN & SPEAK (SLOT MACHINE)
+═══════════════════════════════════════════ */
+var slotItems = {
+  who:  ['I', 'You', 'He', 'She', 'We', 'They', 'My manager', 'My colleague', 'My boss', 'The team', 'The CEO', 'The cleaner'],
+  verb: ['work', 'eat', 'travel', 'read', 'leave', 'drink', 'prepare', 'stop', 'start', 'check', 'open', 'bring']
+};
+var slotIdx = { who: 0, verb: 0 };
+var slotCfg = {
+  who:  { bg: '#7A2A5A', bgFade1: '#5A1A42', bgFade2: '#3A0F2A' },
+  verb: { bg: '#1A5C2A', bgFade1: '#0F3A1A', bgFade2: '#0A2410' }
+};
+
+function slotRender(key) {
+  var col = document.getElementById('slot-col-' + key);
+  if (!col) return;
+  var items = slotItems[key];
+  var n = items.length;
+  var idx = slotIdx[key];
+  var c = slotCfg[key];
+  var opacities  = [1, 0.55, 0.3, 0.15];
+  var fontSizes  = ['1.18rem', '1rem', '.88rem', '.78rem'];
+  var paddings   = ['14px 8px', '10px 8px', '8px 8px', '7px 8px'];
+  var bgs        = [c.bg, c.bgFade1, c.bgFade2, c.bgFade2];
+  var html = '';
+  for (var r = 0; r < 4; r++) {
+    var i = (idx + r) % n;
+    html += '<div style="background:' + bgs[r] + ';color:#fff;text-align:center;'
+      + 'font-weight:' + (r === 0 ? '800' : '700') + ';font-size:' + fontSizes[r] + ';'
+      + 'padding:' + paddings[r] + ';opacity:' + opacities[r] + ';'
+      + 'border-bottom:1px solid rgba(255,255,255,0.08);transition:all .15s;">'
+      + items[i] + '</div>';
+  }
+  col.innerHTML = html;
+  s29UpdateSentence();
+}
+
+function slotMove(key, dir) {
+  var n = slotItems[key].length;
+  slotIdx[key] = ((slotIdx[key] + dir) % n + n) % n;
+  slotRender(key);
+}
+
+function slotRandom(key) {
+  slotIdx[key] = Math.floor(Math.random() * slotItems[key].length);
+  slotRender(key);
+}
+
+function slotRandomAll() {
+  slotRandom('who');
+  slotRandom('verb');
+}
+
+function slotResetAll() {
+  slotIdx = { who: 0, verb: 0 };
+  slotRender('who');
+  slotRender('verb');
+}
+
+function s29UpdateSentence() {
+  var out = document.getElementById('s29-sentence');
+  if (!out) return;
+  var subj = slotItems.who[slotIdx.who];
+  var verb = slotItems.verb[slotIdx.verb];
+  out.innerHTML = '<strong style="color:#7A2A5A;font-size:1.2rem;">' + subj + '</strong>'
+    + '&nbsp;<span style="color:#aaa;font-size:1rem;">+</span>&nbsp;'
+    + '<strong style="color:#1A5C2A;font-size:1.2rem;">' + verb + '...?</strong>'
+    + '&nbsp;&nbsp;<span style="color:#C8891E;font-weight:600;font-size:.95rem;font-style:italic;">_______________</span>';
+}
+
+function s29Init() {
+  slotRender('who');
+  slotRender('verb');
+}
+
+/* ═══════════════════════════════════════════
+   EXERCISE 2.10 — READ THE ARTICLE (T/F)
+═══════════════════════════════════════════ */
+var s2_10Data = [
+  { q: "She reads her emails first thing every morning.", ans: "F" },
+  { q: "She writes a list of things to do that day.", ans: "T" },
+  { q: "She meets her colleagues to talk about the day's work.", ans: "T" },
+  { q: "Sumiko goes to a local restaurant for lunch every day.", ans: "F" },
+  { q: "She tries to deal with all her emails by 5 o'clock.", ans: "T" },
+  { q: "Sumiko always leaves work at 6 o'clock.", ans: "F" },
+  { q: "She turns her phone off when she gets home.", ans: "T" }
+];
+var s2_10Picks = {};
+
+function buildS2_10() {
+  var grid = document.getElementById('s2-10-qs');
+  if (!grid) return;
+  s2_10Data.forEach(function(item, i) {
+    var div = document.createElement('div');
+    div.style.cssText = 'background:#F4F8FA;border-radius:10px;padding:10px 14px;border-left:3px solid #C8A8E8;';
+    div.innerHTML = '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;">'
+      + '<span style="font-size:1rem;font-weight:800;color:#5A2580;min-width:22px;flex-shrink:0;">' + (i+1) + '.</span>'
+      + '<span style="font-size:1rem;color:#1C2B3A;line-height:1.5;">' + item.q + '</span>'
+      + '</div>'
+      + '<div class="tfng-btns">'
+      + '<button id="s210-'+i+'-T" onclick="s2_10Pick('+i+',\'T\')" class="tfng-btn">True</button>'
+      + '<button id="s210-'+i+'-F" onclick="s2_10Pick('+i+',\'F\')" class="tfng-btn">False</button>'
+      + '</div>';
+    grid.appendChild(div);
+  });
+}
+
+function s2_10Pick(qIdx, val) {
+  s2_10Picks[qIdx] = val;
+  ['T','F'].forEach(function(v) {
+    var b = document.getElementById('s210-'+qIdx+'-'+v);
+    if (!b) return;
+    b.classList.remove('sel','correct','wrong');
+    if (v === val) b.classList.add('sel');
+  });
+}
+
+function checkS2_10() {
+  var score = 0;
+  s2_10Data.forEach(function(item, i) {
+    var pick = s2_10Picks[i];
+    ['T','F'].forEach(function(v) {
+      var b = document.getElementById('s210-'+i+'-'+v);
+      if (!b) return;
+      b.classList.remove('sel','correct','wrong');
+      var isAns  = v === item.ans;
+      var isPick = v === pick;
+      if (isAns && isPick)  { b.classList.add('correct'); score++; }
+      else if (!isAns && isPick) { b.classList.add('wrong'); }
+      else if (isAns && !isPick) { b.style.opacity = '.5'; }
+    });
+  });
+  var res = document.getElementById('s2-10-result');
+  if (res) res.innerHTML = score === s2_10Data.length
+    ? '<span style="color:#1A7A4A;">✅ Perfect! ' + score + '/' + s2_10Data.length + '</span>'
+    : '<span style="color:#C0392B;">' + score + '/' + s2_10Data.length + ' — Try again!</span>';
+}
+
+function resetS2_10() {
+  s2_10Picks = {};
+  s2_10Data.forEach(function(item, i) {
+    ['T','F'].forEach(function(v) {
+      var b = document.getElementById('s210-'+i+'-'+v);
+      if (b) { b.classList.remove('sel','correct','wrong'); b.style.opacity='1'; }
+    });
+  });
+  var res = document.getElementById('s2-10-result');
+  if (res) res.textContent = '';
 }
 
 /* ═══════════════════════════════════════════
@@ -1707,7 +2301,7 @@ function resetHW6() {
 /* ═══════════════════════════════════════════
    DOWNLOAD NOTES — PDF
 ═══════════════════════════════════════════ */
-var slideIds = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s-review","s-hw","s-hw1","s-hw2","s-hw3","s-hw4","s-hw5","s-hw6"];
+var slideIds = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s2-7","s2-8","s2-9","s2-10","s-review","s-hw","s-hw1","s-hw2","s-hw3","s-hw4","s-hw5","s-hw6"];
 var slideLabels = [
   "Cover",
   "Warm-Up — My Daily Routine",
@@ -1719,6 +2313,10 @@ var slideLabels = [
   "Fill in the Gaps",
   "Listening — Zoe's New Job",
   "Speaking — Your Daily Routine",
+  "Common Mistakes",
+  "Select the Correct Word",
+  "Use the Chart — Speaking",
+  "Reading — Meet the Manager",
   "Lesson Review",
   "Homework",
   "HW — Rewrite the Sentences",
@@ -2012,6 +2610,10 @@ buildS5Quiz();
 buildS7();
 buildS8();
 buildS9();
+s10Render();
+buildS2_8();
+s29Init();
+buildS2_10();
 buildHW1();
 buildHW2();
 buildHW3();

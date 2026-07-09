@@ -982,64 +982,66 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="banner" style="background:#7A2A5A;color:#fff;">💬 Speaking</div>
   <div class="slide-main">
     <div class="content">
-      <h2>Use the Chart</h2>
-      <p class="instruction">Use the chart to create eight correct sentences and say them out loud.</p>
+      <h2>Spin &amp; Speak!</h2>
+      <p class="instruction">Use the arrows to choose a subject and a verb — then say a full sentence with the correct verb form and your own ending!</p>
 
-      <!-- Chart: example left + 3-column chart right -->
-      <div style="display:flex;gap:14px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+      <!-- Slot machine -->
+      <div style="background:#111827;border-radius:16px;padding:16px 16px 12px;margin-bottom:12px;">
 
-        <!-- Example box (book-style, left) -->
-        <div style="background:#fff;border:2px solid #C8A8E8;border-radius:12px;padding:14px 18px;flex-shrink:0;font-style:italic;color:#3A1460;font-size:1.05rem;line-height:1.7;min-width:140px;box-shadow:2px 2px 0 #C8A8E8;">
-          I work from<br>Monday to Friday.
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
+          <div style="text-align:center;color:#E8C0FF;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;">👤 Who</div>
+          <div style="text-align:center;color:#B8EAB8;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;">🔤 Verb (base form)</div>
         </div>
 
-        <!-- 3-column chart -->
-        <div style="flex:1;display:flex;align-items:center;gap:8px;min-width:260px;flex-wrap:nowrap;">
+        <!-- Drum columns -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;">
+          <div id="slot-col-who" style="border-radius:10px;overflow:hidden;border:2px solid #7A2A5A;"></div>
+          <div id="slot-col-verb" style="border-radius:10px;overflow:hidden;border:2px solid #1A5C2A;"></div>
+        </div>
 
-          <!-- Subjects (purple box) -->
-          <div style="border:2px solid #9B59B6;border-radius:12px;padding:10px 10px;flex-shrink:0;">
-            <div style="display:flex;flex-direction:column;gap:6px;" id="s29-subj-wrap">
-              <button class="s29-subj" onclick="s29PickSubj(this,'I','work','have')">I</button>
-              <button class="s29-subj" onclick="s29PickSubj(this,'You','work','have')">You</button>
-              <button class="s29-subj" onclick="s29PickSubj(this,'She','works','has')">She</button>
-              <button class="s29-subj" onclick="s29PickSubj(this,'My manager','works','has')">My manager</button>
-            </div>
+        <!-- Per-column controls -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="display:flex;justify-content:center;gap:8px;">
+            <button onclick="slotMove('who',-1)" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▲</button>
+            <button onclick="slotRandom('who')" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.9rem;font-family:inherit;">🔀</button>
+            <button onclick="slotMove('who',1)" style="background:#3D1A5A;border:2px solid #7A2A5A;color:#E8C0FF;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▼</button>
           </div>
-
-          <!-- Arrow -->
-          <div style="color:#9B59B6;font-size:1.2rem;flex-shrink:0;">▶</div>
-
-          <!-- Verbs (auto-highlighted) -->
-          <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
-            <div id="s29-v-work"  style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">work</div>
-            <div id="s29-v-works" style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">works</div>
-            <div id="s29-v-have"  style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">have</div>
-            <div id="s29-v-has"   style="padding:5px 12px;border-radius:8px;font-size:1rem;font-weight:700;background:#f0f0f0;color:#bbb;transition:all .2s;text-align:center;">has</div>
-          </div>
-
-          <!-- Arrow -->
-          <div style="color:#27AE60;font-size:1.2rem;flex-shrink:0;">▶</div>
-
-          <!-- Endings (green box) -->
-          <div style="border:2px solid #27AE60;border-radius:12px;padding:10px 10px;flex:1;">
-            <div style="display:flex;flex-direction:column;gap:6px;" id="s29-end-wrap">
-              <button class="s29-end" onclick="s29PickEnd(this,'work','from Monday to Friday.')">from Monday to Friday.</button>
-              <button class="s29-end" onclick="s29PickEnd(this,'have','a meeting every morning.')">a meeting every morning.</button>
-            </div>
+          <div style="display:flex;justify-content:center;gap:8px;">
+            <button onclick="slotMove('verb',-1)" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▲</button>
+            <button onclick="slotRandom('verb')" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.9rem;font-family:inherit;">🔀</button>
+            <button onclick="slotMove('verb',1)" style="background:#0F2A0F;border:2px solid #1A5C2A;color:#B8EAB8;border-radius:8px;padding:5px 15px;cursor:pointer;font-size:1.1rem;font-family:inherit;font-weight:800;">▼</button>
           </div>
         </div>
       </div>
 
-      <!-- Sentence output -->
-      <div id="s29-output" style="background:#F0F4FA;border-radius:12px;padding:16px 20px;min-height:58px;border:2px dashed #BDD4F0;text-align:center;font-size:1.2rem;font-weight:700;color:#0E5C8A;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
-        <span style="color:#AAB8CC;font-size:1rem;font-weight:400;font-style:italic;">Pick a subject and an ending to build your sentence</span>
+      <!-- Action buttons -->
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="btn-check" onclick="slotRandomAll()" style="background:#7A2A5A;border-color:#5A1A42;font-size:1rem;padding:10px 26px;">🎰 Spin All!</button>
+        <button class="btn-reset" onclick="slotResetAll()">↺ Reset</button>
       </div>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn-check" onclick="s29Random()" style="background:#0E5C8A;border-color:#0E5C8A;">🎲 Random</button>
-        <button class="btn-reset" onclick="s29Reset()">↺ Reset</button>
+      <!-- Sentence display -->
+      <div id="s29-sentence" style="background:#F9F5FF;border:2px solid #C8A8E8;border-radius:12px;padding:12px 18px;margin-bottom:12px;font-size:1.1rem;font-weight:700;color:#3A1460;text-align:center;min-height:46px;display:flex;align-items:center;justify-content:center;">
+        <span style="color:#C8A8E8;font-size:.95rem;font-weight:400;font-style:italic;">Use the arrows or hit Spin All to get your challenge!</span>
       </div>
-      <div id="s29-count" style="margin-top:10px;font-size:.95rem;color:#0E5C8A;font-weight:700;text-align:center;min-height:1.4em;"></div>
+
+      <!-- Ending ideas -->
+      <div>
+        <div style="font-size:.78rem;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;">💡 Ending ideas</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="s29-chip">every day</span>
+          <span class="s29-chip">on Mondays</span>
+          <span class="s29-chip">every morning</span>
+          <span class="s29-chip">at 9am</span>
+          <span class="s29-chip">from Monday to Friday</span>
+          <span class="s29-chip">twice a week</span>
+          <span class="s29-chip">at lunchtime</span>
+          <span class="s29-chip">in the afternoon</span>
+          <span class="s29-chip">before the meeting</span>
+          <span class="s29-chip">with my team</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1818,83 +1820,78 @@ function resetS2_8() {
 }
 
 /* ═══════════════════════════════════════════
-   EXERCISE 2.9 — USE THE CHART (SPEAKING)
+   EXERCISE 2.9 — SPIN & SPEAK (SLOT MACHINE)
 ═══════════════════════════════════════════ */
-var s29State = { subj: null, verbW: null, verbH: null, endType: null, endText: null, used: {} };
+var slotItems = {
+  who:  ['I', 'You', 'He', 'She', 'We', 'They', 'My manager', 'My colleague', 'My boss', 'The team', 'The CEO', 'The cleaner'],
+  verb: ['work', 'eat', 'travel', 'read', 'leave', 'drink', 'prepare', 'stop', 'start', 'check', 'open', 'bring']
+};
+var slotIdx = { who: 0, verb: 0 };
+var slotCfg = {
+  who:  { bg: '#7A2A5A', bgFade1: '#5A1A42', bgFade2: '#3A0F2A' },
+  verb: { bg: '#1A5C2A', bgFade1: '#0F3A1A', bgFade2: '#0A2410' }
+};
 
-function s29UpdateVerbs() {
-  ['work','works','have','has'].forEach(function(v) {
-    var el = document.getElementById('s29-v-' + v);
-    if (el) { el.style.background='#f0f0f0'; el.style.color='#bbb'; }
-  });
-  if (!s29State.subj) return;
-  var vW = s29State.verbW, vH = s29State.verbH;
-  if (s29State.endType) {
-    // one specific verb active
-    var active   = s29State.endType === 'work' ? vW : vH;
-    var inactive = s29State.endType === 'work' ? vH : vW;
-    var aEl = document.getElementById('s29-v-' + active);
-    var iEl = document.getElementById('s29-v-' + inactive);
-    if (aEl) { aEl.style.background='#7A2A5A'; aEl.style.color='#fff'; }
-    if (iEl) { iEl.style.background='#f0f0f0'; iEl.style.color='#ddd'; }
-  } else {
-    // both verbs for this subject available
-    [vW, vH].forEach(function(v) {
-      var el = document.getElementById('s29-v-' + v);
-      if (el) { el.style.background='#EAD8F5'; el.style.color='#5A2580'; }
-    });
+function slotRender(key) {
+  var col = document.getElementById('slot-col-' + key);
+  if (!col) return;
+  var items = slotItems[key];
+  var n = items.length;
+  var idx = slotIdx[key];
+  var c = slotCfg[key];
+  var opacities  = [1, 0.55, 0.3, 0.15];
+  var fontSizes  = ['1.18rem', '1rem', '.88rem', '.78rem'];
+  var paddings   = ['14px 8px', '10px 8px', '8px 8px', '7px 8px'];
+  var bgs        = [c.bg, c.bgFade1, c.bgFade2, c.bgFade2];
+  var html = '';
+  for (var r = 0; r < 4; r++) {
+    var i = (idx + r) % n;
+    html += '<div style="background:' + bgs[r] + ';color:#fff;text-align:center;'
+      + 'font-weight:' + (r === 0 ? '800' : '700') + ';font-size:' + fontSizes[r] + ';'
+      + 'padding:' + paddings[r] + ';opacity:' + opacities[r] + ';'
+      + 'border-bottom:1px solid rgba(255,255,255,0.08);transition:all .15s;">'
+      + items[i] + '</div>';
   }
+  col.innerHTML = html;
+  s29UpdateSentence();
 }
 
-function s29PickSubj(el, name, verbW, verbH) {
-  document.querySelectorAll('.s29-subj').forEach(function(e){ e.classList.remove('s29-active'); });
-  el.classList.add('s29-active');
-  s29State.subj = name; s29State.verbW = verbW; s29State.verbH = verbH;
-  s29UpdateVerbs();
-  s29Build();
+function slotMove(key, dir) {
+  var n = slotItems[key].length;
+  slotIdx[key] = ((slotIdx[key] + dir) % n + n) % n;
+  slotRender(key);
 }
 
-function s29PickEnd(el, endType, endText) {
-  document.querySelectorAll('.s29-end').forEach(function(e){ e.classList.remove('s29-active'); });
-  el.classList.add('s29-active');
-  s29State.endType = endType; s29State.endText = endText;
-  s29UpdateVerbs();
-  s29Build();
+function slotRandom(key) {
+  slotIdx[key] = Math.floor(Math.random() * slotItems[key].length);
+  slotRender(key);
 }
 
-function s29Build() {
-  var out = document.getElementById('s29-output');
+function slotRandomAll() {
+  slotRandom('who');
+  slotRandom('verb');
+}
+
+function slotResetAll() {
+  slotIdx = { who: 0, verb: 0 };
+  slotRender('who');
+  slotRender('verb');
+}
+
+function s29UpdateSentence() {
+  var out = document.getElementById('s29-sentence');
   if (!out) return;
-  if (!s29State.subj || !s29State.endType) {
-    out.innerHTML = '<span style="color:#AAB8CC;font-size:1rem;font-weight:400;font-style:italic;">Pick a subject and an ending to build your sentence</span>';
-    return;
-  }
-  var verb = s29State.endType === 'work' ? s29State.verbW : s29State.verbH;
-  var sentence = s29State.subj + ' <strong>' + verb + '</strong> ' + s29State.endText;
-  var key = s29State.subj + '|' + s29State.endType;
-  s29State.used[key] = true;
-  out.innerHTML = '<span style="font-size:1.1rem;">🗣️ ' + sentence + '</span>';
-  var count = Object.keys(s29State.used).length;
-  var cntEl = document.getElementById('s29-count');
-  if (cntEl) cntEl.textContent = count + ' / 8 sentences practiced' + (count === 8 ? ' — Great job! 🎉' : '');
+  var subj = slotItems.who[slotIdx.who];
+  var verb = slotItems.verb[slotIdx.verb];
+  out.innerHTML = '<strong style="color:#7A2A5A;font-size:1.2rem;">' + subj + '</strong>'
+    + '&nbsp;<span style="color:#aaa;font-size:1rem;">+</span>&nbsp;'
+    + '<strong style="color:#1A5C2A;font-size:1.2rem;">' + verb + '...?</strong>'
+    + '&nbsp;&nbsp;<span style="color:#C8891E;font-weight:600;font-size:.95rem;font-style:italic;">_______________</span>';
 }
 
-function s29Random() {
-  var subjEls = document.querySelectorAll('.s29-subj');
-  var endEls  = document.querySelectorAll('.s29-end');
-  if (!subjEls.length || !endEls.length) return;
-  subjEls[Math.floor(Math.random() * subjEls.length)].click();
-  endEls [Math.floor(Math.random() * endEls.length)].click();
-}
-
-function s29Reset() {
-  s29State = { subj: null, verbW: null, verbH: null, endType: null, endText: null, used: {} };
-  document.querySelectorAll('.s29-subj, .s29-end').forEach(function(e){ e.classList.remove('s29-active'); });
-  s29UpdateVerbs();
-  var out = document.getElementById('s29-output');
-  if (out) out.innerHTML = '<span style="color:#AAB8CC;font-size:1rem;font-weight:400;font-style:italic;">Pick a subject and an ending to build your sentence</span>';
-  var cntEl = document.getElementById('s29-count');
-  if (cntEl) cntEl.textContent = '';
+function s29Init() {
+  slotRender('who');
+  slotRender('verb');
 }
 
 /* ═══════════════════════════════════════════
@@ -2615,6 +2612,7 @@ buildS8();
 buildS9();
 s10Render();
 buildS2_8();
+s29Init();
 buildS2_10();
 buildHW1();
 buildHW2();
