@@ -522,6 +522,8 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2836; margin-bottom: 14px; 
     <button onclick="notesHilite('#AAFFC3')" title="Green" style="background:#AAFFC3;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
     <button onclick="notesHilite('#FFB3C1')" title="Pink" style="background:#FFB3C1;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
     <button onclick="notesHilite('#BFE0FF')" title="Blue" style="background:#BFE0FF;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <span style="width:1px;background:rgba(255,255,255,.2);margin:2px 3px;display:inline-block;height:18px;vertical-align:middle;"></span>
+    <button onclick="clearAllNotes()" title="Erase every note in this lesson" style="background:rgba(255,90,90,.3);">🗑 Clear all</button>
   </div>
   <div id="notesTA" contenteditable="true" data-placeholder="Type your notes here…"></div>
 </div>
@@ -1679,7 +1681,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2836; margin-bottom: 14px; 
   <div id="dots"></div>
   <span id="counter"></span>
   <button id="nextBtn" onclick="goTo(current+1)">Next ▶</button>
-  <button onclick="downloadNotes()" style="background:rgba(255,255,255,.12);color:#fff;border:none;padding:7px 18px;border-radius:20px;cursor:pointer;font-size:.88rem;font-weight:600;">💾 Save Notes</button>
+  <button onclick="downloadNotes()" style="background:rgba(255,255,255,.12);color:#fff;border:none;padding:7px 18px;border-radius:20px;cursor:pointer;font-size:.88rem;font-weight:600;">📄 Save as PDF</button>
 </div>
 
 <script>
@@ -1737,7 +1739,12 @@ document.addEventListener('keydown', e => {
 });
 
 /* ── NOTES ─────────────────────────────────────── */
-const notesData = {};
+const NOTES_KEY='efe1notes:'+(location.pathname.split('/').pop()||'lesson');
+let notesData={};
+try{notesData=JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch(e){notesData={};}
+function persistNotes(){try{localStorage.setItem(NOTES_KEY,JSON.stringify(notesData));}catch(e){}}
+function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){notesData={};persistNotes();var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
+(function(){var t=document.getElementById('notesTA');if(t){t.innerHTML=notesData[current]||'';t.addEventListener('input',function(){notesData[current]=t.innerHTML;persistNotes();});}})();
 let notesOpen = false;
 function toggleNotes() {
   notesOpen = !notesOpen;
@@ -1764,7 +1771,7 @@ function hexToRgbStr(hex) {
   var r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
   return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
-function saveNotes() { notesData[current] = document.getElementById('notesTA').innerHTML; }
+function saveNotes() { notesData[current] = document.getElementById('notesTA').innerHTML; persistNotes(); }
 function loadNotes(idx) { document.getElementById('notesTA').innerHTML = notesData[idx] || ''; }
 
 /* ── RANK ITEMS (cycle 1-5) ─────────────────────── */
