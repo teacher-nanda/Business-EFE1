@@ -228,15 +228,17 @@ Every lesson file must ship with a fully-featured notes panel — not just the "
 
 ### Required pieces
 1. **`#notesBtn`** — fixed top-right toggle button (`📝 Notes` / `✕ Close`).
-2. **`#notesPanel`** with **`#notesToolbar`** containing, in this order:
+2. **`#pdfBtn`** — fixed top-right button, positioned immediately to the left of `#notesBtn` (`right:140px`, same `top:14px`), **always visible** (not tucked inside the collapsible toolbar — students must be able to export notes without first opening the panel). Label `📄 PDF Notes`, `onclick="downloadNotes()"`. Style matches `#notesBtn` (same background color family, `border-radius:22px`, hover state). Must be added to the print-hide rule alongside `#nav,#notesBtn,#notesPanel,#homeBtn` so it doesn't appear in the printed PDF itself.
+3. **`#notesPanel`** with **`#notesToolbar`** containing, in this order:
    - Bold (`notesFormat('bold')`) and Underline (`notesFormat('underline')`) buttons
    - A thin divider (`<span style="width:1px;background:rgba(255,255,255,.2);...">`)
    - Four highlight-color dots (`notesHilite('#FFE600')`, `'#AAFFC3'`, `'#FFB3C1'`, `'#BFE0FF'`)
    - Another divider
    - **`🗑 Clear all`** button (`clearAllNotes()`) — erases every saved note for the lesson, with a `confirm()` guard
-   - **`📄 Save as PDF`** button (`downloadNotes()`) — exports all non-empty notes as a printable HTML page
-3. **`#notesTA`** — the contenteditable notes area, per-slide persistence via `localStorage` keyed as `notes_l<N>_<slideIndex>` (e.g. `notes_l6_3`).
-4. **`#notesTA [style*="background-color"]{color:#1a1a1a!important;}`** in the CSS — without this, highlighted text inherits the panel's white font color and becomes unreadable against the light highlight colors. This one-line rule is mandatory whenever `#notesTA` has `color:#fff` (or any light color) as its base.
+   - Do **not** duplicate `📄 Save as PDF` inside the toolbar — that lives only in the always-visible `#pdfBtn` (see #2).
+4. **`#notesTA`** — the contenteditable notes area, per-slide persistence via `localStorage` keyed as `notes_l<N>_<slideIndex>` (e.g. `notes_l6_3`).
+5. **`#notesTA [style*="background-color"]{color:#1a1a1a!important;}`** in the CSS — without this, highlighted text inherits the panel's white font color and becomes unreadable against the light highlight colors. This one-line rule is mandatory whenever `#notesTA` has `color:#fff` (or any light color) as its base.
+6. **Slide-navigation function must call `loadNotes()` for the new slide.** Whatever function changes the active slide (`goTo(n)` / `goToSlide(n)`) must, after updating the current-slide index, reload `#notesTA` for the new index — e.g. `if(notesOpen) loadNotes();` (localStorage-keyed variant) or `loadNotes(current);` (in-memory `notesData` variant). If this call is missing, the notes textarea keeps showing the *previous* slide's content while the student is actually on a new slide; anything they type then gets saved under the new slide's key on top of the old slide's text, so notes appear to "bleed" and accumulate across slides. This was a real bug found in Lessons 3/4/6/7 (fixed 2026-08-07) — do not regress it in new lessons.
 
 ### `downloadNotes()` — required behavior
 - Calls `saveNotes()` first to flush the current slide's in-progress edits to `localStorage`.
@@ -261,4 +263,4 @@ Use `Lesson_03_Business_Around_the_World.html`'s `downloadNotes()`/`clearAllNote
 
 ---
 
-*Last updated: 2026-08-07 (added Notes Panel requirements: Clear All + Save as PDF buttons, highlight-readability CSS fix, downloadNotes() spec)*
+*Last updated: 2026-08-07 (Notes Panel: always-visible #pdfBtn pattern, mandatory loadNotes()-on-navigation to prevent notes bleeding across slides, highlight-readability CSS fix, downloadNotes() spec)*

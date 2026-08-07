@@ -21,6 +21,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
 .dot.active{background:#F5893A;transform:scale(1.4);}
 #notesBtn{position:fixed;top:14px;right:22px;z-index:1000;background:rgba(10,20,10,.88);color:#fff;border:none;padding:9px 20px;border-radius:22px;cursor:pointer;font-size:.92rem;font-weight:600;letter-spacing:.02em;transition:background .2s;backdrop-filter:blur(4px);}
 #notesBtn:hover{background:rgba(10,20,10,1);}
+#pdfBtn{position:fixed;top:14px;right:140px;z-index:1000;background:rgba(10,20,10,.88);color:#fff;border:none;padding:9px 20px;border-radius:22px;cursor:pointer;font-size:.92rem;font-weight:600;letter-spacing:.02em;transition:background .2s;backdrop-filter:blur(4px);}
+#pdfBtn:hover{background:rgba(10,20,10,1);}
 #notesPanel{position:fixed;top:54px;right:22px;z-index:999;width:360px;max-height:0;overflow:hidden;transition:max-height .35s ease,opacity .25s ease,width .35s ease,left .35s ease,top .35s ease;opacity:0;border-radius:14px;}
 #notesPanel.open{max-height:320px;opacity:1;}
 #notesToolbar{display:flex;gap:5px;padding:6px 10px;background:rgba(10,20,10,.7);border-radius:10px 10px 0 0;}
@@ -104,12 +106,13 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   html,body{background:#fff!important;overflow:visible!important;height:auto!important;}
   .slide{position:relative!important;opacity:1!important;display:block!important;page-break-after:always;width:100%!important;height:auto!important;overflow:visible!important;background:#fff!important;}
   .banner{color:#fff!important;}
-  #nav,#notesBtn,#notesPanel,#homeBtn{display:none!important;}
+  #nav,#notesBtn,#pdfBtn,#notesPanel,#homeBtn{display:none!important;}
 }
 </style>
 </head>
 <body>
 <button id="homeBtn" onclick="goTo(0)">🏠</button>
+<button id="pdfBtn" onclick="downloadNotes()" title="Save all your notes as a PDF">📄 PDF Notes</button>
 <button id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
 <div id="notesPanel">
   <div id="notesToolbar">
@@ -122,7 +125,6 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <button onclick="notesHilite('#BFE0FF')" style="background:#BFE0FF;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
     <span style="width:1px;background:rgba(255,255,255,.2);margin:2px 3px;display:inline-block;height:18px;vertical-align:middle;"></span>
     <button onclick="clearAllNotes()" title="Erase every note in this lesson" style="background:rgba(255,90,90,.3);">🗑 Clear all</button>
-    <button onclick="downloadNotes()" title="Save all your notes as a PDF" style="background:rgba(90,180,255,.35);">📄 Save as PDF</button>
   </div>
   <div id="notesTA" contenteditable="true" data-placeholder="Type your notes here…"></div>
 </div>
@@ -691,6 +693,7 @@ function goTo(n){
   var _panel = document.getElementById('notesPanel');
   if(current===0){ if(notesOpen) _panel.classList.add('cover'); }
   else { _panel.classList.remove('cover'); }
+  if(notesOpen) loadNotes();
 }
 function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }

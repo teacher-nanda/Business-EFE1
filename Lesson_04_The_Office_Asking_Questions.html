@@ -748,6 +748,7 @@ function goTo(n){
   var _panel = document.getElementById('notesPanel');
   if(current===0){ if(notesOpen) _panel.classList.add('cover'); }
   else { _panel.classList.remove('cover'); }
+  if(notesOpen) loadNotes();
 }
 function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
