@@ -132,6 +132,9 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <button onclick="notesHilite('#AAFFC3')" style="background:#AAFFC3;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
     <button onclick="notesHilite('#FFB3C1')" style="background:#FFB3C1;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
     <button onclick="notesHilite('#BFE0FF')" style="background:#BFE0FF;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <span style="width:1px;background:rgba(255,255,255,.2);margin:2px 3px;display:inline-block;height:18px;vertical-align:middle;"></span>
+    <button onclick="clearAllNotes()" title="Erase every note in this lesson" style="background:rgba(255,90,90,.3);">🗑 Clear all</button>
+    <button onclick="downloadNotes()" title="Save all your notes as a PDF" style="background:rgba(90,180,255,.35);">📄 Save as PDF</button>
   </div>
   <div id="notesTA" contenteditable="true" data-placeholder="Type your notes here…"></div>
 </div>
@@ -659,6 +662,37 @@ function toggleNotes(){
 }
 function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
 function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
+function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l6_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
+function downloadNotes(){
+  saveNotes();
+  var hasAny=false, cards='';
+  slideIds.forEach(function(sid, idx){
+    var note=''; try{ note=localStorage.getItem('notes_l6_'+idx)||''; }catch(e){}
+    if(!note.replace(/<[^>]*>/g,'').trim()) return;
+    hasAny=true;
+    cards += '<div class="card"><div class="card-header">Slide '+(idx+1)+' &mdash; '+slideLabels[idx]+'</div><div class="card-body">'+note+'</div></div>';
+  });
+  if(!hasAny){ alert('No notes to save yet!'); return; }
+  var date=new Date().toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var html='<!DOCTYPE html><html><head><meta charset="utf-8"><title>BEfE L6 Notes</title><style>'
+    +"body{font-family:'Segoe UI',system-ui,sans-serif;max-width:720px;margin:16px auto;color:#1C2B3A;padding:0 20px}"
+    +'h1{font-size:1.5rem;color:#1A4A8C;margin-bottom:4px}'
+    +'.date{font-size:.9rem;color:#888;margin-bottom:14px}'
+    +'.card{border:1px solid #ddd;border-radius:10px;margin-bottom:12px;overflow:hidden}'
+    +'.card-header{background:#1A4A8C;color:#fff;padding:7px 14px;font-size:.88rem;font-weight:700}'
+    +'.card-body{padding:12px 14px;font-size:.97rem;line-height:1.7}'
+    +'.card-body [style*="background-color"]{color:#1a1a1a!important}'
+    +'@media print{body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:1cm}}'
+    +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
+    +'</style></head><body>'
+    +'<h1>Business English for Everyone &ndash; Lesson 6 Notes</h1>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_06_Exchanging_Details.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_06_Exchanging_Details.html</a></div>'
+    +'<div class="date">'+date+'</div>'+cards+'</body></html>';
+  var win=window.open('','_blank');
+  if(!win){ alert('Please allow pop-ups for this page.'); return; }
+  win.document.write(html); win.document.close(); win.focus();
+  setTimeout(function(){win.print();},400);
+}
 
 /* keyboard navigation */
 document.addEventListener('keydown', function(e){

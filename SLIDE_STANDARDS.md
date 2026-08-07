@@ -222,6 +222,34 @@ When slides are added or deleted, **renumber all HW `<h2>` titles** sequentially
 
 ---
 
+## Notes Panel — Required on Every Lesson
+
+Every lesson file must ship with a fully-featured notes panel — not just the "📝 Notes" toggle and textarea. This is a checklist, not optional polish.
+
+### Required pieces
+1. **`#notesBtn`** — fixed top-right toggle button (`📝 Notes` / `✕ Close`).
+2. **`#notesPanel`** with **`#notesToolbar`** containing, in this order:
+   - Bold (`notesFormat('bold')`) and Underline (`notesFormat('underline')`) buttons
+   - A thin divider (`<span style="width:1px;background:rgba(255,255,255,.2);...">`)
+   - Four highlight-color dots (`notesHilite('#FFE600')`, `'#AAFFC3'`, `'#FFB3C1'`, `'#BFE0FF'`)
+   - Another divider
+   - **`🗑 Clear all`** button (`clearAllNotes()`) — erases every saved note for the lesson, with a `confirm()` guard
+   - **`📄 Save as PDF`** button (`downloadNotes()`) — exports all non-empty notes as a printable HTML page
+3. **`#notesTA`** — the contenteditable notes area, per-slide persistence via `localStorage` keyed as `notes_l<N>_<slideIndex>` (e.g. `notes_l6_3`).
+4. **`#notesTA [style*="background-color"]{color:#1a1a1a!important;}`** in the CSS — without this, highlighted text inherits the panel's white font color and becomes unreadable against the light highlight colors. This one-line rule is mandatory whenever `#notesTA` has `color:#fff` (or any light color) as its base.
+
+### `downloadNotes()` — required behavior
+- Calls `saveNotes()` first to flush the current slide's in-progress edits to `localStorage`.
+- Loops over `slideIds`, reading `localStorage.getItem('notes_l<N>_'+idx)` for each index, skipping empty ones.
+- If nothing was written, `alert('No notes to save yet!')` and stop.
+- Otherwise builds a standalone printable HTML document (own `<style>`, one `.card` per slide with notes, `.card-header` = `Slide N — label`, `.card-body` = the saved note HTML), opens it in a new tab, and calls `window.print()` after a short delay.
+- The exported page's own CSS **must also include** `.card-body [style*="background-color"]{color:#1a1a1a!important}` — the highlight-readability fix applies to the printed/PDF output too, not just the live panel.
+- Include a link back to the lesson's GitHub Pages URL (`https://teacher-nanda.github.io/Business-EFE1/<filename>.html`) near the top of the exported page.
+
+Use `Lesson_03_Business_Around_the_World.html`'s `downloadNotes()`/`clearAllNotes()` as the reference implementation — copy and adapt the lesson number and `localStorage` prefix, don't rewrite from scratch.
+
+---
+
 ## Language
 
 ### Spelling — American English only
@@ -233,4 +261,4 @@ When slides are added or deleted, **renumber all HW `<h2>` titles** sequentially
 
 ---
 
-*Last updated: 2026-07-10 (even N → full-width example; odd N → example in left column; cross-out standard; input sizing; American English only)*
+*Last updated: 2026-08-07 (added Notes Panel requirements: Clear All + Save as PDF buttons, highlight-readability CSS fix, downloadNotes() spec)*
