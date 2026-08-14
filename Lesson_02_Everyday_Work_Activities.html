@@ -1230,12 +1230,12 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
       <p class="instruction">Match the pictures to the correct sentences. The example is done for you.</p>
 
       <!-- Two-column match grid -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;align-items:start;">
         <div>
           <div style="font-size:.78rem;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">📷 Pictures</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;" id="hw21-pics"></div>
         </div>
-        <div>
+        <div style="position:sticky;top:8px;">
           <div style="font-size:.78rem;font-weight:800;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">💬 Sentences</div>
           <div style="display:flex;flex-direction:column;gap:7px;" id="hw21-sents"></div>
         </div>
@@ -2227,7 +2227,7 @@ function buildHW1() {
           + item.pre+' <strong style="color:#C4614A;">'+item.err+'</strong> '+item.post
       + '</span>'
       + '<span style="display:flex;align-items:center;gap:6px;">'
-          + '<input type="text" id="hw1-inp-'+i+'" placeholder="verb…" style="flex:1;min-width:0;font-size:1.05rem;padding:5px 8px;border:none;border-bottom:2px solid #1A7A4A;background:transparent;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;text-align:center;" />'
+          + '<input type="text" id="hw1-inp-'+i+'" style="flex:1;min-width:0;font-size:1.05rem;padding:5px 8px;border:none;border-bottom:2px solid #1A7A4A;background:transparent;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;text-align:center;" />'
           + '<span id="hw1-ans-'+i+'" style="display:none;background:#1A7A4A;color:#fff;border-radius:8px;padding:4px 10px;font-size:.95rem;font-weight:700;white-space:nowrap;">'+item.fix+' ✓</span>'
       + '</span>';
     (i < 5 ? left : right).appendChild(row);
