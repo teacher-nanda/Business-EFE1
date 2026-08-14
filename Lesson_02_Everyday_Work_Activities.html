@@ -1383,20 +1383,20 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW6 – Speaking</h2>
-      <p class="instruction">Say the sentences out loud, filling in the gaps using the words in the panel.</p>
+      <p class="instruction">Say the sentences out loud, using the base verbs in the panel — type each one in the correct form for the sentence.</p>
 
-      <!-- Word bank -->
+      <!-- Word bank (base forms — reference only, adapt each verb when you type it) -->
       <div class="word-bank" id="hw4-bank" style="margin-bottom:10px;">
-        <span class="wb-chip" data-word="deals" onclick="hw4ChipClick(this)">deals</span>
-        <span class="wb-chip" data-word="go" onclick="hw4ChipClick(this)">go</span>
-        <span class="wb-chip" data-word="meet" onclick="hw4ChipClick(this)">meet</span>
-        <span class="wb-chip" data-word="stops" onclick="hw4ChipClick(this)">stops</span>
-        <span class="wb-chip" data-word="takes" onclick="hw4ChipClick(this)">takes</span>
-        <span class="wb-chip" data-word="talks" onclick="hw4ChipClick(this)">talks</span>
-        <span class="wb-chip" data-word="gets" onclick="hw4ChipClick(this)">gets</span>
+        <span class="wb-chip wb-used" style="cursor:default;">deal</span>
+        <span class="wb-chip wb-used" style="cursor:default;">go</span>
+        <span class="wb-chip wb-used" style="cursor:default;">meet</span>
+        <span class="wb-chip wb-used" style="cursor:default;">stop</span>
+        <span class="wb-chip wb-used" style="cursor:default;">take</span>
+        <span class="wb-chip wb-used" style="cursor:default;">talk</span>
+        <span class="wb-chip wb-used" style="cursor:default;">get</span>
         <span class="wb-chip wb-used" style="cursor:default;">write</span>
-        <span class="wb-chip" data-word="works" onclick="hw4ChipClick(this)">works</span>
-        <span class="wb-chip" data-word="is" onclick="hw4ChipClick(this)">is</span>
+        <span class="wb-chip wb-used" style="cursor:default;">work</span>
+        <span class="wb-chip wb-used" style="cursor:default;">be</span>
       </div>
 
       <div class="two-col">
@@ -2420,9 +2420,6 @@ var hw4Data = [
   { pre:"Raj",                 post:"a break at 11am.",          ans:"takes" },
   { pre:"Sophie",              post:"a travel agent.",           ans:"is"    }
 ];
-var hw4ActiveChip = null;
-var hw4BlankChip = {};
-
 function buildHW4() {
   var left  = document.getElementById('hw4-left');
   var right = document.getElementById('hw4-right');
@@ -2439,51 +2436,13 @@ function buildHW4() {
     row.className = 'ex-row';
     row.innerHTML = '<span class="ex-num">'+(i+1)+'.</span> '
       + item.pre
-      + ' <input class="ans-input" id="hw4-inp-'+i+'" data-ans="'+item.ans
-      + '" readonly onclick="hw4BlankClick(this)"'
-      + ' style="width:80px;text-align:center;cursor:pointer;caret-color:transparent;" />'
+      + ' <input type="text" class="ans-input" id="hw4-inp-'+i+'" data-ans="'+item.ans
+      + '"'
+      + ' style="width:100px;text-align:center;" />'
       + ' '+item.post;
     if (i < 4) left.appendChild(row);
     else right.appendChild(row);
   });
-}
-function hw4ChipClick(chip) {
-  if (chip.classList.contains('wb-used')) return;
-  if (hw4ActiveChip === chip) {
-    // Deselect
-    chip.style.outline = 'none'; chip.style.background = '';
-    hw4ActiveChip = null;
-    return;
-  }
-  // Deselect previous
-  if (hw4ActiveChip) { hw4ActiveChip.style.outline = 'none'; hw4ActiveChip.style.background = ''; }
-  hw4ActiveChip = chip;
-  chip.style.outline = '3px solid #1A7A4A';
-  chip.style.background = '#DFF5E8';
-}
-function hw4BlankClick(inp) {
-  var prevChip = hw4BlankChip[inp.id];
-  if (hw4ActiveChip) {
-    // Restore previous chip if blank already filled
-    if (prevChip && prevChip !== hw4ActiveChip) {
-      prevChip.style.opacity = '1'; prevChip.style.textDecoration = 'none';
-      prevChip.classList.remove('wb-used-student');
-    }
-    // Fill blank
-    inp.value = hw4ActiveChip.dataset.word;
-    inp.style.borderColor = '#1A4A8C';
-    hw4BlankChip[inp.id] = hw4ActiveChip;
-    hw4ActiveChip.classList.add('wb-used-student');
-    hw4ActiveChip.style.opacity = '.35'; hw4ActiveChip.style.textDecoration = 'line-through';
-    hw4ActiveChip.style.outline = 'none'; hw4ActiveChip.style.background = '';
-    hw4ActiveChip = null;
-  } else if (prevChip) {
-    // Click filled blank with no active chip → clear it
-    inp.value = ''; inp.style.borderColor = '';
-    prevChip.style.opacity = '1'; prevChip.style.textDecoration = 'none';
-    prevChip.classList.remove('wb-used-student');
-    delete hw4BlankChip[inp.id];
-  }
 }
 function checkHW4() {
   var score = 0;
@@ -2500,16 +2459,10 @@ function checkHW4() {
   res.style.color = score === hw4Data.length ? '#1A7A4A' : '#C4614A';
 }
 function resetHW4() {
-  hw4BlankChip = {}; hw4ActiveChip = null;
   hw4Data.forEach(function(item, i) {
     var inp = document.getElementById('hw4-inp-'+i);
-    if(inp) { inp.value=''; inp.classList.remove('correct','wrong'); inp.style.borderColor=''; }
+    if(inp) { inp.value=''; inp.classList.remove('correct','wrong'); }
   });
-  document.querySelectorAll('#hw4-bank .wb-chip:not(.wb-used)').forEach(function(ch){
-    ch.style.outline='none'; ch.style.opacity='1'; ch.style.textDecoration='none';
-    ch.style.background=''; ch.classList.remove('wb-used-student');
-  });
-  hw4ActiveChip = null;
   document.getElementById('hw4-result').textContent = '';
 }
 
