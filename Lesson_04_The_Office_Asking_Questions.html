@@ -210,10 +210,10 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Rewrite the Questions</h2>
       <p class="instruction">Click the words in the correct order to build each question.</p>
-      <div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:1.05rem;">
-        <strong>Example:</strong> this / Is / desk? / my &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this my desk?</strong>
+      <div class="two-col" style="gap:14px;margin-top:4px;">
+        <div class="col-section" id="s7-wo-left"></div>
+        <div class="col-section" id="s7-wo-right"></div>
       </div>
-      <div id="s7-wo"></div>
       <div class="hw-btns" style="margin-top:14px;">
         <button class="btn-check" onclick="checkS7()">✅ Check</button>
         <button class="btn-reset" onclick="resetS7()">↺ Reset</button>
@@ -227,8 +227,9 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 <div class="slide" id="s5">
   <div class="banner" style="background:#1A5080;color:#fff;">🔑 Key Language</div>
   <div class="slide-main">
-    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);display:flex;flex-direction:column;justify-content:center;">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Key Language: Simple Questions with "Do"</h2>
+      <p class="inst-light">To form questions in sentences without the verb "to be," start the question with "do" or "does."</p>
       <img src="ChatGPT Image Aug 17, 2026, 09_19_46 AM.png" alt="Examples of questions with do and does" style="width:100%;max-width:880px;border-radius:12px;margin-top:10px;display:block;">
     </div>
   </div>
@@ -238,8 +239,9 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 <div class="slide" id="s6">
   <div class="banner" style="background:#1A5080;color:#fff;">🔑 Key Language</div>
   <div class="slide-main">
-    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);display:flex;flex-direction:column;justify-content:center;">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>How to Form: Simple Questions with "Do"</h2>
+      <p class="inst-light">"Does" is the third person form of "do." Use the base form of the verb.</p>
       <img src="ChatGPT Image Aug 17, 2026, 09_20_25 AM.png" alt="How to form questions with do or does" style="width:100%;max-width:880px;border-radius:12px;margin-top:10px;display:block;">
     </div>
   </div>
@@ -250,7 +252,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>Fill in the Gaps Using "Do" or "Does"</h2>
+      <h2>Fill in the Gaps</h2>
       <p class="instruction">Fill in the gaps using "do" or "does."</p>
       <div id="s9-example"></div>
       <div class="two-col">
@@ -487,10 +489,10 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 1 – Rewrite the Questions</h2>
       <p class="inst-light">Click the words in the correct order to build each question.</p>
-      <div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:1.05rem;">
-        <strong>Example:</strong> this / Is / cafeteria? / the &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this the cafeteria?</strong>
+      <div class="two-col" style="gap:14px;margin-top:4px;">
+        <div class="col-section" id="hw52-wo-left"></div>
+        <div class="col-section" id="hw52-wo-right"></div>
       </div>
-      <div id="hw52-wo"></div>
       <div class="hw-btns">
         <button class="btn-check" onclick="checkHW52()">✓ Check Answers</button>
         <button class="btn-reset" onclick="resetHW52()">↺ Reset</button>
@@ -741,17 +743,29 @@ document.addEventListener('keydown', function(e){
   if(e.key==='ArrowLeft'||e.key==='ArrowUp') goTo(current-1);
 });
 
-/* ═══ shared helper: clickable word-order (sentence-building) exercises ═══ */
+/* ═══ shared helper: clickable word-order (sentence-building) exercises ═══
+   Follows the standard column-split rule: leftCount = Math.floor(N/2).
+   ODD N → example rendered as the first block inside the LEFT column.
+   EVEN N → example rendered full-width above the grid (pass exampleFullWidthId). */
 var woState = {};
-function woBuild(exId, containerId, items, resultId){
-  woState[exId] = { items:items, containerId:containerId, resultId:resultId,
+function woBuild(exId, leftId, rightId, items, resultId, exampleHtml, exampleFullWidthId){
+  var n = items.length;
+  var isOdd = n % 2 !== 0;
+  var leftCount = isOdd ? Math.floor(n/2) : n/2;
+  woState[exId] = { items:items, leftId:leftId, rightId:rightId, resultId:resultId,
+    exampleHtml: exampleHtml||null, exampleInColumn: isOdd, leftCount: leftCount,
     bank: items.map(function(it){return it.words.slice();}),
     built: items.map(function(){return [];}), checked:false, ok:[] };
+  if(!isOdd && exampleFullWidthId && exampleHtml){
+    var fw=document.getElementById(exampleFullWidthId); if(fw) fw.innerHTML=exampleHtml;
+  }
   woRender(exId);
 }
 function woRender(exId){
-  var st=woState[exId]; var el=document.getElementById(st.containerId); if(!el) return;
-  el.innerHTML = st.items.map(function(item,i){
+  var st=woState[exId];
+  var left=document.getElementById(st.leftId); var right=document.getElementById(st.rightId);
+  if(!left||!right) return;
+  var rowsHtml = st.items.map(function(item,i){
     var zoneClass='wo-zone'+(st.checked?(st.ok[i]?' wo-correct':' wo-wrong'):'');
     var builtHtml = st.built[i].map(function(w,wi){
       return '<span class="wo-chip" onclick="woRemove(\''+exId+'\','+i+','+wi+')">'+w+'</span>';
@@ -762,7 +776,9 @@ function woRender(exId){
     return '<div class="wo-row"><div class="wo-num">'+(i+1)+'.</div>'
       +'<div class="'+zoneClass+'" id="'+exId+'-zone-'+i+'">'+builtHtml+'</div>'
       +'<div class="wo-bank">'+bankHtml+'</div></div>';
-  }).join('');
+  });
+  left.innerHTML = (st.exampleInColumn && st.exampleHtml ? st.exampleHtml : '') + rowsHtml.slice(0, st.leftCount).join('');
+  right.innerHTML = rowsHtml.slice(st.leftCount).join('');
 }
 function woAdd(exId,i,wi){
   var st=woState[exId]; var w=st.bank[i].splice(wi,1)[0]; st.built[i].push(w); st.checked=false; woRender(exId);
@@ -806,7 +822,7 @@ function buildS67(){
     row.style.cssText='background:'+(item.example?'#FFF4EE':'#F4F8FA')+';border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-left:3px solid '+(item.example?'#C45020':'#8BB0D0')+';';
     row.innerHTML='<span style="font-weight:800;color:'+(item.example?'#C45020':'#1A5080')+';min-width:20px;">'+item.letter+'</span>'
       +'<span style="flex:1;font-size:1.05rem;color:#1C2B3A;">'+item.q+'</span>'
-      +'<input type="text" '+(item.example?'value="1" readonly':'')+' placeholder="?" style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
+      +'<input type="text" '+(item.example?'value="1" readonly':'')+' style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
     rows.appendChild(row);
   });
 }
@@ -819,7 +835,8 @@ var s7bData = [
   { words:["that","Is","drawer","locked?"], ans:"Is that drawer locked?" },
   { words:["desk","his","clean?","Is"], ans:"Is his desk clean?" }
 ];
-function buildS7(){ woBuild('s7','s7-wo',s7bData,'s7-result'); }
+var s7ExampleHtml = '<div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:1.05rem;"><strong>Example:</strong> this / Is / desk? / my &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this my desk?</strong></div>';
+function buildS7(){ woBuild('s7','s7-wo-left','s7-wo-right',s7bData,'s7-result',s7ExampleHtml); }
 function checkS7(){ woCheck('s7'); }
 function resetS7(){ woReset('s7'); }
 
@@ -844,7 +861,7 @@ function buildS9(){
     var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#0E5C7A';
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+(i+1)+'.</span>'
-      +'<input type="text" id="s9-inp-'+i+'" placeholder="do/does" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;text-align:center;">'
+      +'<input type="text" id="s9-inp-'+i+'" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;text-align:center;">'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.q.replace('___ ','')+'</span>';
     (i<3?left:right).appendChild(row);
   });
@@ -1129,7 +1146,8 @@ var hw52Data = [
   { words:["CEO?","the","she","Is"], ans:"Is she the CEO?" },
   { words:["assistant?","Jo's","you","Are"], ans:"Are you Jo's assistant?" }
 ];
-function buildHW52(){ woBuild('hw52','hw52-wo',hw52Data,'hw52-result'); }
+var hw52ExampleHtml = '<div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:1.05rem;"><strong>Example:</strong> this / Is / cafeteria? / the &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this the cafeteria?</strong></div>';
+function buildHW52(){ woBuild('hw52','hw52-wo-left','hw52-wo-right',hw52Data,'hw52-result',hw52ExampleHtml); }
 function checkHW52(){ woCheck('hw52'); }
 function resetHW52(){ woReset('hw52'); }
 
@@ -1157,7 +1175,7 @@ function buildHW53(){
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+item.num+'.</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.s+' →</span>'
-      +'<input type="text" id="hw53-inp-'+item.num+'" placeholder="…" style="width:260px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="hw53-inp-'+item.num+'" style="width:260px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     (item.num<=3?left:right).appendChild(row);
   });
 }
@@ -1201,7 +1219,7 @@ function buildHW54(){
     var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#0E5C7A';
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+(i+1)+'.</span>'
-      +'<input type="text" id="hw54-inp-'+i+'" placeholder="do/does" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;text-align:center;">'
+      +'<input type="text" id="hw54-inp-'+i+'" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;text-align:center;">'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.q.replace('___ ','')+'</span>';
     (i<5?left:right).appendChild(row);
   });
