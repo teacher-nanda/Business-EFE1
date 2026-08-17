@@ -818,6 +818,7 @@ function saveNotes(){ try{ localStorage.setItem('notes_l3_'+current, document.ge
 function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l3_'+current)||''; }catch(e){} }
 function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l3_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
 (function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('input',function(){saveNotes();});})();
+(function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
 var notesOpen = false;
 function toggleNotes(){
   notesOpen = !notesOpen;

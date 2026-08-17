@@ -1744,7 +1744,7 @@ let notesData={};
 try{notesData=JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch(e){notesData={};}
 function persistNotes(){try{localStorage.setItem(NOTES_KEY,JSON.stringify(notesData));}catch(e){}}
 function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){notesData={};persistNotes();var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
-(function(){var t=document.getElementById('notesTA');if(t){t.innerHTML=notesData[current]||'';t.addEventListener('input',function(){notesData[current]=t.innerHTML;persistNotes();});}})();
+(function(){var t=document.getElementById('notesTA');if(t){t.innerHTML=notesData[current]||'';t.addEventListener('input',function(){notesData[current]=t.innerHTML;persistNotes();});t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});}})();
 let notesOpen = false;
 function toggleNotes() {
   notesOpen = !notesOpen;
