@@ -835,7 +835,14 @@ var s7bData = [
   { words:["that","Is","drawer","locked?"], ans:"Is that drawer locked?" },
   { words:["desk","his","clean?","Is"], ans:"Is his desk clean?" }
 ];
-var s7ExampleHtml = '<div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:1.05rem;"><strong>Example:</strong> this / Is / desk? / my &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this my desk?</strong></div>';
+var s7ExampleHtml = '<div class="wo-row" style="border-left-color:#C45020;">'
+  +'<div class="wo-num" style="color:#C45020;">Ex.</div>'
+  +'<div class="wo-zone" style="border-style:solid;border-color:#C45020;background:#FFF4EE;">'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">Is</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">this</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">my</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">desk?</span>'
+  +'</div></div>';
 function buildS7(){ woBuild('s7','s7-wo-left','s7-wo-right',s7bData,'s7-result',s7ExampleHtml); }
 function checkS7(){ woCheck('s7'); }
 function resetS7(){ woReset('s7'); }
@@ -1146,7 +1153,14 @@ var hw52Data = [
   { words:["CEO?","the","she","Is"], ans:"Is she the CEO?" },
   { words:["assistant?","Jo's","you","Are"], ans:"Are you Jo's assistant?" }
 ];
-var hw52ExampleHtml = '<div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:1.05rem;"><strong>Example:</strong> this / Is / cafeteria? / the &nbsp;→&nbsp; <strong style="color:#1A5C2A;">Is this the cafeteria?</strong></div>';
+var hw52ExampleHtml = '<div class="wo-row" style="border-left-color:#C45020;">'
+  +'<div class="wo-num" style="color:#C45020;">Ex.</div>'
+  +'<div class="wo-zone" style="border-style:solid;border-color:#C45020;background:#FFF4EE;">'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">Is</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">this</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">the</span>'
+  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">cafeteria?</span>'
+  +'</div></div>';
 function buildHW52(){ woBuild('hw52','hw52-wo-left','hw52-wo-right',hw52Data,'hw52-result',hw52ExampleHtml); }
 function checkHW52(){ woCheck('hw52'); }
 function resetHW52(){ woReset('hw52'); }
