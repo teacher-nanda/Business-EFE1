@@ -62,9 +62,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI
   opacity: 0; border-radius: 14px;
 }
 #notesPanel.open { max-height: 320px; opacity: 1; }
+.notes-drag-handle{cursor:move;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px 10px 0 0;background:rgba(5,30,10,.85);border-bottom:1px solid rgba(255,255,255,.15);font-size:10px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.6px;user-select:none;touch-action:none;}
+.notes-drag-handle .grip{font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.35);}
 #notesToolbar {
   display: flex; gap: 5px; padding: 6px 10px;
-  background: rgba(5,30,10,.7); border-radius: 10px 10px 0 0;
+  background: rgba(5,30,10,.7); border-radius: 0;
 }
 #notesToolbar button {
   background: rgba(255,255,255,.12); border: none; border-radius: 5px;
@@ -392,6 +394,7 @@ h2 { font-size: 1.85rem; font-weight: 800; color: #0A2010; margin-bottom: 14px; 
 <button id="homeBtn" onclick="goTo(0)">🏠</button>
 <button id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
 <div id="notesPanel">
+  <div class="notes-drag-handle" id="notesDragHandle"><span class="grip">⠿⠿</span> DRAG TO MOVE</div>
   <div id="notesToolbar">
     <button onclick="notesFormat('bold')"><b>B</b></button>
     <button onclick="notesFormat('underline')"><u>U</u></button>
@@ -1491,6 +1494,66 @@ function toggleNotes() {
   if (current === 0) panel.classList.toggle('cover', notesOpen);
   document.getElementById('notesBtn').textContent = notesOpen ? '✕ Close' : '📝 Notes';
 }
+/* ═══ draggable notes panel ═══ */
+(function(){
+  var panel = document.getElementById('notesPanel');
+  var handle = document.getElementById('notesDragHandle');
+  if(!panel || !handle) return;
+  var POS_KEY = NOTES_KEY + ':pos';
+  var dragging = false, offsetX = 0, offsetY = 0;
+  function clampAndApply(x, y){
+    var maxX = window.innerWidth - panel.offsetWidth - 8;
+    var maxY = window.innerHeight - panel.offsetHeight - 8;
+    x = Math.max(8, Math.min(x, Math.max(8, maxX)));
+    y = Math.max(8, Math.min(y, Math.max(8, maxY)));
+    panel.style.left = x + 'px';
+    panel.style.top = y + 'px';
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.transform = 'none';
+  }
+  function onDown(e){
+    dragging = true;
+    panel.style.transition = 'none';
+    var rect = panel.getBoundingClientRect();
+    var pt = e.touches ? e.touches[0] : e;
+    offsetX = pt.clientX - rect.left;
+    offsetY = pt.clientY - rect.top;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onUp);
+    e.preventDefault();
+  }
+  function onMove(e){
+    if(!dragging) return;
+    var pt = e.touches ? e.touches[0] : e;
+    clampAndApply(pt.clientX - offsetX, pt.clientY - offsetY);
+    if(e.touches) e.preventDefault();
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    panel.style.transition = '';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onUp);
+    try{
+      var rect = panel.getBoundingClientRect();
+      localStorage.setItem(POS_KEY, JSON.stringify({left:rect.left, top:rect.top}));
+    }catch(err){}
+  }
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, {passive:false});
+  window.addEventListener('resize', function(){
+    if(panel.style.left){ var r=panel.getBoundingClientRect(); clampAndApply(r.left, r.top); }
+  });
+  try{
+    var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+    if(saved) clampAndApply(saved.left, saved.top);
+  }catch(err){}
+})();
 function notesFormat(cmd) {
   var ta = document.getElementById('notesTA'); ta.focus();
   document.execCommand(cmd, false, null);

@@ -25,7 +25,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
 #pdfBtn:hover{background:rgba(10,20,32,1);}
 #notesPanel{position:fixed;top:54px;right:22px;z-index:999;width:360px;max-height:0;overflow:hidden;transition:max-height .35s ease,opacity .25s ease,width .35s ease,left .35s ease,top .35s ease;opacity:0;border-radius:14px;}
 #notesPanel.open{max-height:320px;opacity:1;}
-#notesToolbar{display:flex;gap:5px;padding:6px 10px;background:rgba(10,20,32,.7);border-radius:10px 10px 0 0;}
+.notes-drag-handle{cursor:move;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px 10px 0 0;background:rgba(10,20,32,.85);border-bottom:1px solid rgba(255,255,255,.15);font-size:10px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.6px;user-select:none;touch-action:none;}
+.notes-drag-handle .grip{font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.35);}
+#notesToolbar{display:flex;gap:5px;padding:6px 10px;background:rgba(10,20,32,.7);border-radius:0;}
 #notesToolbar button{background:rgba(255,255,255,.12);border:none;border-radius:5px;color:#fff;font-size:.85rem;padding:3px 9px;cursor:pointer;font-family:inherit;transition:background .15s;}
 #notesToolbar button:hover{background:rgba(255,255,255,.25);}
 #notesTA{width:100%;min-height:220px;max-height:260px;padding:14px;border:none;border-radius:0 0 14px 14px;outline:none;font-size:1rem;line-height:1.55;background:rgba(10,20,32,.92);color:#fff;font-family:inherit;backdrop-filter:blur(6px);box-sizing:border-box;overflow-y:auto;}
@@ -152,6 +154,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 <button id="pdfBtn" onclick="downloadNotes()" title="Save all your notes as a PDF">📄 PDF Notes</button>
 <button id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
 <div id="notesPanel">
+  <div class="notes-drag-handle" id="notesDragHandle"><span class="grip">⠿⠿</span> DRAG TO MOVE</div>
   <div id="notesToolbar">
     <button onclick="notesFormat('bold')"><b>B</b></button>
     <button onclick="notesFormat('underline')"><u>U</u></button>
@@ -230,7 +233,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Key Language: Simple Questions with "Do"</h2>
       <p class="inst-light">To form questions in sentences without the verb "to be," start the question with "do" or "does."</p>
-      <img src="ChatGPT Image Aug 17, 2026, 09_19_46 AM.png" alt="Examples of questions with do and does" style="width:100%;max-width:880px;border-radius:12px;margin-top:10px;display:block;">
+      <img src="ChatGPT Image Aug 21, 2026, 07_23_38 AM.png" alt="Examples of questions with do and does" style="width:100%;max-width:880px;border-radius:12px;margin-top:10px;display:block;">
     </div>
   </div>
 </div>
@@ -275,12 +278,12 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Listen</h2>
       <p class="instruction">Listen to the audio and number the questions in the order you hear them.</p>
-      <div style="background:#EEF5FA;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:1.05rem;color:#1A3A60;">
-        Karen has just started a new job and asks her colleague Kim some questions about the company.
-      </div>
-      <div class="note-callout">
-        <span>🎧</span>
-        <span>Audio for this exercise isn't available yet — practice reading the questions aloud with your teacher and numbering them as you discuss the order.</span>
+      <img src="ChatGPT Image Aug 21, 2026, 07_26_43 AM.png" alt="Karen has just started a new job and asks her colleague Kim some questions about the company" style="width:100%;max-width:720px;border-radius:12px;margin:6px 0 12px;display:block;">
+      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;flex-shrink:0;">🎧</span>
+        <audio controls style="flex:1;width:100%;accent-color:#14607A;">
+          <source src="6_7.mp3" type="audio/mpeg">
+        </audio>
       </div>
       <div id="s67-rows" style="display:flex;flex-direction:column;gap:9px;margin-top:8px;"></div>
     </div>
@@ -294,16 +297,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Key Language: Asking Open Questions</h2>
       <p class="inst-light">Use question words such as <strong>"when," "where," "how,"</strong> or <strong>"why"</strong> to ask questions that can't be answered with "yes" or "no."</p>
-      <div class="two-col" style="gap:20px;margin-top:14px;">
-        <div style="background:#EEF5FA;border:2px solid #1A5080;border-radius:14px;padding:16px 18px;">
-          <div style="font-size:1.1rem;font-weight:700;color:#1C2B3A;">Where is the staff room?</div>
-          <div style="font-size:.98rem;color:#555;margin-top:4px;">Go down to the second floor.</div>
-        </div>
-        <div style="background:#EEF5FA;border:2px solid #1A5080;border-radius:14px;padding:16px 18px;">
-          <div style="font-size:1.1rem;font-weight:700;color:#1C2B3A;">When does Mia start work?</div>
-          <div style="font-size:.98rem;color:#555;margin-top:4px;">She usually starts at nine.</div>
-        </div>
-      </div>
+      <img src="ChatGPT Image Aug 21, 2026, 07_29_27 AM.png" alt="Where is the staff room? Go down to the second floor. When does Mia start work? She usually starts at nine." style="width:100%;max-width:880px;border-radius:12px;margin-top:10px;display:block;">
     </div>
   </div>
 </div>
@@ -350,8 +344,8 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>Cross Out the Incorrect Word</h2>
-      <p class="instruction">Cross out the incorrect word in each question. Click the correct word — the incorrect one will be crossed out automatically.</p>
+      <h2>Choose the Correct Word</h2>
+      <p class="instruction">Click the correct word.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;">
         <div id="s11-left" style="display:flex;flex-direction:column;gap:10px;"></div>
         <div id="s11-right" style="display:flex;flex-direction:column;gap:10px;"></div>
@@ -569,8 +563,8 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>HW 5 – Select the Correct Option</h2>
-      <p class="instruction">Click the correct word that fits the sentence — the other will be crossed out automatically.</p>
+      <h2>HW 5 – Choose the Correct Word</h2>
+      <p class="instruction">Click the correct word.</p>
       <div id="hw56-example"></div>
       <div class="two-col">
         <div class="col-section" id="hw56-left"></div>
@@ -652,7 +646,7 @@ var slideLabels = [
   "Listen",
   "Key Language: Asking Open Questions",
   "Further Examples: Open Questions",
-  "Cross Out the Incorrect Word",
+  "Choose the Correct Word",
   "Match",
   "Mark the Correct Question",
   "Say the Questions",
@@ -662,7 +656,7 @@ var slideLabels = [
   "HW 2 — Rewrite as Questions",
   "HW 3 — Fill in the Gaps",
   "HW 4 — Match the Situations",
-  "HW 5 — Select the Correct Option",
+  "HW 5 — Choose the Correct Word",
   "HW 6 — Mark the Correct Sentence",
   "HW 7 — Say the Questions"
 ];
@@ -703,6 +697,66 @@ function toggleNotes(){
   if(notesOpen) loadNotes();
   document.getElementById('notesBtn').textContent = notesOpen ? '✕ Close' : '📝 Notes';
 }
+/* ═══ draggable notes panel ═══ */
+(function(){
+  var panel = document.getElementById('notesPanel');
+  var handle = document.getElementById('notesDragHandle');
+  if(!panel || !handle) return;
+  var POS_KEY = 'notes_l4_pos';
+  var dragging = false, offsetX = 0, offsetY = 0;
+  function clampAndApply(x, y){
+    var maxX = window.innerWidth - panel.offsetWidth - 8;
+    var maxY = window.innerHeight - panel.offsetHeight - 8;
+    x = Math.max(8, Math.min(x, Math.max(8, maxX)));
+    y = Math.max(8, Math.min(y, Math.max(8, maxY)));
+    panel.style.left = x + 'px';
+    panel.style.top = y + 'px';
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.transform = 'none';
+  }
+  function onDown(e){
+    dragging = true;
+    panel.style.transition = 'none';
+    var rect = panel.getBoundingClientRect();
+    var pt = e.touches ? e.touches[0] : e;
+    offsetX = pt.clientX - rect.left;
+    offsetY = pt.clientY - rect.top;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onUp);
+    e.preventDefault();
+  }
+  function onMove(e){
+    if(!dragging) return;
+    var pt = e.touches ? e.touches[0] : e;
+    clampAndApply(pt.clientX - offsetX, pt.clientY - offsetY);
+    if(e.touches) e.preventDefault();
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    panel.style.transition = '';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onUp);
+    try{
+      var rect = panel.getBoundingClientRect();
+      localStorage.setItem(POS_KEY, JSON.stringify({left:rect.left, top:rect.top}));
+    }catch(err){}
+  }
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, {passive:false});
+  window.addEventListener('resize', function(){
+    if(panel.style.left){ var r=panel.getBoundingClientRect(); clampAndApply(r.left, r.top); }
+  });
+  try{
+    var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+    if(saved) clampAndApply(saved.left, saved.top);
+  }catch(err){}
+})();
 function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
 function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
 function downloadNotes(){
@@ -964,6 +1018,7 @@ var s12bData = [
   { q:"How does this coffee machine work?", a:"Turn it on and then select your drink." },
   { q:"What time does the meeting start?", a:"At 2 o'clock. We usually start on time." }
 ];
+var s12AnswerOrder=[0,2,4,1,3]; // right-column print order, per course book 6.11
 var s12Match={}; var s12Sel2=null; var s12Checked=false;
 function buildS12(){
   s12Match={}; s12Sel2=null; s12Checked=false;
@@ -993,7 +1048,8 @@ function renderS12(){
   exA.textContent="It's across from the meeting room.";
   aEl.appendChild(exA);
   var usedA={}; Object.keys(s12Match).forEach(function(k){ usedA[s12Match[k]]=true; });
-  s12bData.forEach(function(item,ai){
+  s12AnswerOrder.forEach(function(ai){
+    var item=s12bData[ai];
     var isUsed=!!usedA[ai];
     var chip=document.createElement('div');
     if(isUsed){
@@ -1047,7 +1103,7 @@ function buildS13(){
     row.innerHTML='<span style="font-weight:700;color:#0E5C7A;font-size:1.05rem;">'+(i+1)+'.</span>'
       +'<button id="s13-'+i+'-a" onclick="s13Pick('+i+',\'a\')" style="'+s13BStyle+'">'+item.a+'</button>'
       +'<button id="s13-'+i+'-b" onclick="s13Pick('+i+',\'b\')" style="'+s13BStyle+'">'+item.b+'</button>';
-    (i<3?left:right).appendChild(row);
+    (i<2?left:right).appendChild(row);
   });
 }
 function s13Pick(i,v){
@@ -1265,6 +1321,7 @@ var hw55Data = [
   { sit:"I want to send a letter.", q:"Are there any envelopes I can use?" },
   { sit:"Henry should be here by now.", q:"Does he usually arrive late?" }
 ];
+var hw55AnswerOrder=[1,2,4,0,6,3,7,5]; // right-column print order, per practice book 6.5
 var hw55Match={}; var hw55Sel=null; var hw55Checked=false;
 function buildHW55(){
   hw55Match={}; hw55Sel=null; hw55Checked=false;
@@ -1294,7 +1351,8 @@ function renderHW55(){
   exQ.textContent='Is the printer working today?';
   qEl.appendChild(exQ);
   var usedQ={}; Object.keys(hw55Match).forEach(function(k){ usedQ[hw55Match[k]]=true; });
-  hw55Data.forEach(function(item,qi){
+  hw55AnswerOrder.forEach(function(qi){
+    var item=hw55Data[qi];
     var isUsed=!!usedQ[qi];
     var chip=document.createElement('div');
     if(isUsed){

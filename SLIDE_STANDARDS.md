@@ -30,11 +30,12 @@ Every content slide's `.content` div uses the standard, unmodified layout: `padd
 **No `<input>` in any exercise may have a `placeholder` attribute — ever, in any lesson, in any course.** Leave the input empty by default; do not hint the expected format or answer via placeholder text (e.g. no `placeholder="do/does"`, no `placeholder="?"`, no `placeholder="…"`). This is a permanent, non-negotiable rule. (The notes panel's `data-placeholder` on `#notesTA`, a `contenteditable` div and not a form input, is the one exception — it is UI chrome, not an exercise.)
 
 ### Matching exercises — right-column order must follow the book, never "solved" order
-When an exercise matches beginnings/questions to endings/answers (the `qamBuild` module), the right-hand column **must display answers in the exact order the book prints them** — which is deliberately scrambled and independent of the left column's numbering. Never let the right column default to "solved order" (answer for item 1 first, item 2 second, etc.) — that silently gives away the pairing and doesn't match the source.
+When an exercise matches beginnings/questions to endings/answers (whether built with the `qamBuild` module or a bespoke render function — see below), the right-hand column **must display answers in the exact order the book prints them** — which is deliberately scrambled and independent of the left column's numbering. Never let the right column default to "solved order" (answer for item 1 first, item 2 second, etc.) — that silently gives away the pairing and doesn't match the source. This has been the single most repeated mistake in this project; it is not optional and there is no acceptable exception.
 - `qamBuild(exId, qContainerId, aContainerId, pairs, resultId, exampleQ, exampleA, answerOrder)` — the `answerOrder` param is an array of `pairs` indices (0-based) giving the exact top-to-bottom print order of the right column; use `-1` at the position where the example's own answer is printed (the example's answer is often interleaved partway down the list, not always at the top).
-- Determine `answerOrder` by reading the actual book page (render it as an image and view it — see "Verifying against the book" below) and noting which row each ending appears in, then mapping each row back to its `pairs` index.
+- **Bespoke/hand-rolled matching renderers (not using `qamBuild`) must implement the exact same rule.** Several lessons (e.g. Business-EFE1 Lesson 4's `renderS12`/`renderHW55`) predate `qamBuild` and render their own right column by looping over the data array directly (`data.forEach(function(item, i){...})`), which produces "solved order" by construction. When you find one of these, add an explicit order array (e.g. `s12AnswerOrder = [0,2,4,1,3]`) and loop over that array instead of the raw data array for the right/answer column only — the left/question column keeps looping over the raw array in book order. Do not assume a matching exercise is safe just because it doesn't call `qamBuild`.
+- Determine the order by reading the actual book page (render it as an image and view it — see "Verifying against the book" below) and noting which row each ending appears in, then mapping each row back to its data index.
 - The left column always stays in the book's own left-column order (this is the natural 1..N numbering) — only the right column needs the explicit order override.
-- This rule applies to every course (EFE1 and EFE2) and every lesson, not just the one it was first caught in.
+- This rule applies to every course (EFE1, EFE2, and Business-HR) and every lesson, not just the one it was first caught in. **Whenever you touch a lesson for any reason, check every matching exercise in that file against the book before moving on — don't wait to be told about a specific slide.**
 
 ### Word-bank fill-in-the-gap exercises — click-based, bank before rows
 When the book shows a "fill in the gaps using the words in the panel" exercise, implement it as **click a word chip, then click a blank to place it** — never a typed `<input>` with the word bank shown only as a passive reference list. This matches the book's own convention of visually crossing out a word once it's used (e.g. "must" struck through after the worked example).
@@ -156,13 +157,15 @@ padding: 14px 18px;
   - Target: `width:220px` for exercises where question texts are typically 18–35 chars.
   - Students type into the input — text scrolls within it if the answer is long, which is acceptable.
 
-### Cross-out / "Select the Correct Option" exercises
-When the book shows a "Cross Out the Incorrect Word" exercise, implement it as **Select the Correct Option** — same style as the in-lesson exercise (e.g. slide 6 / s7).
+### Cross-out / "Choose the Correct Word" exercises
+When the book shows a "Cross Out the Incorrect Word" exercise, implement the interaction as a cross-out (click the correct word, the wrong one gets crossed out automatically) — but **never say "cross out" or "the other will be crossed out" to the student**. That's the app's own behavior, not an instruction the student needs to follow. Students are choosing/clicking the correct word; the crossing-out is just the visual feedback.
 
-**Title (h2):** `HW X – Select the Correct Option` — plain `<h2>` with no inline style, matching the lesson slide.
+**Title (h2):** `Choose the Correct Word` (in-lesson slide) / `HW X – Choose the Correct Word` (homework) — plain `<h2>` with no inline style, matching the lesson slide.
 
 **Instruction (`<p class="instruction">`, bold):**
-> Click the correct word that fits the sentence — the other will be crossed out automatically.
+> Click the correct word.
+
+Do not add anything about crossing out, the other option, or automatic behavior — keep it to that one short sentence. (Rule added 2026-08-21 — previously this used a longer title/instruction that narrated the crossing-out mechanic; corrected after user feedback.)
 
 **Visual style — buttons, not span chips:**
 ```css
@@ -287,6 +290,8 @@ Every lesson file must ship with a fully-featured notes panel — not just the "
    (function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
    ```
 
+8. **The notes panel must be draggable.** Add a `.notes-drag-handle` bar (`id="notesDragHandle"`) as the first child of `#notesPanel`, above `#notesToolbar` (grip icon `⠿⠿` + `DRAG TO MOVE` label, styled to match the panel's dark toolbar color). Wire a small IIFE that listens for `mousedown`/`touchstart` on the handle, tracks `mousemove`/`touchmove`, and on drag sets `panel.style.left/top` (clamped to the viewport), clears `right`/`bottom`, and sets `transform:'none'` (required to override the `.cover` slide's `left:50%;transform:translateX(-50%)` centering). Disable `panel.style.transition` during the drag so the panel doesn't lag behind the cursor, and restore it on release. Persist the last position to `localStorage` under `'<lesson's existing notes-storage key>:pos'` (e.g. `notes_l6_pos`, or `NOTES_KEY + ':pos'` for lessons using the `NOTES_KEY` object pattern) and re-apply it on page load. This is required in every lesson across all three courses (Business-EFE1, Business-EFE2, Business-HR) — added 2026-08-21. Reference implementation: any lesson file in Business-HR, or `Lesson_04_The_Office_Asking_Questions.html` (Business-EFE1).
+
 ### `downloadNotes()` — required behavior
 - Calls `saveNotes()` first to flush the current slide's in-progress edits to `localStorage`.
 - Loops over `slideIds`, reading `localStorage.getItem('notes_l<N>_'+idx)` for each index, skipping empty ones.
@@ -367,7 +372,8 @@ function woReset(exId){ /* restores original scrambled bank, clears built + colo
 
 ---
 
-*Last updated: 2026-08-20 (Example Boxes rule rewritten: the Example must always reuse the exact same row/card markup and classes as a real item of that exercise type, only recolored — never a generic quote-style callout — this applies to every exercise type including word-order; fixed a real violation in Lesson 4 slide 4 where the word-order Example broke column symmetry)*
+*Last updated: 2026-08-21 (Cross-out exercises renamed to "Choose the Correct Word" with a one-line instruction — never narrate the crossing-out mechanic to the student; matching-order rule strengthened to explicitly cover bespoke/hand-rolled renderers, not just `qamBuild`, after finding real violations in Lesson 4 slides 12 and HW4/hw55; added draggable notes panel requirement for every lesson in all three courses)*
+*2026-08-20 (Example Boxes rule rewritten: the Example must always reuse the exact same row/card markup and classes as a real item of that exercise type, only recolored — never a generic quote-style callout — this applies to every exercise type including word-order; fixed a real violation in Lesson 4 slide 4 where the word-order Example broke column symmetry)*
 *2026-08-19: Matching exercises must use explicit `answerOrder` to follow the book's printed right-column order, never "solved" order; word-bank fill-gap exercises must be click-based with the bank positioned before the sentence rows, reference module `wbBuild`; short/key-word titles must not drop info — it must reappear in the instruction line; added mandatory page-image + answer-key verification workflow since PDF text extraction misses image-based exercises*
 *2026-08-17: Word-Order exercises now explicitly follow the odd/even column-split rule like every other exercise type, with example placement spec for both cases; added explicit "never override title position" rule and a permanent, non-negotiable ban on `placeholder=` attributes on any exercise input*
 *2026-08-17 (earlier): No Book References rule expanded — no meta/course framing, no fabricated Warm-Up quizzes, check precedent in existing lessons before building; no unit numbers, no book-section numbering in titles/labels; Word-Order/Sentence-Building Exercises pattern added — clickable word chips, not free typing, reference implementation in Lesson 4*
