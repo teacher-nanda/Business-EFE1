@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BEfE L1 – Lesson 8 – Jobs &amp; Choosing a Career</title>
+<title>BEfE L1 – Lesson 7 – Jobs &amp; Choosing a Career</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif;background:#1A1305;}
@@ -549,8 +549,8 @@ function goTo(n){
 }
 function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
-function saveNotes(){ try{ localStorage.setItem('notes_l8_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
-function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l8_'+current)||''; }catch(e){} }
+function saveNotes(){ try{ localStorage.setItem('notes_l7_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
+function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l7_'+current)||''; }catch(e){} }
 (function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
 var notesOpen = false;
 function toggleNotes(){
@@ -566,7 +566,7 @@ function toggleNotes(){
   var panel = document.getElementById('notesPanel');
   var handle = document.getElementById('notesDragHandle');
   if(!panel || !handle) return;
-  var POS_KEY = 'notes_l8_pos';
+  var POS_KEY = 'notes_l7_pos';
   var dragging = false, offsetX = 0, offsetY = 0;
   function clampAndApply(x, y){
     var maxX = window.innerWidth - panel.offsetWidth - 8;
@@ -623,12 +623,12 @@ function toggleNotes(){
 })();
 function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
 function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
-function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l8_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
+function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l7_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
 function downloadNotes(){
   saveNotes();
   var hasAny=false, cards='';
   slideIds.forEach(function(sid, idx){
-    var note=''; try{ note=localStorage.getItem('notes_l8_'+idx)||''; }catch(e){}
+    var note=''; try{ note=localStorage.getItem('notes_l7_'+idx)||''; }catch(e){}
     if(!note.replace(/<[^>]*>/g,'').trim()) return;
     hasAny=true;
     cards += '<div class="card"><div class="card-header">Slide '+(idx+1)+' &mdash; '+slideLabels[idx]+'</div><div class="card-body">'+note+'</div></div>';
@@ -646,8 +646,8 @@ function downloadNotes(){
     +'@media print{body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:1cm}}'
     +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
     +'</style></head><body>'
-    +'<h1>Business English for Everyone &ndash; Lesson 8 Notes</h1>'
-    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_08_Jobs_and_Choosing_a_Career.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_08_Jobs_and_Choosing_a_Career.html</a></div>'
+    +'<h1>Business English for Everyone &ndash; Lesson 7 Notes</h1>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_07_Jobs_and_Choosing_a_Career.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_07_Jobs_and_Choosing_a_Career.html</a></div>'
     +'<div class="date">'+date+'</div>'+cards+'</body></html>';
   var win=window.open('','_blank');
   if(!win){ alert('Please allow pop-ups for this page.'); return; }

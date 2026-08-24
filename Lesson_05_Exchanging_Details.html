@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BEfE L1 – Lesson 6 – Exchanging Details</title>
+<title>BEfE L1 – Lesson 5 – Exchanging Details</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif;background:#1A0A03;}
@@ -164,12 +164,21 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Office Connections</h2>
       <p class="inst-light">Before we start, let's review Lesson 4 and preview some new words. Choose the best answer for each question.</p>
-      <div id="s2-quiz"></div>
-      <div class="hw-btns" style="margin-top:14px;">
-        <button class="btn-check" onclick="checkS2()">✅ Check</button>
-        <button class="btn-reset" onclick="resetS2()">↺ Reset</button>
+      <div style="background:linear-gradient(135deg,#FFF7E6,#FFEAC2);border-radius:16px;padding:16px 18px;border:2px solid #F0C060;">
+        <div id="s2-quiz"></div>
+        <div class="hw-btns" style="margin-top:14px;">
+          <button class="btn-check" onclick="checkS2()">✅ Check</button>
+          <button class="btn-reset" onclick="resetS2()">↺ Reset</button>
+        </div>
+        <div id="s2-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
       </div>
-      <div id="s2-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
+      <div style="margin-top:16px;background:linear-gradient(135deg,#2E2A6B,#4A3F9A);border-radius:16px;padding:18px 22px;color:#fff;box-shadow:0 4px 14px rgba(46,42,107,.25);">
+        <div style="font-size:1.05rem;font-weight:800;letter-spacing:.03em;margin-bottom:8px;">💬 Talk About It</div>
+        <div style="font-size:1.05rem;line-height:1.7;opacity:.95;">
+          <div style="margin-bottom:6px;"><strong style="color:#F5893A;">1.</strong> Do you have a business card? What's on it?</div>
+          <div><strong style="color:#F5893A;">2.</strong> How do you usually give people your contact details — email, phone, or a business card?</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -253,15 +262,18 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#0E7A8A;color:#fff;">🎧 Listening</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>Listen to the Audio, Then Number the Email Addresses in the Order You Hear Them</h2>
-      <div style="background:#EEF5FA;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:1.05rem;color:#1A3A60;">
-        Six people are giving their contact details to someone they have met.
-      </div>
+      <h2>Listen and Number the Emails</h2>
+      <p class="inst-light">Listen to the audio, then number the email addresses in the order you hear them. Six people are giving their contact details to someone they have met.</p>
       <div class="note-callout">
         <span>🎧</span>
         <span>Audio for this exercise isn't available yet — practice reading the addresses aloud with your teacher.</span>
       </div>
       <div id="s6-rows" style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"></div>
+      <div class="hw-btns" style="margin-top:14px;">
+        <button class="btn-check" onclick="checkS6()">✅ Check</button>
+        <button class="btn-reset" onclick="resetS6()">↺ Reset</button>
+      </div>
+      <div id="s6-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
     </div>
   </div>
 </div>
@@ -271,8 +283,8 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#1A5C2A;color:#fff;">📐 Grammar</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>Cross Out the Incorrect Word in Each Sentence</h2>
-      <p class="instruction">Click the correct word — the incorrect one will be crossed out automatically.</p>
+      <h2>Choose the Correct Word</h2>
+      <p class="instruction">Click the correct word.</p>
       <div id="s7-example"></div>
       <div class="two-col" style="gap:14px;margin-top:4px;">
         <div class="col-section" id="s7-left"></div>
@@ -488,6 +500,11 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
         <span>Audio for this exercise isn't available yet — practice reading the addresses aloud with your teacher.</span>
       </div>
       <div id="hw62-rows" style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"></div>
+      <div class="hw-btns">
+        <button class="btn-check" onclick="checkHW62()">✓ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW62()">↺ Reset</button>
+      </div>
+      <div id="hw62-result" style="margin-top:10px;font-weight:700;font-size:1.05rem;"></div>
     </div>
   </div>
 </div>
@@ -497,8 +514,8 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>HW 3 – Select the Correct Option</h2>
-      <p class="instruction">Click the correct word that fits the sentence — the other will be crossed out automatically.</p>
+      <h2>HW 3 – Choose the Correct Word</h2>
+      <p class="instruction">Click the correct word.</p>
       <div id="hw63-example"></div>
       <div class="two-col">
         <div class="col-section" id="hw63-left"></div>
@@ -655,8 +672,8 @@ function goTo(n){
 }
 function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
-function saveNotes(){ try{ localStorage.setItem('notes_l6_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
-function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l6_'+current)||''; }catch(e){} }
+function saveNotes(){ try{ localStorage.setItem('notes_l5_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
+function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l5_'+current)||''; }catch(e){} }
 (function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
 var notesOpen = false;
 function toggleNotes(){
@@ -672,7 +689,7 @@ function toggleNotes(){
   var panel = document.getElementById('notesPanel');
   var handle = document.getElementById('notesDragHandle');
   if(!panel || !handle) return;
-  var POS_KEY = 'notes_l6_pos';
+  var POS_KEY = 'notes_l5_pos';
   var dragging = false, offsetX = 0, offsetY = 0;
   function clampAndApply(x, y){
     var maxX = window.innerWidth - panel.offsetWidth - 8;
@@ -729,12 +746,12 @@ function toggleNotes(){
 })();
 function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
 function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
-function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l6_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
+function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l5_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
 function downloadNotes(){
   saveNotes();
   var hasAny=false, cards='';
   slideIds.forEach(function(sid, idx){
-    var note=''; try{ note=localStorage.getItem('notes_l6_'+idx)||''; }catch(e){}
+    var note=''; try{ note=localStorage.getItem('notes_l5_'+idx)||''; }catch(e){}
     if(!note.replace(/<[^>]*>/g,'').trim()) return;
     hasAny=true;
     cards += '<div class="card"><div class="card-header">Slide '+(idx+1)+' &mdash; '+slideLabels[idx]+'</div><div class="card-body">'+note+'</div></div>';
@@ -752,8 +769,8 @@ function downloadNotes(){
     +'@media print{body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:1cm}}'
     +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
     +'</style></head><body>'
-    +'<h1>Business English for Everyone &ndash; Lesson 6 Notes</h1>'
-    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_06_Exchanging_Details.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_06_Exchanging_Details.html</a></div>'
+    +'<h1>Business English for Everyone &ndash; Lesson 5 Notes</h1>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_05_Exchanging_Details.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_05_Exchanging_Details.html</a></div>'
     +'<div class="date">'+date+'</div>'+cards+'</body></html>';
   var win=window.open('','_blank');
   if(!win){ alert('Please allow pop-ups for this page.'); return; }
@@ -827,25 +844,44 @@ function jumbleChips(words){
 
 /* ═══ S6 — 7.4 Listen and Number the Email Addresses (no audio yet) ═══ */
 var s6Items = [
-  { letter:"A", q:"c.j.jones@global-exec.com" },
-  { letter:"B", q:"joe@worldmail.co.jp" },
-  { letter:"C", q:"c.jones@global-exec.com" },
-  { letter:"D", q:"jay.jones@globalmail.com", example:true },
-  { letter:"E", q:"globalmail@jonesbrothers.com" },
-  { letter:"F", q:"c.j.jones@global-exec.co.fr" }
+  { letter:"A", q:"c.j.jones@global-exec.com", ans:2 },
+  { letter:"B", q:"joe@worldmail.co.jp", ans:5 },
+  { letter:"C", q:"c.jones@global-exec.com", ans:3 },
+  { letter:"D", q:"jay.jones@globalmail.com", ans:1, example:true },
+  { letter:"E", q:"globalmail@jonesbrothers.com", ans:4 },
+  { letter:"F", q:"c.j.jones@global-exec.co.fr", ans:6 }
 ];
 function buildS6(){
   var rows=document.getElementById('s6-rows'); if(!rows) return;
   rows.innerHTML='';
-  s6Items.forEach(function(item){
+  s6Items.forEach(function(item,i){
     var row=document.createElement('div');
     row.style.cssText='background:'+(item.example?'#FFF4EE':'#F4F8FA')+';border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-left:3px solid '+(item.example?'#C45020':'#8BB0D0')+';';
     row.innerHTML='<span style="font-weight:800;color:'+(item.example?'#C45020':'#1A5080')+';min-width:20px;">'+item.letter+'</span>'
       +'<span style="flex:1;font-size:1.05rem;color:#1C2B3A;font-family:monospace;">'+item.q+'</span>'
-      +'<input type="text" '+(item.example?'value="1" readonly':'')+' placeholder="?" style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
+      +(item.example
+        ? '<input type="text" value="1" readonly style="width:40px;border:none;border-bottom:2px solid #C45020;background:transparent;font-size:1.05rem;font-weight:700;color:#C45020;outline:none;text-align:center;">'
+        : '<input type="text" id="s6-inp-'+i+'" style="width:40px;min-height:1.3em;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">');
     rows.appendChild(row);
   });
+  var res=document.getElementById('s6-result'); if(res) res.textContent='';
 }
+function checkS6(){
+  var score=0, total=0;
+  s6Items.forEach(function(item,i){
+    if(item.example) return;
+    total++;
+    var inp=document.getElementById('s6-inp-'+i); if(!inp) return;
+    var ok = inp.value.trim()===String(item.ans);
+    inp.style.borderBottomColor=ok?'#1A7A4A':'#C4614A';
+    inp.style.color=ok?'#1A7A4A':'#C4614A';
+    if(ok) score++;
+  });
+  var res=document.getElementById('s6-result');
+  res.textContent=score+' / '+total+' correct'+(score===total?' — Great job! 🎉':'');
+  res.style.color=score===total?'#1A7A4A':'#C4614A';
+}
+function resetS6(){ buildS6(); }
 
 /* ═══ S7 — 7.5 Cross Out the Incorrect Word (in-lesson) ═══ */
 var s7Data = [
@@ -964,6 +1000,8 @@ var s10Data = [
   { q:"Does your company have a website?", a:"Yes, it does." },
   { q:"Do all of you work for Y9B & Co?", a:"No, we don't." }
 ];
+var s10AnswerOrder=[1,4,2,3,0]; // right-column print order per course book 7.8
+var s10ExampleAfter=3; // book prints the example's answer as the 4th row of six, not the 1st
 var s10Match={}; var s10Sel=null; var s10Checked=false;
 function buildS10(){ s10Match={}; s10Sel=null; s10Checked=false; document.getElementById('s10-result').textContent=''; renderS10(); }
 function renderS10(){
@@ -971,7 +1009,8 @@ function renderS10(){
   qEl.innerHTML=''; aEl.innerHTML='';
   var exQ=document.createElement('div');
   exQ.style.cssText='background:#FFF4EE;border:2px solid #C45020;border-radius:10px;padding:9px 12px;font-size:1.02rem;color:#1C2B3A;';
-  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Do you have a portfolio?';
+  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Do you have a portfolio?'
+    +'<div style="margin-top:6px;font-size:.92rem;font-weight:700;color:#C45020;">↳ No, I don\'t.</div>';
   qEl.appendChild(exQ);
   s10Data.forEach(function(item,i){
     var isSel=(s10Sel===i); var mAi=s10Match[i]; var isM=(mAi!==undefined);
@@ -984,12 +1023,15 @@ function renderS10(){
     card.onclick=function(){ s10Sel=(s10Sel===i)?null:i; renderS10(); };
     qEl.appendChild(card);
   });
-  var exA=document.createElement('div');
-  exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
-  exA.textContent="No, I don't.";
-  aEl.appendChild(exA);
   var usedA={}; Object.keys(s10Match).forEach(function(k){ usedA[s10Match[k]]=true; });
-  s10Data.forEach(function(item,ai){
+  s10AnswerOrder.forEach(function(ai,orderIdx){
+    if(orderIdx===s10ExampleAfter){
+      var exA=document.createElement('div');
+      exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
+      exA.textContent="No, I don't.";
+      aEl.appendChild(exA);
+    }
+    var item=s10Data[ai];
     var isUsed=!!usedA[ai];
     var chip=document.createElement('div');
     if(isUsed){ chip.style.cssText='background:#f0f0f0;border:2px solid #ddd;border-radius:10px;padding:9px 12px;font-size:1rem;color:#bbb;text-decoration:line-through;'; }
@@ -1029,7 +1071,7 @@ function buildS11(){
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="color:#7A2A5A;flex-shrink:0;">'+(i+1)+'.</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.q+'</span>'
-      +'<input type="text" id="s11-inp-'+i+'" placeholder="…" style="width:170px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="s11-inp-'+i+'" style="width:170px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     rows.appendChild(row);
   });
   document.getElementById('s11-result').textContent='';
@@ -1080,7 +1122,7 @@ function buildHW61(){
     row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+item.num+'.</span>'
       +'<span style="flex-shrink:0;">'+jumbleChips(item.words)+'</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">→</span>'
-      +'<input type="text" id="hw61-inp-'+item.num+'" placeholder="…" style="width:250px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="hw61-inp-'+item.num+'" style="width:250px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     (item.num<=5?left:right).appendChild(row);
   });
 }
@@ -1101,25 +1143,44 @@ function resetHW61(){ buildHW61(); document.getElementById('hw61-result').textCo
 
 /* ═══ HW62 — Listen and Number Email Addresses (no audio yet) ═══ */
 var hw62Items = [
-  { letter:"A", q:"paul_andrews@worldmail.co.jp" },
-  { letter:"B", q:"pete_anderson@energo-mail.com" },
-  { letter:"C", q:"j.c.jones@digitalnetwork.co.uk" },
-  { letter:"D", q:"information@digimail.com" },
-  { letter:"E", q:"maria.renzi@digi-tech.com", example:true },
-  { letter:"F", q:"claire.james@electrosolution.co.fr" }
+  { letter:"A", q:"paul_andrews@worldmail.co.jp", ans:6 },
+  { letter:"B", q:"pete_anderson@energo-mail.com", ans:2 },
+  { letter:"C", q:"j.c.jones@digitalnetwork.co.uk", ans:3 },
+  { letter:"D", q:"information@digimail.com", ans:5 },
+  { letter:"E", q:"maria.renzi@digi-tech.com", ans:1, example:true },
+  { letter:"F", q:"claire.james@electrosolution.co.fr", ans:4 }
 ];
 function buildHW62(){
   var rows=document.getElementById('hw62-rows'); if(!rows) return;
   rows.innerHTML='';
-  hw62Items.forEach(function(item){
+  hw62Items.forEach(function(item,i){
     var row=document.createElement('div');
     row.style.cssText='background:'+(item.example?'#FFF4EE':'#F4F8FA')+';border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-left:3px solid '+(item.example?'#C45020':'#8BB0D0')+';';
     row.innerHTML='<span style="font-weight:800;color:'+(item.example?'#C45020':'#1A5080')+';min-width:20px;">'+item.letter+'</span>'
       +'<span style="flex:1;font-size:1.05rem;color:#1C2B3A;font-family:monospace;">'+item.q+'</span>'
-      +'<input type="text" '+(item.example?'value="1" readonly':'')+' placeholder="?" style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
+      +(item.example
+        ? '<input type="text" value="1" readonly style="width:40px;border:none;border-bottom:2px solid #C45020;background:transparent;font-size:1.05rem;font-weight:700;color:#C45020;outline:none;text-align:center;">'
+        : '<input type="text" id="hw62-inp-'+i+'" style="width:40px;min-height:1.3em;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">');
     rows.appendChild(row);
   });
+  var res=document.getElementById('hw62-result'); if(res) res.textContent='';
 }
+function checkHW62(){
+  var score=0, total=0;
+  hw62Items.forEach(function(item,i){
+    if(item.example) return;
+    total++;
+    var inp=document.getElementById('hw62-inp-'+i); if(!inp) return;
+    var ok = inp.value.trim()===String(item.ans);
+    inp.style.borderBottomColor=ok?'#1A7A4A':'#C4614A';
+    inp.style.color=ok?'#1A7A4A':'#C4614A';
+    if(ok) score++;
+  });
+  var res=document.getElementById('hw62-result');
+  res.textContent=score+' / '+total+' correct'+(score===total?' — Great job! 🎉':'');
+  res.style.color=score===total?'#1A7A4A':'#C4614A';
+}
+function resetHW62(){ buildHW62(); }
 
 /* ═══ HW63 — Select the Correct Option (cross-out) ═══ */
 var hw63Data = [
@@ -1242,6 +1303,8 @@ var hw65Data = [
   { q:"Does Colin want to have a meeting?", a:"No, he doesn't." },
   { q:"Do you have a branch in Melbourne?", a:"Yes, we do." }
 ];
+var hw65AnswerOrder=[0,1,3,2,5,4]; // right-column print order per practice book 7.5
+var hw65ExampleAfter=2; // book prints the example's answer as the 3rd row of seven, not the 1st
 var hw65Match={}; var hw65Sel=null; var hw65Checked=false;
 function buildHW65(){ hw65Match={}; hw65Sel=null; hw65Checked=false; document.getElementById('hw65-result').textContent=''; renderHW65(); }
 function renderHW65(){
@@ -1249,7 +1312,8 @@ function renderHW65(){
   qEl.innerHTML=''; aEl.innerHTML='';
   var exQ=document.createElement('div');
   exQ.style.cssText='background:#FFF4EE;border:2px solid #C45020;border-radius:10px;padding:9px 12px;font-size:1rem;color:#1C2B3A;';
-  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Do you have a business card?';
+  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Do you have a business card?'
+    +'<div style="margin-top:6px;font-size:.9rem;font-weight:700;color:#C45020;">↳ Yes, I do.</div>';
   qEl.appendChild(exQ);
   hw65Data.forEach(function(item,i){
     var isSel=(hw65Sel===i); var mAi=hw65Match[i]; var isM=(mAi!==undefined);
@@ -1262,12 +1326,15 @@ function renderHW65(){
     card.onclick=function(){ hw65Sel=(hw65Sel===i)?null:i; renderHW65(); };
     qEl.appendChild(card);
   });
-  var exA=document.createElement('div');
-  exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
-  exA.textContent='Yes, I do.';
-  aEl.appendChild(exA);
   var usedA={}; Object.keys(hw65Match).forEach(function(k){ usedA[hw65Match[k]]=true; });
-  hw65Data.forEach(function(item,ai){
+  hw65AnswerOrder.forEach(function(ai,orderIdx){
+    if(orderIdx===hw65ExampleAfter){
+      var exA=document.createElement('div');
+      exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
+      exA.textContent='Yes, I do.';
+      aEl.appendChild(exA);
+    }
+    var item=hw65Data[ai];
     var isUsed=!!usedA[ai];
     var chip=document.createElement('div');
     if(isUsed){ chip.style.cssText='background:#f0f0f0;border:2px solid #ddd;border-radius:10px;padding:9px 12px;font-size:1rem;color:#bbb;text-decoration:line-through;'; }
@@ -1309,7 +1376,7 @@ function buildHW66(){
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="color:#6B2737;flex-shrink:0;">'+(i+1)+'.</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.q+'</span>'
-      +'<input type="text" id="hw66-inp-'+i+'" placeholder="…" style="width:170px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="hw66-inp-'+i+'" style="width:170px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     rows.appendChild(row);
   });
 }

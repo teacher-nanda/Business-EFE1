@@ -98,6 +98,16 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 .btn-reset{background:transparent;color:#C4614A;border:2px solid #C4614A;padding:7px 20px;border-radius:20px;cursor:pointer;font-size:1rem;font-weight:700;transition:all .2s;}
 .btn-reset:hover{background:#C4614A;color:#fff;}
 .note-callout{background:#FFF8E8;border:1px solid #E8D080;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:1.05rem;color:#5A4000;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.tf-row{background:#F4F8FA;border-radius:10px;padding:11px 16px;display:flex;align-items:center;gap:12px;margin-bottom:9px;font-size:1.05rem;color:#1C2B3A;flex-wrap:wrap;}
+.tf-row.tf-example{background:#FFF4EE;border-left:3px solid #C45020;}
+.tf-q{flex:1;min-width:200px;}
+.tf-btns{display:flex;gap:6px;}
+.tf-btn{padding:5px 14px;border-radius:20px;border:2px solid #ccc;background:#f0f0f0;color:#555;font-size:.98rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;}
+.tf-btn:hover{border-color:#6B2737;}
+.tf-btn.sel{background:#6B2737;color:#fff;border-color:#6B2737;}
+.tf-btn.correct{background:#1A7A4A;color:#fff;border-color:#1A7A4A;}
+.tf-btn.wrong{background:#C4614A;color:#fff;border-color:#C4614A;}
+.tf-btn.tf-disabled{pointer-events:none;}
 .review-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
 .review-card{background:#F0FAF3;border-radius:12px;padding:16px 18px;border-top:4px solid #1A7A4A;}
 .review-card h3{font-size:1rem;font-weight:800;color:#1A5C2A;margin-bottom:8px;}
@@ -180,6 +190,32 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   </div>
   <button onclick="location.href='index.html'" style="position:absolute;bottom:70px;left:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">🏠 Course Home</button>
   <button onclick="goToId('s-hw')" style="position:absolute;bottom:70px;right:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">📝 Homework</button>
+</div>
+
+<!-- ══════════════════════════ s1b · WARM-UP ══════════════════════════ -->
+<div class="slide" id="s1b">
+  <div class="banner" style="background:#B8860B;color:#fff;">🔥 Warm-Up</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2>Quick Review</h2>
+      <p class="inst-light">Before we start, let's review Lessons 1–3. Choose the best answer for each question.</p>
+      <div style="background:linear-gradient(135deg,#FFF7E6,#FFEAC2);border-radius:16px;padding:16px 18px;border:2px solid #F0C060;">
+        <div id="s1b-quiz"></div>
+        <div class="hw-btns" style="margin-top:14px;">
+          <button class="btn-check" onclick="checkS1b()">✅ Check</button>
+          <button class="btn-reset" onclick="resetS1b()">↺ Reset</button>
+        </div>
+        <div id="s1b-result" style="margin-top:10px;font-size:1.05rem;font-weight:700;min-height:1.4em;text-align:center;"></div>
+      </div>
+      <div style="margin-top:16px;background:linear-gradient(135deg,#2E2A6B,#4A3F9A);border-radius:16px;padding:18px 22px;color:#fff;box-shadow:0 4px 14px rgba(46,42,107,.25);">
+        <div style="font-size:1.05rem;font-weight:800;letter-spacing:.03em;margin-bottom:8px;">💬 Talk About It</div>
+        <div style="font-size:1.05rem;line-height:1.7;opacity:.95;">
+          <div style="margin-bottom:6px;"><strong style="color:#F5893A;">1.</strong> How do you usually greet a new colleague at work?</div>
+          <div><strong style="color:#F5893A;">2.</strong> What do you do every day at work? Where is your company from?</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════════ s2 · KEY LANGUAGE: SIMPLE QUESTIONS WITH "TO BE" ══════════════════════════ -->
@@ -308,33 +344,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>Further Examples: Open Questions</h2>
-      <div class="two-col" style="gap:20px;margin-top:10px;">
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">How does the scanner work?</div>
-            <div style="font-size:.9rem;color:#555;margin-top:4px;">The auxiliary "do / does" comes before the subject.</div>
-          </div>
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">Where is the cafeteria?</div>
-            <div style="font-size:.9rem;color:#555;margin-top:4px;">Invert the subject and the verb to form open questions with "to be."</div>
-          </div>
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">Who is giving the presentation?</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">What would you like to drink?</div>
-          </div>
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">Why is he late?</div>
-          </div>
-          <div style="background:#F4F8FA;border-radius:10px;padding:12px 16px;">
-            <div style="font-size:1.08rem;font-weight:700;color:#1C2B3A;">When does the meeting start?</div>
-            <div style="font-size:.9rem;color:#555;margin-top:4px;">The main verb comes at the end in questions without "to be."</div>
-          </div>
-        </div>
-      </div>
+      <img src="ChatGPT Image Aug 21, 2026, 07_36_06 AM.png" alt="How does the scanner work? Where is the cafeteria? Who is giving the presentation? What would you like to drink? Why is he late? When does the meeting start?" style="width:100%;max-width:900px;border-radius:12px;margin-top:10px;display:block;">
     </div>
   </div>
 </div>
@@ -409,11 +419,11 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       <div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:8px 14px;margin-bottom:12px;font-size:1.05rem;">
         <strong>Example:</strong> <span style="color:#1A5C2A;font-weight:700;">How</span> do you travel to work?
       </div>
-      <div id="s14-rows" style="display:flex;flex-direction:column;gap:10px;"></div>
-      <div style="margin-top:12px;">
+      <div style="margin-bottom:12px;">
         <div style="font-size:.82rem;font-weight:700;color:#7A2A5A;margin-bottom:6px;">Word panel — click to select:</div>
         <div id="s14-bank" class="word-bank" style="background:#F0EEF8;border-color:#C8A0D8;"></div>
       </div>
+      <div id="s14-rows" style="display:flex;flex-direction:column;gap:10px;"></div>
       <div class="hw-btns" style="margin-top:14px;">
         <button class="btn-check" onclick="checkS14()">✅ Check</button>
         <button class="btn-reset" onclick="resetS14()">↺ Reset</button>
@@ -429,38 +439,50 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="slide-main">
     <div class="content" style="padding:18px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2>What have we learned? 📚</h2>
-      <div class="review-grid" style="margin-top:14px;">
+      <div class="review-grid" style="margin-top:14px;grid-template-columns:1fr 1fr;">
 
-        <div class="review-card" style="border-top-color:#1A5080;">
-          <h3 style="color:#1A5080;">🔗 Questions with "To Be"</h3>
-          <ul>
-            <li>This <strong>is</strong> my desk. → <strong>Is</strong> this my desk?</li>
-            <li>The rooms <strong>are</strong> busy. → <strong>Are</strong> the rooms busy?</li>
-          </ul>
+        <div class="review-card" style="background:linear-gradient(160deg,#EAF1FB,#DCE9FA);border-top:none;border-radius:14px;box-shadow:0 3px 10px rgba(26,80,128,.12);padding:18px 20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#1A5080;color:#fff;font-size:1.15rem;flex-shrink:0;">🔗</span>
+            <h3 style="color:#1A5080;margin:0;font-size:1.05rem;">Questions with "To Be"</h3>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;">This <span style="background:#1A5080;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">is</span> my desk. → <span style="background:#1A5080;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">Is</span> this my desk?</div>
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;">The rooms <span style="background:#1A5080;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">are</span> busy. → <span style="background:#1A5080;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">Are</span> the rooms busy?</div>
+          </div>
         </div>
 
-        <div class="review-card" style="border-top-color:#1A5080;">
-          <h3 style="color:#1A5080;">🔗 Questions with "Do/Does"</h3>
-          <ul>
-            <li><span style="background:#E8F0F8;border-radius:4px;padding:1px 7px;font-weight:700;color:#1A5080;">Do</span> I / you / we / they have…?</li>
-            <li><span style="background:#E8F0F8;border-radius:4px;padding:1px 7px;font-weight:700;color:#1A5080;">Does</span> he / she have…?</li>
-          </ul>
+        <div class="review-card" style="background:linear-gradient(160deg,#F3ECFB,#E9DCF7);border-top:none;border-radius:14px;box-shadow:0 3px 10px rgba(107,63,160,.12);padding:18px 20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#6B3FA0;color:#fff;font-size:1.15rem;flex-shrink:0;">🔗</span>
+            <h3 style="color:#6B3FA0;margin:0;font-size:1.05rem;">Questions with "Do/Does"</h3>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;"><span style="background:#6B3FA0;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">Do</span> I / you / we / they have…?</div>
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;"><span style="background:#6B3FA0;color:#fff;border-radius:5px;padding:1px 7px;font-weight:700;">Does</span> he / she have…?</div>
+          </div>
         </div>
 
-        <div class="review-card" style="border-top-color:#1A7A4A;grid-column:span 2;">
-          <h3 style="color:#1A7A4A;">❓ Asking Open Questions</h3>
-          <ul style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;">
-            <li><strong>Where</strong> is the staff room?</li>
-            <li><strong>When</strong> does the meeting start?</li>
-            <li><strong>How</strong> does the scanner work?</li>
-            <li><strong>Why</strong> is he late?</li>
-          </ul>
+        <div class="review-card" style="background:linear-gradient(160deg,#E6F5EA,#D5EEDC);border-top:none;border-radius:14px;box-shadow:0 3px 10px rgba(26,122,74,.12);padding:18px 20px;grid-column:span 2;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#1A7A4A;color:#fff;font-size:1.15rem;flex-shrink:0;">❓</span>
+            <h3 style="color:#1A7A4A;margin:0;font-size:1.05rem;">Asking Open Questions</h3>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;">
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;display:flex;align-items:center;gap:8px;"><span style="background:#F5893A;color:#fff;border-radius:20px;padding:2px 11px;font-weight:800;font-size:.92rem;flex-shrink:0;">Where</span> is the staff room?</div>
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;display:flex;align-items:center;gap:8px;"><span style="background:#1A7A4A;color:#fff;border-radius:20px;padding:2px 11px;font-weight:800;font-size:.92rem;flex-shrink:0;">When</span> does the meeting start?</div>
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;display:flex;align-items:center;gap:8px;"><span style="background:#0E7A8A;color:#fff;border-radius:20px;padding:2px 11px;font-weight:800;font-size:.92rem;flex-shrink:0;">How</span> does the scanner work?</div>
+            <div style="background:#fff;border-radius:9px;padding:8px 12px;font-size:1rem;color:#1C2B3A;display:flex;align-items:center;gap:8px;"><span style="background:#C4614A;color:#fff;border-radius:20px;padding:2px 11px;font-weight:800;font-size:.92rem;flex-shrink:0;">Why</span> is he late?</div>
+          </div>
         </div>
 
       </div>
 
-      <div style="margin-top:18px;background:linear-gradient(135deg,#EEF7F0,#D8F0E0);border-radius:14px;padding:16px 22px;border-left:5px solid #1A7A4A;font-size:1.1rem;color:#0A2010;font-style:italic;line-height:1.6;">
-        "<strong>Is</strong> this your desk? <strong>Do</strong> you have a moment? <strong>Where</strong> is the meeting room, and <strong>why</strong> is it always busy?"
+      <div style="margin-top:16px;background:linear-gradient(135deg,#2E2A6B,#4A3F8C);border-radius:14px;padding:16px 22px;box-shadow:0 3px 10px rgba(46,42,107,.25);">
+        <div style="font-size:.82rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#C8BEEF;margin-bottom:8px;">🎯 Put it all together</div>
+        <div style="font-size:1.12rem;color:#fff;line-height:1.7;">
+          "<span style="background:#1A5080;border-radius:5px;padding:1px 8px;font-weight:800;">Is</span> this your desk? <span style="background:#6B3FA0;border-radius:5px;padding:1px 8px;font-weight:800;">Do</span> you have a moment? <span style="background:#F5893A;border-radius:5px;padding:1px 8px;font-weight:800;">Where</span> is the meeting room, and <span style="background:#C4614A;border-radius:5px;padding:1px 8px;font-weight:800;">why</span> is it always busy?"
+        </div>
       </div>
 
       <div class="hw-btns" style="justify-content:center;margin-top:20px;">
@@ -483,7 +505,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
       <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 1 – Rewrite the Questions</h2>
-      <p class="inst-light">Click the words in the correct order to build each question.</p>
+      <p class="inst-light">Rewrite each statement as a question.</p>
       <div class="two-col" style="gap:14px;margin-top:4px;">
         <div class="col-section" id="hw52-wo-left"></div>
         <div class="col-section" id="hw52-wo-right"></div>
@@ -538,12 +560,43 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   </div>
 </div>
 
-<!-- ══════════════════════════ s-hw4 · HW 4 MATCH SITUATIONS TO QUESTIONS ══════════════════════════ -->
+<!-- ══════════════════════════ s-hw3b · HW 4 LISTEN AND ANSWER (practice book 6.4) ══════════════════════════ -->
+<div class="slide" id="s-hw3b">
+  <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
+  <div class="slide-main">
+    <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
+      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 4 – Listen and Answer</h2>
+      <p class="inst-light">Listen to the audio and mark whether each statement is true or false.</p>
+      <img src="ChatGPT Image Aug 21, 2026, 07_55_50 AM.png" alt="Rosa and Jordan are getting ready for their presentation tomorrow" style="width:100%;max-width:760px;border-radius:12px;margin:6px 0 12px;display:block;">
+      <div style="background:linear-gradient(135deg,#EAF5F8,#D4EEF5);border:2px solid #14607A;border-radius:12px;padding:12px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
+        <span style="font-size:2rem;flex-shrink:0;">🎧</span>
+        <audio controls style="flex:1;width:100%;accent-color:#14607A;">
+          <source src="6_4-practice book.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+      <div class="tf-row tf-example">
+        <span class="tf-q"><strong style="color:#C45020;">Example</strong> — All the meeting rooms are busy.</span>
+        <div class="tf-btns">
+          <button class="tf-btn tf-disabled">True</button>
+          <button class="tf-btn correct tf-disabled">False</button>
+        </div>
+      </div>
+      <div id="hw59-rows"></div>
+      <div class="hw-btns">
+        <button class="btn-check" onclick="checkHW59()">✓ Check Answers</button>
+        <button class="btn-reset" onclick="resetHW59()">↺ Reset</button>
+      </div>
+      <div id="hw59-result" style="margin-top:10px;font-weight:700;font-size:1.05rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s-hw4 · HW 5 MATCH SITUATIONS TO QUESTIONS ══════════════════════════ -->
 <div class="slide" id="s-hw4">
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 4 – Match the Situations</h2>
+      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 5 – Match the Situations</h2>
       <p class="inst-light">Match each situation to the question that fits it best. Click a situation, then click the question that fits it best.</p>
       <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:6px;">
         <div id="hw55-sits" style="display:flex;flex-direction:column;gap:9px;"></div>
@@ -563,9 +616,8 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2>HW 5 – Choose the Correct Word</h2>
+      <h2>HW 6 – Choose the Correct Word</h2>
       <p class="instruction">Click the correct word.</p>
-      <div id="hw56-example"></div>
       <div class="two-col">
         <div class="col-section" id="hw56-left"></div>
         <div class="col-section" id="hw56-right"></div>
@@ -584,8 +636,9 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 6 – Mark the Correct Sentence</h2>
+      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 7 – Mark the Correct Sentence</h2>
       <p class="inst-light">Mark the sentences that are correct.</p>
+      <div id="hw57-example"></div>
       <div class="two-col">
         <div class="col-section" id="hw57-left"></div>
         <div class="col-section" id="hw57-right"></div>
@@ -604,15 +657,18 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="banner" style="background:#6B2737;color:#fff;">📝 Homework</div>
   <div class="slide-main">
     <div class="content" style="padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);">
-      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 7 – Say the Questions</h2>
+      <h2 style="font-size:1.75rem;font-weight:800;margin-bottom:6px;color:#0A2010;">HW 8 – Say the Questions</h2>
       <p class="inst-light">Say each question out loud, filling in the gap using a word from the panel.</p>
       <div style="background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:8px 14px;margin-bottom:12px;font-size:1.05rem;">
         <strong>Example:</strong> <span style="color:#1A5C2A;font-weight:700;">How</span> do you get to work?
       </div>
-      <div id="hw58-rows" style="display:flex;flex-direction:column;gap:9px;"></div>
-      <div style="margin-top:12px;">
+      <div style="margin-bottom:12px;">
         <div style="font-size:.82rem;font-weight:700;color:#6B2737;margin-bottom:6px;">Word panel — click to select:</div>
         <div id="hw58-bank" class="word-bank"></div>
+      </div>
+      <div class="two-col">
+        <div class="col-section" id="hw58-left"></div>
+        <div class="col-section" id="hw58-right"></div>
       </div>
       <div class="hw-btns">
         <button class="btn-check" onclick="checkHW58()">✓ Check Answers</button>
@@ -634,9 +690,10 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 
 <script>
 /* ═══ SLIDE IDS & LABELS ═══ */
-var slideIds = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s-hw","s-hw1","s-hw2","s-hw3","s-hw4","s-hw5","s-hw6","s-hw7"];
+var slideIds = ["s1","s1b","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s-hw","s-hw1","s-hw2","s-hw3","s-hw3b","s-hw4","s-hw5","s-hw6","s-hw7"];
 var slideLabels = [
   "Cover",
+  "Warm-Up — Quick Review",
   "Key Language: Questions with \"To Be\"",
   "How to Form: Questions with \"To Be\"",
   "Rewrite the Questions",
@@ -655,10 +712,11 @@ var slideLabels = [
   "HW 1 — Rewrite the Questions",
   "HW 2 — Rewrite as Questions",
   "HW 3 — Fill in the Gaps",
-  "HW 4 — Match the Situations",
-  "HW 5 — Choose the Correct Word",
-  "HW 6 — Mark the Correct Sentence",
-  "HW 7 — Say the Questions"
+  "HW 4 — Listen and Answer",
+  "HW 5 — Match the Situations",
+  "HW 6 — Choose the Correct Word",
+  "HW 7 — Mark the Correct Sentence",
+  "HW 8 — Say the Questions"
 ];
 
 /* ═══ NAVIGATION ═══ */
@@ -1019,6 +1077,7 @@ var s12bData = [
   { q:"What time does the meeting start?", a:"At 2 o'clock. We usually start on time." }
 ];
 var s12AnswerOrder=[0,2,4,1,3]; // right-column print order, per course book 6.11
+var s12ExampleAfter=2; // book prints the example's answer as the 3rd row of the right column, not the 1st — insert after this many real chips
 var s12Match={}; var s12Sel2=null; var s12Checked=false;
 function buildS12(){
   s12Match={}; s12Sel2=null; s12Checked=false;
@@ -1030,7 +1089,8 @@ function renderS12(){
   qEl.innerHTML=''; aEl.innerHTML='';
   var exQ=document.createElement('div');
   exQ.style.cssText='background:#FFF4EE;border:2px solid #C45020;border-radius:10px;padding:10px 14px;font-size:1.02rem;color:#1C2B3A;';
-  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Where is the stationery cabinet?';
+  exQ.innerHTML='<strong style="color:#C45020;">Example</strong> — Where is the stationery cabinet?'
+    +'<div style="margin-top:6px;font-size:.92rem;font-weight:700;color:#C45020;">↳ It\'s across from the meeting room.</div>';
   qEl.appendChild(exQ);
   s12bData.forEach(function(item,i){
     var isSel=(s12Sel2===i); var mAi=s12Match[i]; var isM=(mAi!==undefined);
@@ -1043,12 +1103,14 @@ function renderS12(){
     card.onclick=function(){ s12Sel2=(s12Sel2===i)?null:i; renderS12(); };
     qEl.appendChild(card);
   });
-  var exA=document.createElement('div');
-  exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:10px 14px;font-size:1rem;color:#aaa;text-decoration:line-through;';
-  exA.textContent="It's across from the meeting room.";
-  aEl.appendChild(exA);
   var usedA={}; Object.keys(s12Match).forEach(function(k){ usedA[s12Match[k]]=true; });
-  s12AnswerOrder.forEach(function(ai){
+  s12AnswerOrder.forEach(function(ai,orderIdx){
+    if(orderIdx===s12ExampleAfter){
+      var exA=document.createElement('div');
+      exA.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:10px 14px;font-size:1rem;color:#aaa;text-decoration:line-through;';
+      exA.textContent="It's across from the meeting room.";
+      aEl.appendChild(exA);
+    }
     var item=s12bData[ai];
     var isUsed=!!usedA[ai];
     var chip=document.createElement('div');
@@ -1093,16 +1155,29 @@ function buildS13(){
   var left=document.getElementById('s13-left'); var right=document.getElementById('s13-right');
   left.innerHTML=''; right.innerHTML='';
   var ex=document.createElement('div');
-  ex.style.cssText='background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;flex-direction:column;gap:6px;';
-  ex.innerHTML='<span style="font-weight:800;color:#C45020;font-size:1.05rem;">Example</span>'
+  ex.style.cssText='background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:12px;';
+  ex.innerHTML='<img src="ChatGPT Image Aug 21, 2026, 07_40_56 AM.png" alt="" style="width:52px;height:52px;object-fit:contain;flex-shrink:0;">'
+    +'<div style="display:flex;flex-direction:column;gap:6px;flex:1;">'
+    +'<span style="font-weight:800;color:#C45020;font-size:1.05rem;">Example</span>'
     +'<div style="background:#EEF7F0;border:2px solid #1A7A4A;border-radius:8px;padding:7px 12px;font-size:1.05rem;color:#1A5C2A;font-weight:700;">Who is in your team? ✓</div>'
-    +'<div style="background:#f0f0f0;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;color:#C4614A;text-decoration:line-through;">What is in your team?</div>';
+    +'<div style="background:#f0f0f0;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;color:#C4614A;text-decoration:line-through;">What is in your team?</div>'
+    +'</div>';
   left.appendChild(ex);
+  var s13Icons=[
+    'ChatGPT Image Aug 21, 2026, 07_37_05 AM.png',
+    'ChatGPT Image Aug 21, 2026, 07_37_40 AM.png',
+    'ChatGPT Image Aug 21, 2026, 07_38_23 AM.png',
+    'ChatGPT Image Aug 21, 2026, 07_40_15 AM.png',
+    'ChatGPT Image Aug 21, 2026, 07_39_48 AM.png'
+  ];
   s13Data.forEach(function(item,i){
-    var row=document.createElement('div'); row.style.cssText='background:#F4F8FA;border-radius:10px;padding:9px 12px;border:2px solid #dde;display:flex;flex-direction:column;gap:6px;';
-    row.innerHTML='<span style="font-weight:700;color:#0E5C7A;font-size:1.05rem;">'+(i+1)+'.</span>'
+    var row=document.createElement('div'); row.style.cssText='background:#F4F8FA;border-radius:10px;padding:9px 12px;border:2px solid #dde;display:flex;align-items:center;gap:12px;';
+    row.innerHTML='<img src="'+s13Icons[i]+'" alt="" style="width:52px;height:52px;object-fit:contain;flex-shrink:0;">'
+      +'<div style="display:flex;flex-direction:column;gap:6px;flex:1;">'
+      +'<span style="font-weight:700;color:#0E5C7A;font-size:1.05rem;">'+(i+1)+'.</span>'
       +'<button id="s13-'+i+'-a" onclick="s13Pick('+i+',\'a\')" style="'+s13BStyle+'">'+item.a+'</button>'
-      +'<button id="s13-'+i+'-b" onclick="s13Pick('+i+',\'b\')" style="'+s13BStyle+'">'+item.b+'</button>';
+      +'<button id="s13-'+i+'-b" onclick="s13Pick('+i+',\'b\')" style="'+s13BStyle+'">'+item.b+'</button>'
+      +'</div>';
     (i<2?left:right).appendChild(row);
   });
 }
@@ -1138,7 +1213,8 @@ var s14Data = [
   { q:"___ do we use old computers?", ans:"Why" },
   { q:"___ do they close the office?", ans:"When" }
 ];
-var s14Words = ["Where","What","Why","When"];
+var s14Words = ["Where","Why","When","What"]; // clickable answer words, in the book's own bank print order
+var s14PreUsed = "How"; // book shows "How" already crossed out in the bank (used in the static Example) — printed between "When" and "What"
 var s14Sel=null; var s14Placed={};
 function s14ChipEl(w){ return document.getElementById('s14-chip-'+w); }
 function s14ChipState(w,state){
@@ -1154,12 +1230,21 @@ function buildS14(){
     var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#7A2A5A';
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="color:#7A2A5A;flex-shrink:0;">'+(i+1)+'.</span>'
-      +'<span id="s14-blank-'+i+'" onclick="s14ClickBlank('+i+')" style="min-width:80px;display:inline-block;border-bottom:2.5px solid #C8A0D8;text-align:center;font-weight:700;color:#7A2A5A;cursor:pointer;padding-bottom:2px;">?</span>'
+      +'<span id="s14-blank-'+i+'" onclick="s14ClickBlank('+i+')" style="min-width:80px;min-height:1.3em;display:inline-block;border-bottom:2.5px solid #C8A0D8;text-align:center;font-weight:700;color:#7A2A5A;cursor:pointer;padding-bottom:2px;"></span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.q.replace('___ ','')+'</span>';
     rows.appendChild(row);
   });
   var bank=document.getElementById('s14-bank'); bank.innerHTML='';
-  s14Words.forEach(function(w){
+  s14Words.slice(0,3).forEach(function(w){
+    var c=document.createElement('span'); c.className='wb-chip'; c.id='s14-chip-'+w; c.textContent=w;
+    c.style.borderColor='#C8A0D8';
+    c.addEventListener('click',function(){ s14SelectWord(w); });
+    bank.appendChild(c);
+  });
+  var usedC=document.createElement('span'); usedC.className='wb-chip'; usedC.textContent=s14PreUsed;
+  usedC.style.cssText='background:#f0eef8;color:#bbb;border-color:#ddd;text-decoration:line-through;opacity:.65;pointer-events:none;';
+  bank.appendChild(usedC);
+  s14Words.slice(3).forEach(function(w){
     var c=document.createElement('span'); c.className='wb-chip'; c.id='s14-chip-'+w; c.textContent=w;
     c.style.borderColor='#C8A0D8';
     c.addEventListener('click',function(){ s14SelectWord(w); });
@@ -1171,7 +1256,7 @@ function s14SelectWord(w){
   if(s14Sel===w){ s14Sel=null; s14ChipState(w, s14Placed[w]!==undefined?'used':'free'); return; }
   if(s14Sel) s14ChipState(s14Sel, s14Placed[s14Sel]!==undefined?'used':'free');
   if(s14Placed[w]!==undefined){
-    var oldI=s14Placed[w]; document.getElementById('s14-blank-'+oldI).textContent='?';
+    var oldI=s14Placed[w]; document.getElementById('s14-blank-'+oldI).textContent='';
     delete s14Placed[w];
   }
   s14Sel=w; s14ChipState(w,'selected');
@@ -1200,53 +1285,79 @@ function checkS14(){
 }
 function resetS14(){ buildS14(); }
 
-/* ═══ HW1 (hw52) — Rewrite the Questions (word-order) ═══ */
+/* ═══ HW1 (hw52) — Rewrite the Questions ═══ */
 var hw52Data = [
-  { words:["this","working?","printer","Is"], ans:"Is this printer working?" },
-  { words:["desk?","this","Is","your"], ans:"Is this your desk?" },
-  { words:["closed?","the","windows","Are"], ans:"Are the windows closed?" },
-  { words:["this","locked?","Is","cupboard"], ans:"Is this cupboard locked?" },
-  { words:["messy?","desk","his","Is"], ans:"Is his desk messy?" },
-  { words:["CEO?","the","she","Is"], ans:"Is she the CEO?" },
-  { words:["assistant?","Jo's","you","Are"], ans:"Are you Jo's assistant?" }
+  { num:1, s:"This printer is working.", ans:"Is this printer working?" },
+  { num:2, s:"This is your desk.", ans:"Is this your desk?" },
+  { num:3, s:"The windows are closed.", ans:"Are the windows closed?" },
+  { num:4, s:"This cupboard is locked.", ans:"Is this cupboard locked?" },
+  { num:5, s:"His desk is messy.", ans:"Is his desk messy?" },
+  { num:6, s:"She's the CEO.", ans:"Is she the CEO?" },
+  { num:7, s:"You're Jo's assistant.", ans:"Are you Jo's assistant?" }
 ];
-var hw52ExampleHtml = '<div class="wo-row" style="border-left-color:#C45020;">'
-  +'<div class="wo-num" style="color:#C45020;">Ex.</div>'
-  +'<div class="wo-zone" style="border-style:solid;border-color:#C45020;background:#FFF4EE;">'
-  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">Is</span>'
-  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">this</span>'
-  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">the</span>'
-  +'<span class="wo-chip" style="background:#fff;border-color:#C45020;color:#C45020;">cafeteria?</span>'
-  +'</div></div>';
-function buildHW52(){ woBuild('hw52','hw52-wo-left','hw52-wo-right',hw52Data,'hw52-result',hw52ExampleHtml); }
-function checkHW52(){ woCheck('hw52'); }
-function resetHW52(){ woReset('hw52'); }
+function buildHW52(){
+  var left=document.getElementById('hw52-wo-left'); var right=document.getElementById('hw52-wo-right');
+  left.innerHTML=''; right.innerHTML='';
+  left.style.cssText='display:flex;flex-direction:column;gap:8px;';
+  right.style.cssText='display:flex;flex-direction:column;gap:8px;';
+  var ex=document.createElement('div'); ex.className='ex-row';
+  ex.style.cssText='border-left-color:#C45020;background:#FFF4EE;';
+  ex.innerHTML='<span class="ex-num" style="color:#C45020;">Example</span>'
+    +' <span style="font-size:1.05rem;color:#1C2B3A;">This is the cafeteria. →</span>'
+    +' <span style="font-size:1.05rem;font-weight:700;color:#C45020;">Is this the cafeteria?</span>';
+  left.appendChild(ex);
+  hw52Data.forEach(function(item){
+    var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#0E5C7A';
+    row.innerHTML='<span class="ex-num">'+item.num+'.</span>'
+      +' <span style="font-size:1.05rem;color:#1C2B3A;">'+item.s+' →</span>'
+      +' <input type="text" id="hw52-inp-'+item.num+'" style="width:240px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+    (item.num<=3?left:right).appendChild(row);
+  });
+}
+function checkHW52(){
+  var score=0;
+  hw52Data.forEach(function(item){
+    var inp=document.getElementById('hw52-inp-'+item.num); if(!inp) return;
+    var ok=norm(inp.value)===norm(item.ans);
+    inp.style.borderBottomColor=ok?'#1A7A4A':'#C4614A';
+    inp.style.color=ok?'#1A7A4A':'#C4614A';
+    if(ok) score++;
+  });
+  var res=document.getElementById('hw52-result');
+  res.textContent=score+' / '+hw52Data.length+' correct'+(score===hw52Data.length?' — Great job! 🎉':'');
+  res.style.color=score===hw52Data.length?'#1A7A4A':'#C4614A';
+}
+function resetHW52(){ buildHW52(); document.getElementById('hw52-result').textContent=''; }
 
 /* ═══ HW53 — Rewrite Statements as Questions ═══ */
 var hw53Data = [
-  { num:1, s:"That's John's pen.", ans:"Is that John's pen?" },
-  { num:2, s:"This is the kitchen.", ans:"Is this the kitchen?" },
-  { num:3, s:"That's the CEO's office.", ans:"Is that the CEO's office?" },
-  { num:4, s:"Tina's the CEO's PA.", ans:"Is Tina the CEO's PA?" },
-  { num:5, s:"Tom's desk is organized.", ans:"Is Tom's desk organized?" },
-  { num:6, s:"The printer is working.", ans:"Is the printer working?" },
-  { num:7, s:"The stationery cabinet is locked.", ans:"Is the stationery cabinet locked?" }
+  { num:1, s:"That's John's pen.", ans:"Is that John's pen?", icon:"hw53_1.png" },
+  { num:2, s:"This is the kitchen.", ans:"Is this the kitchen?", icon:"hw53_2.png" },
+  { num:3, s:"That's the CEO's office.", ans:"Is that the CEO's office?", icon:"hw53_3.png" },
+  { num:4, s:"Tina's the CEO's PA.", ans:"Is Tina the CEO's PA?", icon:"hw53_4.png" },
+  { num:5, s:"Tom's desk is organized.", ans:"Is Tom's desk organized?", icon:"hw53_5.png" },
+  { num:6, s:"The printer is working.", ans:"Is the printer working?", icon:"hw53_6.png" },
+  { num:7, s:"The stationery cabinet is locked.", ans:"Is the stationery cabinet locked?", icon:"hw53_7.png" }
 ];
 function buildHW53(){
   var left=document.getElementById('hw53-left'); var right=document.getElementById('hw53-right');
   left.innerHTML=''; right.innerHTML='';
+  left.style.cssText='display:flex;flex-direction:column;gap:8px;';
+  right.style.cssText='display:flex;flex-direction:column;gap:8px;';
   var ex=document.createElement('div'); ex.className='ex-row';
-  ex.style.cssText='border-left-color:#C45020;background:#FFF4EE;display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
-  ex.innerHTML='<span class="ex-num" style="color:#C45020;flex-shrink:0;">Example</span>'
-    +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">This is my locker. →</span>'
-    +'<span style="font-size:1.05rem;font-weight:700;color:#C45020;">Is this my locker?</span>';
+  ex.style.cssText='border-left-color:#C45020;background:#FFF4EE;display:flex;align-items:center;gap:10px;';
+  ex.innerHTML='<span style="flex:1;min-width:0;"><span class="ex-num" style="color:#C45020;">Example</span>'
+    +' <span style="font-size:1.05rem;color:#1C2B3A;">This is my locker. →</span>'
+    +' <span style="font-size:1.05rem;font-weight:700;color:#C45020;">Is this my locker?</span></span>'
+    +'<img src="hw53_ex.png" alt="" style="width:56px;flex-shrink:0;object-fit:contain;">';
   left.appendChild(ex);
   hw53Data.forEach(function(item){
     var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#0E5C7A';
-    row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
-    row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+item.num+'.</span>'
-      +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.s+' →</span>'
-      +'<input type="text" id="hw53-inp-'+item.num+'" style="width:260px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+    row.style.cssText+='display:flex;align-items:center;gap:10px;';
+    row.innerHTML='<span style="flex:1;min-width:0;"><span class="ex-num">'+item.num+'.</span>'
+      +' <span style="font-size:1.05rem;color:#1C2B3A;">'+item.s+' →</span>'
+      +' <input type="text" id="hw53-inp-'+item.num+'" style="width:220px;max-width:45%;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;"></span>'
+      +'<img src="'+item.icon+'" alt="" style="width:56px;flex-shrink:0;object-fit:contain;">';
     (item.num<=3?left:right).appendChild(row);
   });
 }
@@ -1322,6 +1433,7 @@ var hw55Data = [
   { sit:"Henry should be here by now.", q:"Does he usually arrive late?" }
 ];
 var hw55AnswerOrder=[1,2,4,0,6,3,7,5]; // right-column print order, per practice book 6.5
+var hw55ExampleAfter=2; // book prints the example's answer as the 3rd row of the right column, not the 1st
 var hw55Match={}; var hw55Sel=null; var hw55Checked=false;
 function buildHW55(){
   hw55Match={}; hw55Sel=null; hw55Checked=false;
@@ -1333,7 +1445,8 @@ function renderHW55(){
   sEl.innerHTML=''; qEl.innerHTML='';
   var exS=document.createElement('div');
   exS.style.cssText='background:#FFF4EE;border:2px solid #C45020;border-radius:10px;padding:9px 12px;font-size:1rem;color:#1C2B3A;';
-  exS.innerHTML='<strong style="color:#C45020;">Example</strong> — I need to print this report.';
+  exS.innerHTML='<strong style="color:#C45020;">Example</strong> — I need to print this report.'
+    +'<div style="margin-top:6px;font-size:.9rem;font-weight:700;color:#C45020;">↳ Is the printer working today?</div>';
   sEl.appendChild(exS);
   hw55Data.forEach(function(item,i){
     var isSel=(hw55Sel===i); var mQi=hw55Match[i]; var isM=(mQi!==undefined);
@@ -1346,12 +1459,14 @@ function renderHW55(){
     card.onclick=function(){ hw55Sel=(hw55Sel===i)?null:i; renderHW55(); };
     sEl.appendChild(card);
   });
-  var exQ=document.createElement('div');
-  exQ.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
-  exQ.textContent='Is the printer working today?';
-  qEl.appendChild(exQ);
   var usedQ={}; Object.keys(hw55Match).forEach(function(k){ usedQ[hw55Match[k]]=true; });
-  hw55AnswerOrder.forEach(function(qi){
+  hw55AnswerOrder.forEach(function(qi,orderIdx){
+    if(orderIdx===hw55ExampleAfter){
+      var exQ=document.createElement('div');
+      exQ.style.cssText='background:#f0f0f0;border:2px solid #ccc;border-radius:10px;padding:9px 12px;font-size:1rem;color:#aaa;text-decoration:line-through;';
+      exQ.textContent='Is the printer working today?';
+      qEl.appendChild(exQ);
+    }
     var item=hw55Data[qi];
     var isUsed=!!usedQ[qi];
     var chip=document.createElement('div');
@@ -1396,17 +1511,16 @@ var hw56Btn='border:2px solid #BDD4F0;border-radius:8px;padding:4px 14px;font-si
 function hw56Reset(i){ ['a','b'].forEach(function(x){ var b=document.getElementById('hw56-'+x+'-'+i); if(b) b.style.cssText=hw56Btn; }); }
 function buildHW56(){
   hw56Sel={};
-  var exEl=document.getElementById('hw56-example');
   var left=document.getElementById('hw56-left'); var right=document.getElementById('hw56-right');
-  exEl.innerHTML=''; left.innerHTML=''; right.innerHTML='';
+  left.innerHTML=''; right.innerHTML='';
   var ex=document.createElement('div');
-  ex.style.cssText='background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;';
+  ex.style.cssText='background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
   ex.innerHTML='<span style="font-size:1.05rem;font-weight:800;color:#C45020;flex-shrink:0;">Example</span>'
     +'<button style="'+hw56Btn+'background:#EEF7F0;color:#1A5C2A;border-color:#1A7A4A;pointer-events:none;">Where</button>'
     +'<span style="color:#888;font-size:1.05rem;">/</span>'
     +'<button style="'+hw56Btn+'background:#f5f5f5;color:#bbb;border-color:#e0e0e0;text-decoration:line-through;opacity:.6;pointer-events:none;">Which</button>'
     +'<span style="font-size:1.05rem;color:#1C2B3A;">are you going on vacation?</span>';
-  exEl.appendChild(ex);
+  left.appendChild(ex);
   hw56Data.forEach(function(item,i){
     var row=document.createElement('div');
     row.style.cssText='background:#F8F8FF;border-radius:12px;border:1.5px solid #DDE5F0;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
@@ -1415,7 +1529,7 @@ function buildHW56(){
       +'<span style="color:#888;font-size:1.05rem;">/</span>'
       +'<button id="hw56-b-'+i+'" onclick="hw56Pick('+i+',\'b\')" style="'+hw56Btn+'">'+item.b+'</button>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.post+'</span>';
-    (i<4?left:right).appendChild(row);
+    (i<3?left:right).appendChild(row);
   });
   document.getElementById('hw56-result').textContent='';
 }
@@ -1462,14 +1576,15 @@ var hw57Sel={};
 var hw57BStyle='background:#f0f0f0;color:#444;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;font-weight:500;cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;width:100%;';
 function buildHW57(){
   hw57Sel={};
+  var exEl=document.getElementById('hw57-example');
   var left=document.getElementById('hw57-left'); var right=document.getElementById('hw57-right');
-  left.innerHTML=''; right.innerHTML='';
+  exEl.innerHTML=''; left.innerHTML=''; right.innerHTML='';
   var ex=document.createElement('div');
-  ex.style.cssText='background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;flex-direction:column;gap:6px;';
+  ex.style.cssText='background:#FFF4EE;border-left:3px solid #C45020;border-radius:10px;padding:9px 12px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px;';
   ex.innerHTML='<span style="font-weight:800;color:#C45020;font-size:1.05rem;">Example</span>'
     +'<div style="background:#f0f0f0;border:2px solid #ccc;border-radius:8px;padding:7px 12px;font-size:1.05rem;color:#C4614A;text-decoration:line-through;">Does you know the door code?</div>'
     +'<div style="background:#EEF7F0;border:2px solid #1A7A4A;border-radius:8px;padding:7px 12px;font-size:1.05rem;color:#1A5C2A;font-weight:700;">Do you know the door code? ✓</div>';
-  left.appendChild(ex);
+  exEl.appendChild(ex);
   hw57Data.forEach(function(item,i){
     var row=document.createElement('div'); row.id='hw57-row-'+i; row.style.cssText='background:#F4F8FA;border-radius:10px;padding:9px 12px;border:2px solid #dde;display:flex;flex-direction:column;gap:6px;';
     row.innerHTML='<span style="font-weight:700;color:#0E5C7A;font-size:1.05rem;">'+(i+1)+'.</span>'
@@ -1513,24 +1628,31 @@ var hw58Data = [
   { q:"___ does the projector work?", ans:"How" },
   { q:"___ is the photocopier code?", ans:"What" }
 ];
-var hw58Words = ["Who","Why","When","What","Where","How","What"];
+var hw58Words = ["What","Where","How","Why","What","When","Who"]; // clickable answer words, in the book's own bank print order (repeats "What" — the book repeats words when needed twice)
+var hw58PreUsed = "How"; var hw58PreUsedAfter = 3; // book shows a second, already-crossed-out "How" printed right after "Why" (used in the static Example)
 var hw58Sel=null; var hw58Placed={}; var hw58ChipUsed=[];
 function buildHW58(){
   hw58Sel=null; hw58Placed={}; hw58ChipUsed=hw58Words.map(function(){return false;});
-  var rows=document.getElementById('hw58-rows'); rows.innerHTML='';
+  var left=document.getElementById('hw58-left'); var right=document.getElementById('hw58-right');
+  left.innerHTML=''; right.innerHTML='';
   hw58Data.forEach(function(item,i){
     var row=document.createElement('div'); row.className='ex-row'; row.style.borderLeftColor='#6B2737';
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="color:#6B2737;flex-shrink:0;">'+(i+1)+'.</span>'
-      +'<span id="hw58-blank-'+i+'" onclick="hw58ClickBlank('+i+')" style="min-width:80px;display:inline-block;border-bottom:2.5px solid #C5A8E0;text-align:center;font-weight:700;color:#6B2737;cursor:pointer;padding-bottom:2px;">?</span>'
+      +'<span id="hw58-blank-'+i+'" onclick="hw58ClickBlank('+i+')" style="min-width:80px;min-height:1.3em;display:inline-block;border-bottom:2.5px solid #C5A8E0;text-align:center;font-weight:700;color:#6B2737;cursor:pointer;padding-bottom:2px;"></span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.q.replace('___ ','')+'</span>';
-    rows.appendChild(row);
+    (i<4?left:right).appendChild(row);
   });
   var bank=document.getElementById('hw58-bank'); bank.innerHTML='';
   hw58Words.forEach(function(w,ci){
     var c=document.createElement('span'); c.className='wb-chip'; c.id='hw58-chip-'+ci; c.textContent=w;
     c.addEventListener('click',function(){ hw58SelectChip(ci,w); });
     bank.appendChild(c);
+    if(ci===hw58PreUsedAfter){
+      var usedC=document.createElement('span'); usedC.className='wb-chip'; usedC.textContent=hw58PreUsed;
+      usedC.style.cssText='background:#f0eef8;color:#bbb;border-color:#ddd;text-decoration:line-through;opacity:.65;pointer-events:none;';
+      bank.appendChild(usedC);
+    }
   });
   document.getElementById('hw58-result').textContent='';
 }
@@ -1546,7 +1668,7 @@ function hw58SelectChip(ci,w){
   if(hw58ChipUsed[ci]){
     var oldBlank=null;
     Object.keys(hw58Placed).forEach(function(bi){ if(hw58Placed[bi]===ci) oldBlank=bi; });
-    if(oldBlank!==null){ document.getElementById('hw58-blank-'+oldBlank).textContent='?'; delete hw58Placed[oldBlank]; }
+    if(oldBlank!==null){ document.getElementById('hw58-blank-'+oldBlank).textContent=''; delete hw58Placed[oldBlank]; }
     hw58ChipUsed[ci]=false;
   }
   hw58Sel=ci; hw58ChipState(ci,'selected');
@@ -1576,6 +1698,98 @@ function checkHW58(){
 }
 function resetHW58(){ buildHW58(); }
 
+/* ═══ HW59 — 6.4 Listen and Answer (True/False, practice book) ═══ */
+var hw59Data = [
+  { q:"Room 203 is too small for the presentation.", ans:"F" },
+  { q:"There is a projector in the room.", ans:"T" },
+  { q:"Rosa and Jordan will use Rosa's laptop.", ans:"F" },
+  { q:"The video clips don't work.", ans:"F" }
+];
+var hw59Sel={};
+function buildHW59(){
+  hw59Sel={};
+  var rows=document.getElementById('hw59-rows'); rows.innerHTML='';
+  hw59Data.forEach(function(item,i){
+    var row=document.createElement('div'); row.className='tf-row';
+    row.innerHTML='<span class="tf-q"><strong style="color:#6B2737;">'+(i+1)+'.</strong> '+item.q+'</span>'
+      +'<div class="tf-btns">'
+      +'<button class="tf-btn" id="hw59-T-'+i+'" onclick="hw59Pick('+i+',\'T\')">True</button>'
+      +'<button class="tf-btn" id="hw59-F-'+i+'" onclick="hw59Pick('+i+',\'F\')">False</button>'
+      +'</div>';
+    rows.appendChild(row);
+  });
+  document.getElementById('hw59-result').textContent='';
+}
+function hw59Pick(i,v){
+  hw59Sel[i]=v;
+  ['T','F'].forEach(function(x){ document.getElementById('hw59-'+x+'-'+i).className='tf-btn'+(x===v?' sel':''); });
+}
+function checkHW59(){
+  var score=0;
+  hw59Data.forEach(function(item,i){
+    ['T','F'].forEach(function(x){ document.getElementById('hw59-'+x+'-'+i).className='tf-btn'; });
+    if(hw59Sel[i]===undefined) return;
+    var ok=hw59Sel[i]===item.ans;
+    document.getElementById('hw59-'+item.ans+'-'+i).className='tf-btn correct';
+    if(!ok) document.getElementById('hw59-'+hw59Sel[i]+'-'+i).className='tf-btn wrong';
+    if(ok) score++;
+  });
+  var res=document.getElementById('hw59-result');
+  res.textContent=score+' / '+hw59Data.length+' correct'+(score===hw59Data.length?' — Great job! 🎉':'');
+  res.style.color=score===hw59Data.length?'#1A7A4A':'#C4614A';
+}
+function resetHW59(){ buildHW59(); }
+
+/* ═══ S1b — Warm-Up Quiz (review Lessons 1-3) ═══ */
+var s1bData = [
+  { q:"___ morning! My name's Alisha.", opts:["Good","Nice"], ans:"Good" },
+  { q:"We ___ a team meeting every Tuesday.", opts:["have","has"], ans:"have" },
+  { q:"The CEO ___ weekends if we're busy.", opts:["work","works"], ans:"works" },
+  { q:"These new mopeds are ___ Italy.", opts:["from","of"], ans:"from" },
+  { q:"I'm not French, I'm ___.", opts:["Canadian","Canada"], ans:"Canadian" }
+];
+var s1bSel={};
+function buildS1b(){
+  s1bSel={};
+  var el=document.getElementById('s1b-quiz'); if(!el) return;
+  el.innerHTML='';
+  s1bData.forEach(function(item,i){
+    var block=document.createElement('div'); block.className='mc-question';
+    var optsHtml = item.opts.map(function(o){
+      return '<div class="mc-opt" id="s1b-'+i+'-'+o.replace(/\s/g,'_')+'" onclick="s1bPick('+i+',\''+o.replace(/'/g,"\\'")+'\')">'+o+'</div>';
+    }).join('');
+    block.innerHTML = '<div class="mc-q-text"><span class="mc-q-num">'+(i+1)+'.</span> '+item.q+'</div>'
+      + '<div class="mc-opts">'+optsHtml+'</div>';
+    el.appendChild(block);
+  });
+  var res=document.getElementById('s1b-result'); if(res) res.textContent='';
+}
+function s1bPick(i,opt){
+  s1bSel[i]=opt;
+  s1bData[i].opts.forEach(function(o){
+    var b=document.getElementById('s1b-'+i+'-'+o.replace(/\s/g,'_'));
+    b.className='mc-opt'+(o===opt?' mc-sel':'');
+  });
+}
+function checkS1b(){
+  var score=0;
+  s1bData.forEach(function(item,i){
+    item.opts.forEach(function(o){
+      var b=document.getElementById('s1b-'+i+'-'+o.replace(/\s/g,'_'));
+      b.className='mc-opt';
+    });
+    if(s1bSel[i]===undefined) return;
+    var ok=s1bSel[i]===item.ans;
+    var b=document.getElementById('s1b-'+i+'-'+s1bSel[i].replace(/\s/g,'_'));
+    b.className='mc-opt '+(ok?'mc-ok':'mc-bad');
+    if(ok) score++;
+  });
+  var res=document.getElementById('s1b-result');
+  res.textContent=score+' / '+s1bData.length+' correct'+(score===s1bData.length?' — Great warm-up! 🔥':'');
+  res.style.color=score===s1bData.length?'#1A7A4A':'#C4614A';
+}
+function resetS1b(){ buildS1b(); }
+
 /* ═══ INIT ═══ */
 window.addEventListener('DOMContentLoaded',function(){
   slides=slideIds.map(function(id){ return document.getElementById(id); });
@@ -1586,8 +1800,8 @@ window.addEventListener('DOMContentLoaded',function(){
     d.onclick=function(){ goTo(i); };
     dotsEl.appendChild(d);
   });
-  buildS67(); buildS7(); buildS9(); buildS11(); buildS12(); buildS13(); buildS14();
-  buildHW52(); buildHW53(); buildHW54(); buildHW55(); buildHW56(); buildHW57(); buildHW58();
+  buildS1b(); buildS67(); buildS7(); buildS9(); buildS11(); buildS12(); buildS13(); buildS14();
+  buildHW52(); buildHW53(); buildHW54(); buildHW59(); buildHW55(); buildHW56(); buildHW57(); buildHW58();
   goTo(0);
 });
 </script>
