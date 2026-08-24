@@ -1492,6 +1492,7 @@ function toggleNotes() {
   var panel = document.getElementById('notesPanel');
   panel.classList.toggle('open', notesOpen);
   if (current === 0) panel.classList.toggle('cover', notesOpen);
+  if (notesOpen && typeof window.__notesPosRestore==='function') window.__notesPosRestore();
   document.getElementById('notesBtn').textContent = notesOpen ? '✕ Close' : '📝 Notes';
 }
 /* ═══ draggable notes panel ═══ */

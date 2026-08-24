@@ -697,6 +697,7 @@ function goTo(n){
   if(current===0){ if(notesOpen) _panel.classList.add('cover'); }
   else { _panel.classList.remove('cover'); }
   if(notesOpen) loadNotes();
+  if(notesOpen && typeof window.__notesPosRestore==='function') window.__notesPosRestore();
 }
 function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
@@ -765,12 +766,14 @@ function toggleNotes(){
   handle.addEventListener('mousedown', onDown);
   handle.addEventListener('touchstart', onDown, {passive:false});
   window.addEventListener('resize', function(){
-    if(panel.style.left){ var r=panel.getBoundingClientRect(); clampAndApply(r.left, r.top); }
+    if(panel.classList.contains('open') && panel.style.left){ var r=panel.getBoundingClientRect(); clampAndApply(r.left, r.top); }
   });
-  try{
-    var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
-    if(saved) clampAndApply(saved.left, saved.top);
-  }catch(err){}
+  window.__notesPosRestore = function(){
+    try{
+      var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+      if(saved) clampAndApply(saved.left, saved.top);
+    }catch(err){}
+  };
 })();
 function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
 function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
