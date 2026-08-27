@@ -2645,7 +2645,7 @@ function downloadNotes() {
     +'@media print{body{margin:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}@page{margin:1cm}}'
     +'</style></head><body>'
     +'<h1>Business English for Everyone &ndash; Lesson 2 Notes</h1>'
-    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_02_Everyday_Work_Activities.html" style="color:#1A5C2A;">https://teacher-nanda.github.io/Business-EFE1/Lesson_02_Everyday_Work_Activities.html</a></div>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'" style="color:#1A5C2A;">'+'https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'</a></div>'
     +'<div class="date">'+date+'</div>'+cards+'</body></html>';
   var win = window.open('','_blank');
   win.document.write(html); win.document.close(); win.focus();

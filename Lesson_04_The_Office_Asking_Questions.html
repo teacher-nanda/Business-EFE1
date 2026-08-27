@@ -852,7 +852,7 @@ function downloadNotes(){
     +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
     +'</style></head><body>'
     +'<h1>Business English for Everyone &ndash; Lesson 4 Notes</h1>'
-    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/Lesson_04_The_Office_Asking_Questions.html" style="color:#1A4A8C;">https://teacher-nanda.github.io/Business-EFE1/Lesson_04_The_Office_Asking_Questions.html</a></div>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'" style="color:#1A4A8C;">'+'https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'</a></div>'
     +'<div class="date">'+date+'</div>'+cards+'</body></html>';
   var win=window.open('','_blank');
   if(!win){ alert('Please allow pop-ups for this page.'); return; }
