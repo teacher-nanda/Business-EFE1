@@ -940,7 +940,7 @@ function s7Pick(i,v){
   var other=v==='a'?'b':'a';
   s7Reset(i); s7Sel[i]=v;
   var cb=document.getElementById('s7-'+v+'-'+i); var wb=document.getElementById('s7-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkS7(){
@@ -948,7 +948,14 @@ function checkS7(){
   s7Data.forEach(function(item,i){
     if(s7Sel[i]===undefined) return;
     var ok=s7Sel[i]!==item.wrong;
-    if(ok){ score++; }
+    if(ok){
+      score++;
+      var selOk=document.getElementById('s7-'+s7Sel[i]+'-'+i);
+      var otherOk=s7Sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById('s7-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=s7Btn;}
+    }
     else {
       var sel=document.getElementById('s7-'+s7Sel[i]+'-'+i);
       var other=s7Sel[i]==='a'?'b':'a';
@@ -1240,7 +1247,7 @@ function hw63Pick(i,v){
   var other=v==='a'?'b':'a';
   hw63Reset(i); hw63Sel[i]=v;
   var cb=document.getElementById('hw63-'+v+'-'+i); var wb=document.getElementById('hw63-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkHW63(){
@@ -1248,7 +1255,14 @@ function checkHW63(){
   hw63Data.forEach(function(item,i){
     if(hw63Sel[i]===undefined) return;
     var ok=hw63Sel[i]!==item.wrong;
-    if(ok){ score++; }
+    if(ok){
+      score++;
+      var selOk=document.getElementById('hw63-'+hw63Sel[i]+'-'+i);
+      var otherOk=hw63Sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById('hw63-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=hw63Btn;}
+    }
     else {
       var sel=document.getElementById('hw63-'+hw63Sel[i]+'-'+i);
       var other=hw63Sel[i]==='a'?'b':'a';

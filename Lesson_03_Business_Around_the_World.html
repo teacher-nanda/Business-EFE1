@@ -989,7 +989,7 @@ function s7Pick(qIdx, optIdx){
   s7Sel[qIdx]=optIdx;
   var wrongIdx=1-optIdx;
   var cb=document.getElementById('s7-'+qIdx+'-'+optIdx);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';cb.style.opacity='1';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';cb.style.opacity='1';}
   var wb=document.getElementById('s7-'+qIdx+'-'+wrongIdx);
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
@@ -1666,7 +1666,7 @@ function hw45Pick(i,v){
   hw45Sel[i]=v;
   var cb=document.getElementById('hw45-'+v+'-'+i);
   var wb=document.getElementById('hw45-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkHW45(){
@@ -1676,7 +1676,11 @@ function checkHW45(){
     var ok = hw45Sel[i] !== item.wrong; /* selected the non-wrong word */
     if(ok){
       score++;
-      /* correct — leave green as-is */
+      var selOk=document.getElementById('hw45-'+hw45Sel[i]+'-'+i);
+      var otherOk=hw45Sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById('hw45-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=hw45Btn;}
     } else {
       /* wrong — turn selected red, reset the other to neutral so student can click it */
       var sel=document.getElementById('hw45-'+hw45Sel[i]+'-'+i);

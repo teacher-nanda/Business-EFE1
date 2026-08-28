@@ -935,7 +935,7 @@ function s8Pick(i,v){
   var other=v==='a'?'b':'a';
   s8Reset(i); s8Sel[i]=v;
   var cb=document.getElementById('s8-'+v+'-'+i); var wb=document.getElementById('s8-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkS8(){
@@ -943,7 +943,14 @@ function checkS8(){
   s8Data.forEach(function(item,i){
     if(s8Sel[i]===undefined) return;
     var ok=s8Sel[i]!==item.wrong;
-    if(ok){ score++; }
+    if(ok){
+      score++;
+      var selOk=document.getElementById('s8-'+s8Sel[i]+'-'+i);
+      var otherOk=s8Sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById('s8-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=s8Btn;}
+    }
     else {
       var sel=document.getElementById('s8-'+s8Sel[i]+'-'+i);
       var other=s8Sel[i]==='a'?'b':'a';
@@ -1213,7 +1220,7 @@ function hw3Pick(i,v){
   var other=v==='a'?'b':'a';
   hw3Reset(i); hw3Sel[i]=v;
   var cb=document.getElementById('hw3-'+v+'-'+i); var wb=document.getElementById('hw3-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkHW3(){
@@ -1221,7 +1228,14 @@ function checkHW3(){
   hw3Data.forEach(function(item,i){
     if(hw3Sel[i]===undefined) return;
     var ok=hw3Sel[i]!==item.wrong;
-    if(ok){ score++; }
+    if(ok){
+      score++;
+      var selOk=document.getElementById('hw3-'+hw3Sel[i]+'-'+i);
+      var otherOk=hw3Sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById('hw3-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=hw3Btn;}
+    }
     else {
       var sel=document.getElementById('hw3-'+hw3Sel[i]+'-'+i);
       var other=hw3Sel[i]==='a'?'b':'a';

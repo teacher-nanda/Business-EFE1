@@ -858,7 +858,7 @@ function crossPick(prefix,i,v){
   ['a','b'].forEach(function(x){ var b=document.getElementById(prefix+'-'+x+'-'+i); if(b) b.style.cssText=crossBtn; });
   crossSel[prefix]=crossSel[prefix]||{}; crossSel[prefix][i]=v;
   var cb=document.getElementById(prefix+'-'+v+'-'+i); var wb=document.getElementById(prefix+'-'+other+'-'+i);
-  if(cb){cb.style.background='#EEF7F0';cb.style.color='#1A5C2A';cb.style.borderColor='#1A7A4A';}
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
   if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
 }
 function checkCrossOut(prefix, resultId){
@@ -866,7 +866,14 @@ function checkCrossOut(prefix, resultId){
   data.forEach(function(item,i){
     if(sel[i]===undefined) return;
     var ok=sel[i]!==item.wrong;
-    if(ok){ score++; }
+    if(ok){
+      score++;
+      var selOk=document.getElementById(prefix+'-'+sel[i]+'-'+i);
+      var otherOk=sel[i]==='a'?'b':'a';
+      var othOk=document.getElementById(prefix+'-'+otherOk+'-'+i);
+      if(selOk){selOk.style.background='#EEF7F0';selOk.style.color='#1A5C2A';selOk.style.borderColor='#1A7A4A';selOk.style.textDecoration='none';selOk.style.opacity='1';}
+      if(othOk){othOk.style.cssText=crossBtn;}
+    }
     else {
       var s=document.getElementById(prefix+'-'+sel[i]+'-'+i);
       var other=sel[i]==='a'?'b':'a';
