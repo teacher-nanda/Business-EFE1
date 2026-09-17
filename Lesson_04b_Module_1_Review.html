@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>BEfE L1 – Module 1 Review</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif;background:#0A1420;}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease;background:#FAFAF8;display:flex;flex-direction:column;}
+.slide.active{opacity:1;pointer-events:all;}
+.slide-main{flex:1;overflow-y:auto;width:100%;display:flex;flex-direction:column;padding-bottom:60px;}
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:500;height:52px;background:rgba(10,20,32,.96);display:flex;align-items:center;justify-content:center;gap:14px;backdrop-filter:blur(6px);}
+#nav button{background:rgba(255,255,255,.12);color:#fff;border:none;padding:7px 22px;border-radius:20px;cursor:pointer;font-size:.95rem;font-weight:600;transition:background .2s;}
+#nav button:hover:not(:disabled){background:rgba(255,255,255,.25);}
+#nav button:disabled{opacity:.3;cursor:default;}
+#counter{color:rgba(255,255,255,.7);font-size:.9rem;min-width:60px;text-align:center;}
+#dots{display:flex;align-items:center;gap:5px;overflow:hidden;flex:1;justify-content:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;flex-shrink:0;}
+.dot.active{background:#F5893A;transform:scale(1.4);}
+#notesBtn{position:fixed;top:14px;right:22px;z-index:1000;background:rgba(10,20,32,.88);color:#fff;border:none;padding:9px 20px;border-radius:22px;cursor:pointer;font-size:.92rem;font-weight:600;letter-spacing:.02em;transition:background .2s;backdrop-filter:blur(4px);}
+#notesBtn:hover{background:rgba(10,20,32,1);}
+#pdfBtn{position:fixed;top:14px;right:140px;z-index:1000;background:rgba(10,20,32,.88);color:#fff;border:none;padding:9px 20px;border-radius:22px;cursor:pointer;font-size:.92rem;font-weight:600;letter-spacing:.02em;transition:background .2s;backdrop-filter:blur(4px);}
+#pdfBtn:hover{background:rgba(10,20,32,1);}
+#notesPanel{position:fixed;top:54px;right:22px;z-index:999;width:360px;max-height:0;overflow:hidden;transition:max-height .35s ease,opacity .25s ease,width .35s ease,left .35s ease,top .35s ease;opacity:0;border-radius:14px;}
+#notesPanel.open{max-height:320px;opacity:1;}
+.notes-drag-handle{cursor:move;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px 10px 0 0;background:rgba(10,20,32,.85);border-bottom:1px solid rgba(255,255,255,.15);font-size:10px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.6px;user-select:none;touch-action:none;}
+.notes-drag-handle .grip{font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.35);}
+#notesToolbar{display:flex;gap:5px;padding:6px 10px;background:rgba(10,20,32,.7);border-radius:0;}
+#notesToolbar button{background:rgba(255,255,255,.12);border:none;border-radius:5px;color:#fff;font-size:.85rem;padding:3px 9px;cursor:pointer;font-family:inherit;transition:background .15s;}
+#notesToolbar button:hover{background:rgba(255,255,255,.25);}
+#notesTA{width:100%;min-height:220px;max-height:260px;padding:14px;border:none;border-radius:0 0 14px 14px;outline:none;font-size:1rem;line-height:1.55;background:rgba(10,20,32,.92);color:#fff;font-family:inherit;backdrop-filter:blur(6px);box-sizing:border-box;overflow-y:auto;}
+#notesTA:empty::before{content:attr(data-placeholder);color:rgba(255,255,255,.4);pointer-events:none;}
+#notesTA [style*="background-color"]{color:#1a1a1a!important;}
+#notesPanel.cover{left:50%;right:auto;top:56px;transform:translateX(-50%);width:min(760px,94vw);max-height:calc(100vh - 110px)!important;display:flex;flex-direction:column;}
+#notesPanel.cover #notesTA{min-height:calc(100vh - 210px)!important;max-height:calc(100vh - 210px)!important;overflow-y:auto;}
+#homeBtn{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:1000;display:none;background:rgba(10,20,32,.88);color:#fff;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center;transition:background .2s;backdrop-filter:blur(4px);}
+#homeBtn:hover{background:rgba(20,60,100,.95);}
+.banner{width:100%;padding:13px 28px;font-size:1.1rem;font-weight:700;letter-spacing:.03em;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.banner-pill{margin-left:auto;font-size:.82rem;font-weight:600;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:20px;}
+.content{padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);}
+h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
+.instruction{font-size:1.08rem;color:#1C2B3A;margin-bottom:10px;font-weight:700;}
+.inst-light{font-size:1.05rem;color:#1C2B3A;margin-bottom:10px;font-weight:400;}
+#s1{background:linear-gradient(145deg,#062024 0%,#0E4A54 45%,#0E7A8A 100%);}
+.title-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;gap:10px;position:relative;}
+.title-label{font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:500;}
+.title-sub{font-size:1.15rem;color:rgba(255,255,255,.75);margin-top:4px;}
+.title-main{font-size:3.2rem;font-weight:900;color:#fff;line-height:1.1;margin:14px 0 8px;}
+.title-accent{display:inline-block;color:#F5893A;}
+.grammar-theory{background:#EEF7F0;border-left:4px solid #1A5C2A;border-radius:0 10px 10px 0;padding:10px 16px;margin:8px 0 14px;font-size:1.05rem;line-height:1.5;color:#0A1E0F;}
+.grammar-theory h3{font-size:1.05rem;font-weight:800;color:#1A5C2A;margin-bottom:10px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px;}
+.col-section{display:flex;flex-direction:column;gap:16px;}
+.ex-row{background:#F4F8FA;border-radius:10px;padding:12px 16px;font-size:1.06rem;line-height:1.7;color:#1C2B3A;border-left:3px solid #c8e0cc;}
+.mc-question{margin-bottom:20px;}
+.mc-q-text{font-size:1.05rem;font-weight:700;color:#0A2010;margin-bottom:9px;line-height:1.5;}
+.mc-q-num{color:#1A5C2A;}
+.mc-opts{display:flex;flex-direction:row;gap:10px;flex-wrap:wrap;}
+.mc-opt{background:#F4F8FA;border:2px solid #dde;border-radius:8px;padding:7px 14px;font-size:1.05rem;color:#1C2B3A;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;flex:0 0 auto;line-height:1.4;}
+.mc-opt:hover{border-color:#1A5080;background:#EEF5FA;}
+.mc-opt.mc-sel{background:#1A4A8C;border-color:#1A4A8C;color:#fff;}
+.mc-opt.mc-ok{background:#1A7A4A;border-color:#1A7A4A;color:#fff;}
+.mc-opt.mc-bad{background:#C4614A;border-color:#C4614A;color:#fff;}
+.gs-scenario{display:none;background:#EEF4FB;border-radius:14px;padding:18px 20px;border-top:4px solid #1A4A8C;margin-bottom:4px;}
+.gs-scenario.gs-active{display:block;}
+.gs-card-label{font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#1A4A8C;margin-bottom:4px;}
+.gs-card-situation{font-size:1.06rem;color:#3A4A5A;margin-bottom:12px;line-height:1.5;}
+.gs-teacher{background:#F4F4F4;border-radius:8px;padding:10px 14px;font-size:1.06rem;color:#333;margin-bottom:8px;line-height:1.5;}
+.gs-teacher span{font-size:.85rem;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px;}
+.gs-student{background:#EEF4FB;border-radius:8px;padding:10px 14px;font-size:1.06rem;color:#1C2B3A;border-left:4px solid #1A4A8C;line-height:1.5;}
+.gs-student span{font-size:.85rem;font-weight:800;color:#1A4A8C;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px;}
+.gs-routine{font-size:1.06rem;color:#1C2B3A;line-height:1.7;margin-bottom:10px;}
+.hint-btn{background:none;border:1.5px solid #aaa;border-radius:6px;font-size:.9rem;color:#666;padding:3px 11px;cursor:pointer;margin-top:6px;transition:all .15s;font-family:inherit;}
+.hint-btn:hover{border-color:#1A4A8C;color:#1A4A8C;}
+.hint-text{display:none;background:#FFFBE6;border-left:3px solid #E8C830;border-radius:6px;padding:8px 12px;font-size:1.05rem;font-style:italic;color:#5A4000;margin-top:6px;line-height:1.5;}
+.gs-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px;}
+.gs-nav button{background:#1A4A8C;color:#fff;border:none;border-radius:8px;padding:8px 22px;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:inherit;}
+.gs-nav button:disabled{opacity:.35;cursor:default;}
+.gs-counter{font-size:1rem;font-weight:700;color:#1A4A8C;min-width:100px;text-align:center;}
+.hw-btns{display:flex;gap:10px;margin-top:16px;}
+.btn-check{background:#1A5C2A;color:#fff;border:none;padding:9px 22px;border-radius:20px;cursor:pointer;font-size:1rem;font-weight:700;transition:background .2s;}
+.btn-check:hover{background:#154A22;}
+.btn-reset{background:transparent;color:#C4614A;border:2px solid #C4614A;padding:7px 20px;border-radius:20px;cursor:pointer;font-size:1rem;font-weight:700;transition:all .2s;}
+.btn-reset:hover{background:#C4614A;color:#fff;}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  html,body{background:#fff!important;overflow:visible!important;height:auto!important;}
+  .slide{position:relative!important;opacity:1!important;display:block!important;page-break-after:always;width:100%!important;height:auto!important;overflow:visible!important;background:#fff!important;}
+  .banner{color:#fff!important;}
+  #nav,#notesBtn,#pdfBtn,#notesPanel,#homeBtn{display:none!important;}
+}
+</style>
+</head>
+<body>
+<button id="homeBtn" onclick="goTo(0)">🏠</button>
+<button id="pdfBtn" onclick="downloadNotes()" title="Save all your notes as a PDF">📄 PDF Notes</button>
+<button id="notesBtn" onclick="toggleNotes()">📝 Notes</button>
+<div id="notesPanel">
+  <div class="notes-drag-handle" id="notesDragHandle"><span class="grip">⠿⠿</span> DRAG TO MOVE</div>
+  <div id="notesToolbar">
+    <button onclick="notesFormat('bold')"><b>B</b></button>
+    <button onclick="notesFormat('underline')"><u>U</u></button>
+    <span style="width:1px;background:rgba(255,255,255,.2);margin:2px 3px;display:inline-block;height:18px;vertical-align:middle;"></span>
+    <button onclick="notesHilite('#FFE600')" style="background:#FFE600;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <button onclick="notesHilite('#AAFFC3')" style="background:#AAFFC3;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <button onclick="notesHilite('#FFB3C1')" style="background:#FFB3C1;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <button onclick="notesHilite('#BFE0FF')" style="background:#BFE0FF;color:#333;border-radius:50%;width:24px;height:24px;padding:0;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;">●</button>
+    <span style="width:1px;background:rgba(255,255,255,.2);margin:2px 3px;display:inline-block;height:18px;vertical-align:middle;"></span>
+    <button onclick="clearAllNotes()" title="Erase every note in this lesson" style="background:rgba(255,90,90,.3);">🗑 Clear all</button>
+  </div>
+  <div id="notesTA" contenteditable="true" data-placeholder="Type your notes here…"></div>
+</div>
+
+<div id="deck">
+
+<!-- ══════════════════════════ s1 COVER ══════════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="title-inner">
+    <div class="title-label">Business English</div>
+    <div class="title-sub">with teacher Nanda</div>
+    <div class="title-main">Module 1 <span class="title-accent">Review</span></div>
+    <div class="title-sub">Covering Lessons 1–4: Meeting New Colleagues, Everyday Work Activities, Business Around the World, and Asking Questions</div>
+  </div>
+  <button onclick="location.href='index.html'" style="position:absolute;bottom:70px;left:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">🏠 Course Home</button>
+</div>
+
+<!-- ══════════════════════════ s2 · REVIEW: LESSON 1 — MEETING NEW COLLEAGUES ══════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔄 Review</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Lesson 1 Review: Meeting New Colleagues</h2>
+      <div class="grammar-theory"><strong>📌 Quick recap —</strong> Formal: <strong>"My name is…", "May I introduce…", "It's a pleasure to meet you."</strong> Informal: <strong>"I'm…", "This is…", "Nice to meet you."</strong></div>
+
+      <p class="instruction">🎤 Speaking Game — Networking Mixer</p>
+      <p class="inst-light">Work with a partner. Flip through each card and introduce yourself the way the card asks — then swap roles and try the next one.</p>
+
+      <div style="max-width:660px;margin:0 auto;">
+        <div class="gs-scenario gs-active">
+          <div class="gs-card-label">👔 Card 1 — Very Formal</div>
+          <div class="gs-card-situation">It's your first day. You're introduced to Mr. Alvarez, the Regional Director.</div>
+          <div class="gs-teacher"><span>Mr. Alvarez</span>"Good morning. I'm Mr. Alvarez, Regional Director. Welcome to the team."</div>
+          <div class="gs-student"><span>Your turn — introduce yourself formally</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"Good morning, Mr. Alvarez. My name is… It's a pleasure to meet you."</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#E8A030;">
+          <div class="gs-card-label" style="color:#C8891E;">😊 Card 2 — Informal</div>
+          <div class="gs-card-situation">You're grabbing coffee during a break and meet Jamie from the IT team.</div>
+          <div class="gs-teacher"><span>Jamie</span>"Hey! I don't think we've met — I'm Jamie."</div>
+          <div class="gs-student" style="border-left-color:#E8A030;"><span>Your turn — introduce yourself informally</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"Hi, I'm… Nice to meet you."</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#4A1A6A;">
+          <div class="gs-card-label" style="color:#4A1A6A;">🌐 Card 3 — Introduce a Colleague (Formal)</div>
+          <div class="gs-card-situation">You're at a client meeting with your colleague, Priya.</div>
+          <div class="gs-teacher"><span>Client</span>"Hello — I don't believe we've met before."</div>
+          <div class="gs-student" style="border-left-color:#4A1A6A;"><span>Your turn — introduce Priya to the client, formally</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"May I introduce my colleague, Priya?"</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#0E7A8A;">
+          <div class="gs-card-label" style="color:#0E7A8A;">🤝 Card 4 — Introduce a Friend (Informal)</div>
+          <div class="gs-card-situation">You bump into your friend Sam in the lobby, together with a new coworker.</div>
+          <div class="gs-teacher"><span>Coworker</span>"Oh, hi! I don't think I know your friend."</div>
+          <div class="gs-student" style="border-left-color:#0E7A8A;"><span>Your turn — introduce Sam informally</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"This is my friend Sam." / "Sam, meet…"</div>
+          </div>
+        </div>
+        <div class="gs-nav">
+          <button id="s2nav-prev" onclick="cardNavGo('s2nav',-1)" disabled>◀ Previous</button>
+          <span id="s2nav-counter" class="gs-counter">Card 1 of 4</span>
+          <button id="s2nav-next" onclick="cardNavGo('s2nav',1)">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s3 · REVIEW: LESSON 2 — EVERYDAY WORK ACTIVITIES ══════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔄 Review</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Lesson 2 Review: Everyday Work Activities</h2>
+      <div class="grammar-theory"><strong>📌 Quick recap —</strong> Base form with I/you/we/they. Add <strong>"-s"</strong> with he/she/it: work → work<strong>s</strong>, have → <strong>has</strong>. Time expressions: <strong>every day, every morning, usually, on Mondays.</strong></div>
+
+      <p class="instruction">🕵️ Speaking Game — Guess the Job</p>
+      <p class="inst-light">One partner reads a Mystery Routine aloud, using the Present Simple. The other partner listens and guesses the job — then flip the card to check.</p>
+
+      <div style="max-width:660px;margin:0 auto;">
+        <div class="gs-scenario gs-active" id="s3card-guess">
+          <div class="gs-card-label">🔍 Mystery Person 1</div>
+          <div class="gs-routine">She <strong>starts</strong> work at 6am, every day.<br>She usually <strong>cooks</strong> food for many different people.<br>She <strong>doesn't sit down</strong> much during her shift.<br>She often <strong>works</strong> on Saturdays and Sundays.</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the job')">🔎 Reveal the job</button>
+          <div class="hint-text">She's a <strong>chef</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#E8A030;">
+          <div class="gs-card-label" style="color:#C8891E;">🔍 Mystery Person 2</div>
+          <div class="gs-routine">He <strong>works</strong> in an office. He <strong>has</strong> a team meeting every morning.<br>He usually <strong>stops</strong> for coffee at 11.<br>He <strong>deals</strong> with emails until 5 o'clock.</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the job')">🔎 Reveal the job</button>
+          <div class="hint-text">He's an <strong>office manager</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#4A1A6A;">
+          <div class="gs-card-label" style="color:#4A1A6A;">🔍 Mystery Person 3</div>
+          <div class="gs-routine">She <strong>doesn't work</strong> in an office. She <strong>travels</strong> to a different client every day.<br>She usually <strong>drives</strong> or takes the train.<br>She <strong>has</strong> meetings, not emails, most of the time.</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the job')">🔎 Reveal the job</button>
+          <div class="hint-text">She's a <strong>sales rep</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#0E7A8A;">
+          <div class="gs-card-label" style="color:#0E7A8A;">🔍 Mystery Person 4</div>
+          <div class="gs-routine">He <strong>works</strong> from home on Mondays.<br>He usually <strong>starts</strong> very early in the morning.<br>He <strong>doesn't see</strong> his colleagues much — he mostly emails and calls.</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the job')">🔎 Reveal the job</button>
+          <div class="hint-text">He's a <strong>remote consultant</strong>.</div>
+        </div>
+        <div class="gs-nav">
+          <button id="s3nav-prev" onclick="cardNavGo('s3nav',-1)" disabled>◀ Previous</button>
+          <span id="s3nav-counter" class="gs-counter">Card 1 of 4</span>
+          <button id="s3nav-next" onclick="cardNavGo('s3nav',1)">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s4 · REVIEW: LESSON 3 — BUSINESS AROUND THE WORLD ══════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔄 Review</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Lesson 3 Review: Business Around the World</h2>
+      <div class="grammar-theory"><strong>📌 Quick recap —</strong> Use <strong>"from" + country</strong> or a <strong>nationality adjective</strong>: "from Italy" / "Italian." Contracted negatives: <strong>doesn't, don't, isn't, aren't, I'm not.</strong></div>
+
+      <p class="instruction">🌍 Speaking Game — Guess the Origin</p>
+      <p class="inst-light">Read the clue aloud to your partner without saying the country. Your partner guesses the country and the nationality adjective — then flip the card to check.</p>
+
+      <div style="max-width:660px;margin:0 auto;">
+        <div class="gs-scenario gs-active">
+          <div class="gs-card-label">🛵 Clue Card 1 — Product</div>
+          <div class="gs-routine">"These stylish scooters <strong>aren't</strong> made in France or Germany. They're famous worldwide for their design."</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the origin')">🔎 Reveal the origin</button>
+          <div class="hint-text">From <strong>Italy</strong> — they're <strong>Italian</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#E8A030;">
+          <div class="gs-card-label" style="color:#C8891E;">⌚ Clue Card 2 — Product</div>
+          <div class="gs-routine">"These watches <strong>aren't</strong> cheap, and they <strong>aren't</strong> American. They're famous for precision."</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the origin')">🔎 Reveal the origin</button>
+          <div class="hint-text">From <strong>Switzerland</strong> — they're <strong>Swiss</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#4A1A6A;">
+          <div class="gs-card-label" style="color:#4A1A6A;">☕ Clue Card 3 — Product</div>
+          <div class="gs-routine">"This coffee <strong>isn't</strong> from Europe. It's grown in South America and it's very popular."</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the origin')">🔎 Reveal the origin</button>
+          <div class="hint-text">From <strong>Brazil</strong> — it's <strong>Brazilian</strong>.</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#0E7A8A;">
+          <div class="gs-card-label" style="color:#0E7A8A;">🧑 Clue Card 4 — Person</div>
+          <div class="gs-routine">"This person <strong>isn't</strong> British, but works in London."</div>
+          <button class="hint-btn" onclick="toggleFlip(this,'🙈 Hide answer','🔎 Reveal the origin')">🔎 Reveal the origin</button>
+          <div class="hint-text">From <strong>Ireland</strong> — they're <strong>Irish</strong>.</div>
+        </div>
+        <div class="gs-nav">
+          <button id="s4nav-prev" onclick="cardNavGo('s4nav',-1)" disabled>◀ Previous</button>
+          <span id="s4nav-counter" class="gs-counter">Card 1 of 4</span>
+          <button id="s4nav-next" onclick="cardNavGo('s4nav',1)">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s5 · REVIEW: LESSON 4 — ASKING QUESTIONS ══════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔄 Review</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Lesson 4 Review: Asking Questions</h2>
+      <div class="grammar-theory"><strong>📌 Quick recap —</strong> <strong>"To be":</strong> Are you…? Is she…? <strong>"Do/Does":</strong> Do you…? Does he…? <strong>Open questions:</strong> What/Where/When/Why/How + do/does…?</div>
+
+      <p class="instruction">🔥 Speaking Game — Hot Seat Interview</p>
+      <p class="inst-light">One partner sits in the Hot Seat and plays the role below. The other partner asks a question of the type shown — then swap and try the next round.</p>
+
+      <div style="max-width:660px;margin:0 auto;">
+        <div class="gs-scenario gs-active">
+          <div class="gs-card-label">💼 Round 1 — "To Be" Yes/No Question</div>
+          <div class="gs-card-situation">Hot Seat role: <strong>Office Manager</strong>. Ask about their job using "to be."</div>
+          <button class="hint-btn" onclick="toggleFlip(this)">💡 Show sample question</button>
+          <div class="hint-text">"Is she the CEO?" / "Are you the manager?"</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#E8A030;">
+          <div class="gs-card-label" style="color:#C8891E;">🙋 Round 2 — "Do/Does" Yes/No Question</div>
+          <div class="gs-card-situation">Hot Seat role: <strong>New Colleague</strong>. Ask about their routine using "do/does."</div>
+          <button class="hint-btn" onclick="toggleFlip(this)">💡 Show sample question</button>
+          <div class="hint-text">"Does he usually arrive late?" / "Do you want tea or coffee?"</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#4A1A6A;">
+          <div class="gs-card-label" style="color:#4A1A6A;">🛎️ Round 3 — Open Question (What/Where)</div>
+          <div class="gs-card-situation">Hot Seat role: <strong>Receptionist</strong>. Ask an open question with What or Where.</div>
+          <button class="hint-btn" onclick="toggleFlip(this)">💡 Show sample question</button>
+          <div class="hint-text">"Where is the stationery cabinet?" / "What time does the meeting start?"</div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#0E7A8A;">
+          <div class="gs-card-label" style="color:#0E7A8A;">🖥️ Round 4 — Open Question (How/Why)</div>
+          <div class="gs-card-situation">Hot Seat role: <strong>IT Helper</strong>. Ask an open question with How or Why.</div>
+          <button class="hint-btn" onclick="toggleFlip(this)">💡 Show sample question</button>
+          <div class="hint-text">"How do I scan this document?" / "Why is the cafeteria closed?"</div>
+        </div>
+        <div class="gs-nav">
+          <button id="s5nav-prev" onclick="cardNavGo('s5nav',-1)" disabled>◀ Previous</button>
+          <span id="s5nav-counter" class="gs-counter">Round 1 of 4</span>
+          <button id="s5nav-next" onclick="cardNavGo('s5nav',1)">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s6 · MIXED REVIEW ══════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="banner" style="background:#0E7A8A;color:#fff;">🔄 Mixed Review</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2>Mixed Review: Lessons 1–4</h2>
+
+      <p class="instruction">⚡ Quick Warm-Up (optional)</p>
+      <div style="background:#F0FAF3;border-radius:12px;padding:12px 16px;border-left:4px solid #1A7A4A;margin-bottom:18px;">
+        <div id="s6-quiz"></div>
+        <div class="hw-btns" style="margin-top:12px;">
+          <button class="btn-check" onclick="mcqCheck('s6')">✅ Check</button>
+          <button class="btn-reset" onclick="mcqReset('s6')">↺ Reset</button>
+        </div>
+        <div id="s6-result" style="margin-top:8px;font-size:1.05rem;font-weight:700;min-height:1.4em;"></div>
+      </div>
+
+      <p class="instruction">🏢 Speaking Challenge — First Day at a New Office</p>
+      <p class="inst-light">Work with a partner. Follow the story step by step, chaining together everything from Lessons 1–4: introducing yourself, describing your routine, saying where your company is from, and asking a question.</p>
+
+      <div style="max-width:660px;margin:0 auto;">
+        <div class="gs-scenario gs-active">
+          <div class="gs-card-label">1️⃣ Step 1 — Reception</div>
+          <div class="gs-card-situation">You meet Taylor, your new colleague, for the very first time.</div>
+          <div class="gs-teacher"><span>Taylor</span>"Hi there! You must be the new hire. I'm Taylor."</div>
+          <div class="gs-student"><span>Your turn — introduce yourself (Lesson 1)</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"Hi, I'm… Nice to meet you." / "My name is… It's a pleasure to meet you."</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#E8A030;">
+          <div class="gs-card-label" style="color:#C8891E;">2️⃣ Step 2 — Desk Tour</div>
+          <div class="gs-card-situation">Taylor shows you around the office.</div>
+          <div class="gs-teacher" style="background:#FFF0D5;"><span>Taylor</span>"Great! So, what does a typical day look like for you?"</div>
+          <div class="gs-student" style="border-left-color:#E8A030;background:#FFF8EC;"><span>Your turn — describe your daily routine (Lesson 2)</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"I usually start work at… I check my emails every morning… I have a team meeting on Mondays."</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#4A1A6A;">
+          <div class="gs-card-label" style="color:#4A1A6A;">3️⃣ Step 3 — Small Talk</div>
+          <div class="gs-card-situation">Taylor asks about your company.</div>
+          <div class="gs-teacher" style="background:#EDE0F5;"><span>Taylor</span>"Nice! By the way, where is your company originally from?"</div>
+          <div class="gs-student" style="border-left-color:#4A1A6A;background:#F8F2FF;"><span>Your turn — say where your company is from (Lesson 3)</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"We're from… / Our company is [nationality]. We aren't a small company."</div>
+          </div>
+        </div>
+        <div class="gs-scenario" style="border-top-color:#0E7A8A;">
+          <div class="gs-card-label" style="color:#0E7A8A;">4️⃣ Step 4 — Wrap-Up</div>
+          <div class="gs-card-situation">Before Taylor heads back to work, you have a chance to ask a question.</div>
+          <div class="gs-teacher" style="background:#D8EFF5;"><span>Taylor</span>"It was great meeting you! Let me know if you need anything."</div>
+          <div class="gs-student" style="border-left-color:#0E7A8A;background:#EAF8FC;"><span>Your turn — ask Taylor a question about the office (Lesson 4)</span>
+            <button class="hint-btn" onclick="toggleFlip(this)">💡 Show hint</button>
+            <div class="hint-text">"Is the cafeteria nearby?" / "Do you usually work late?" / "Where is the meeting room?"</div>
+          </div>
+        </div>
+        <div class="gs-nav">
+          <button id="s6nav-prev" onclick="cardNavGo('s6nav',-1)" disabled>◀ Previous</button>
+          <span id="s6nav-counter" class="gs-counter">Step 1 of 4</span>
+          <button id="s6nav-next" onclick="cardNavGo('s6nav',1)">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <button id="prevBtn" onclick="goTo(current-1)">◀ Prev</button>
+  <div id="dots"></div>
+  <span id="counter"></span>
+  <button id="nextBtn" onclick="goTo(current+1)">Next ▶</button>
+</div>
+
+<script>
+var slideIds = ["s1","s2","s3","s4","s5","s6"];
+var slideLabels = [
+  "Cover",
+  "Review — Meeting New Colleagues",
+  "Review — Everyday Work Activities",
+  "Review — Business Around the World",
+  "Review — Asking Questions",
+  "Mixed Review — Lessons 1–4"
+];
+var slides, dotsEl, current = 0;
+function norm(s){ return s.trim().toLowerCase().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' '); }
+
+function goTo(n){
+  saveNotes();
+  document.getElementById('homeBtn').style.display = n===0?'none':'flex';
+  slides[current].classList.remove('active');
+  dotsEl.children[current].classList.remove('active');
+  current = Math.max(0,Math.min(n,slides.length-1));
+  slides[current].classList.add('active');
+  dotsEl.children[current].classList.add('active');
+  scrollDot(current);
+  document.getElementById('counter').textContent = (current+1)+' / '+slides.length;
+  document.getElementById('prevBtn').disabled = current===0;
+  document.getElementById('nextBtn').disabled = current===slides.length-1;
+  var _panel = document.getElementById('notesPanel');
+  if(current===0){ if(notesOpen) _panel.classList.add('cover'); }
+  else { _panel.classList.remove('cover'); }
+  loadNotes();
+  if(notesOpen && typeof window.__notesPosRestore==='function') window.__notesPosRestore();
+}
+function goToId(id){ goTo(slideIds.indexOf(id)); }
+function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
+function saveNotes(){ try{ localStorage.setItem('notes_l4b_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
+function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l4b_'+current)||''; }catch(e){} }
+function clearAllNotes(){if(confirm('Clear ALL notes for this whole lesson? This cannot be undone.')){try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(k&&k.indexOf('notes_l4b_')===0)localStorage.removeItem(k);}}catch(e){}var t=document.getElementById('notesTA');if(t)t.innerHTML='';}}
+(function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('input',function(){saveNotes();});})();
+(function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
+var notesOpen = false;
+function toggleNotes(){
+  notesOpen = !notesOpen;
+  var p=document.getElementById('notesPanel');
+  p.classList.toggle('open', notesOpen);
+  if(current===0) p.classList.toggle('cover', notesOpen);
+  if(notesOpen) loadNotes();
+  if(!notesOpen){
+    p.style.left = '';
+    p.style.top = '';
+    p.style.right = '';
+    p.style.bottom = '';
+    p.style.transform = '';
+    try{ localStorage.removeItem('notes_l4b_pos'); }catch(e){}
+  }
+  document.getElementById('notesBtn').textContent = notesOpen ? '✕ Close' : '📝 Notes';
+}
+/* ═══ draggable notes panel ═══ */
+(function(){
+  var panel = document.getElementById('notesPanel');
+  var handle = document.getElementById('notesDragHandle');
+  if(!panel || !handle) return;
+  var POS_KEY = 'notes_l4b_pos';
+  var dragging = false, offsetX = 0, offsetY = 0;
+  function clampAndApply(x, y){
+    var maxX = window.innerWidth - panel.offsetWidth - 8;
+    var maxY = window.innerHeight - panel.offsetHeight - 8;
+    x = Math.max(8, Math.min(x, Math.max(8, maxX)));
+    y = Math.max(8, Math.min(y, Math.max(8, maxY)));
+    panel.style.left = x + 'px';
+    panel.style.top = y + 'px';
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.transform = 'none';
+  }
+  function onDown(e){
+    dragging = true;
+    panel.style.transition = 'none';
+    var rect = panel.getBoundingClientRect();
+    var pt = e.touches ? e.touches[0] : e;
+    offsetX = pt.clientX - rect.left;
+    offsetY = pt.clientY - rect.top;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onUp);
+    e.preventDefault();
+  }
+  function onMove(e){
+    if(!dragging) return;
+    var pt = e.touches ? e.touches[0] : e;
+    clampAndApply(pt.clientX - offsetX, pt.clientY - offsetY);
+    if(e.touches) e.preventDefault();
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    panel.style.transition = '';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onUp);
+    try{
+      var rect = panel.getBoundingClientRect();
+      localStorage.setItem(POS_KEY, JSON.stringify({left:rect.left, top:rect.top}));
+    }catch(err){}
+  }
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, {passive:false});
+  window.addEventListener('resize', function(){
+    if(panel.classList.contains('open') && panel.style.left){ var r=panel.getBoundingClientRect(); clampAndApply(r.left, r.top); }
+  });
+  window.__notesPosRestore = function(){
+    try{
+      var saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+      if(saved) clampAndApply(saved.left, saved.top);
+    }catch(err){}
+  };
+})();
+function notesFormat(cmd){ document.execCommand(cmd); document.getElementById('notesTA').focus(); }
+function notesHilite(c){ document.execCommand('hiliteColor',false,c); document.getElementById('notesTA').focus(); }
+function downloadNotes(){
+  saveNotes();
+  var hasAny=false, cards='';
+  slideIds.forEach(function(sid, idx){
+    var note=''; try{ note=localStorage.getItem('notes_l4b_'+idx)||''; }catch(e){}
+    if(!note.replace(/<[^>]*>/g,'').trim()) return;
+    hasAny=true;
+    cards += '<div class="card"><div class="card-header">Slide '+(idx+1)+' &mdash; '+slideLabels[idx]+'</div><div class="card-body">'+note+'</div></div>';
+  });
+  if(!hasAny){ alert('No notes to save yet!'); return; }
+  var date=new Date().toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var html='<!DOCTYPE html><html><head><meta charset="utf-8"><title>BEfE L1 Module 1 Review Notes</title><style>'
+    +"body{font-family:'Segoe UI',system-ui,sans-serif;max-width:720px;margin:16px auto;color:#1C2B3A;padding:0 20px}"
+    +'h1{font-size:1.5rem;color:#1A4A8C;margin-bottom:4px}'
+    +'.date{font-size:.9rem;color:#888;margin-bottom:14px}'
+    +'.card{border:1px solid #ddd;border-radius:10px;margin-bottom:12px;overflow:hidden}'
+    +'.card-header{background:#1A4A8C;color:#fff;padding:7px 14px;font-size:.88rem;font-weight:700}'
+    +'.card-body{padding:12px 14px;font-size:.97rem;line-height:1.7}'
+    +'.card-body,.card-body *{color:#1a1a1a!important}'
+    +'*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important;}'
+    +'@media print{body{margin:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}@page{margin:1cm}}'
+    +'.lesson-url{font-size:.88rem;color:#1A4A8C;margin-bottom:4px}'
+    +'</style></head><body>'
+    +'<h1>Business English for Everyone &ndash; Module 1 Review Notes</h1>'
+    +'<div class="lesson-url"><a href="https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'" style="color:#1A4A8C;">'+'https://teacher-nanda.github.io/Business-EFE1/'+window.location.pathname.split('/').pop()+'</a></div>'
+    +'<div class="date">'+date+'</div>'+cards+'</body></html>';
+  var win=window.open('','_blank');
+  if(!win){ alert('Please allow pop-ups for this page.'); return; }
+  win.document.write(html); win.document.close(); win.focus();
+  setTimeout(function(){win.print();},400);
+}
+
+/* keyboard navigation */
+document.addEventListener('keydown', function(e){
+  var tag = document.activeElement ? document.activeElement.tagName : '';
+  if(tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.contentEditable==='true') return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') goTo(current+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') goTo(current-1);
+});
+
+/* ═══ shared helper: text-input fill-gap exercises (Lesson 2 pattern) ═══ */
+function checkInputs(slideId, cls) {
+  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
+  document.querySelectorAll(sel).forEach(function(inp) {
+    if (inp.disabled) return;
+    var alts = inp.dataset.ans.split('|').map(function(a){ return a.trim().toLowerCase().replace(/[.!?,]+$/,''); });
+    var val = inp.value.trim().toLowerCase().replace(/[.!?,]+$/,'');
+    var ok = alts.includes(val);
+    if (!val) return;
+    inp.style.background = ok ? '#d4edda' : '#fddede';
+    inp.style.borderBottomColor = ok ? '#1A7A4A' : '#C4614A';
+    inp.classList.toggle('correct', ok); inp.classList.toggle('wrong', !ok);
+  });
+}
+function resetInputs(slideId, cls) {
+  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
+  document.querySelectorAll(sel).forEach(function(inp) {
+    if (inp.disabled || inp.readOnly) return;
+    inp.value = ''; inp.style.background = 'transparent';
+    inp.style.borderBottomColor = '#1A7A4A';
+    inp.classList.remove('correct', 'wrong');
+  });
+}
+
+/* ═══ shared helper: clickable word-order (sentence-building) exercises — same module as Lesson 4 ═══ */
+var woState = {};
+function woBuild(exId, leftId, rightId, items, resultId, exampleHtml, exampleFullWidthId){
+  var n = items.length;
+  var isOdd = n % 2 !== 0;
+  var leftCount = isOdd ? Math.floor(n/2) : n/2;
+  woState[exId] = { items:items, leftId:leftId, rightId:rightId, resultId:resultId,
+    exampleHtml: exampleHtml||null, exampleInColumn: isOdd, leftCount: leftCount,
+    bank: items.map(function(it){return it.words.slice();}),
+    built: items.map(function(){return [];}), checked:false, ok:[] };
+  if(!isOdd && exampleFullWidthId && exampleHtml){
+    var fw=document.getElementById(exampleFullWidthId); if(fw) fw.innerHTML=exampleHtml;
+  }
+  woRender(exId);
+}
+function woRender(exId){
+  var st=woState[exId];
+  var left=document.getElementById(st.leftId); var right=document.getElementById(st.rightId);
+  if(!left||!right) return;
+  var rowsHtml = st.items.map(function(item,i){
+    var zoneClass='wo-zone'+(st.checked?(st.ok[i]?' wo-correct':' wo-wrong'):'');
+    var builtHtml = st.built[i].map(function(w,wi){
+      return '<span class="wo-chip" onclick="woAdd_remove(\''+exId+'\','+i+','+wi+')">'+w+'</span>';
+    }).join('');
+    var bankHtml = st.bank[i].map(function(w,wi){
+      return '<span class="wo-chip" onclick="woAdd(\''+exId+'\','+i+','+wi+')">'+w+'</span>';
+    }).join('');
+    return '<div class="wo-row"><div class="wo-num">'+(i+1)+'.</div>'
+      +'<div class="'+zoneClass+'" id="'+exId+'-zone-'+i+'">'+builtHtml+'</div>'
+      +'<div class="wo-bank">'+bankHtml+'</div></div>';
+  });
+  left.innerHTML = (st.exampleInColumn && st.exampleHtml ? st.exampleHtml : '') + rowsHtml.slice(0, st.leftCount).join('');
+  right.innerHTML = rowsHtml.slice(st.leftCount).join('');
+}
+function woAdd(exId,i,wi){
+  var st=woState[exId]; var w=st.bank[i].splice(wi,1)[0]; st.built[i].push(w); st.checked=false; woRender(exId);
+}
+function woAdd_remove(exId,i,wi){
+  var st=woState[exId]; var w=st.built[i].splice(wi,1)[0]; st.bank[i].push(w); st.checked=false; woRender(exId);
+}
+function checkWo(exId){
+  var st=woState[exId];
+  st.ok = st.items.map(function(item,i){ return norm(st.built[i].join(' '))===norm(item.ans); });
+  st.checked=true; woRender(exId);
+  var score=st.ok.filter(Boolean).length;
+  if(st.resultId){
+    var res=document.getElementById(st.resultId);
+    res.textContent=score+' / '+st.items.length+' correct'+(score===st.items.length?' — Great job! 🎉':'');
+    res.style.color=score===st.items.length?'#1A7A4A':'#C4614A';
+  }
+}
+function resetWo(exId){
+  var st=woState[exId];
+  st.bank = st.items.map(function(it){return it.words.slice();});
+  st.built = st.items.map(function(){return [];});
+  st.checked=false; st.ok=[];
+  woRender(exId);
+  if(st.resultId) document.getElementById(st.resultId).textContent='';
+}
+
+/* ═══ shared helper: "Choose the Correct Word" cross-out exercises — same visual module as Lesson 1/3/4 ═══ */
+var xoState = {};
+var xoBtnStyle='border:2px solid #BDD4F0;border-radius:8px;padding:4px 14px;font-size:1.05rem;font-weight:700;cursor:pointer;background:#fff;color:#1C2B3A;font-family:inherit;transition:all .15s;';
+function xoBuild(exId, leftId, rightId, items, resultId, exampleHtml, exampleContainerId){
+  xoState[exId] = {items:items, sel:{}, leftId:leftId, rightId:rightId, resultId:resultId, exampleHtml:exampleHtml, exampleContainerId:exampleContainerId};
+  if(exampleContainerId && exampleHtml){ var exEl=document.getElementById(exampleContainerId); if(exEl) exEl.innerHTML=exampleHtml; }
+  var left=document.getElementById(leftId); var right=document.getElementById(rightId);
+  left.innerHTML=''; right.innerHTML='';
+  var half = items.length/2;
+  items.forEach(function(item,i){
+    var row=document.createElement('div');
+    row.style.cssText='background:#F8F8FF;border-radius:12px;border:1.5px solid #DDE5F0;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+    row.innerHTML='<span style="font-size:1.05rem;font-weight:800;color:#1A5080;min-width:20px;flex-shrink:0;">'+(i+1)+'.</span>'
+      +(item.pre?'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.pre+'</span>':'')
+      +'<button id="'+exId+'-a-'+i+'" onclick="xoPick(\''+exId+'\','+i+',\'a\')" style="'+xoBtnStyle+'">'+item.a+'</button>'
+      +'<span style="color:#888;font-size:1.05rem;">/</span>'
+      +'<button id="'+exId+'-b-'+i+'" onclick="xoPick(\''+exId+'\','+i+',\'b\')" style="'+xoBtnStyle+'">'+item.b+'</button>'
+      +(item.post?'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.post+'</span>':'');
+    (i<half?left:right).appendChild(row);
+  });
+  var res=document.getElementById(resultId); if(res) res.textContent='';
+}
+function xoReset1(exId,i){ ['a','b'].forEach(function(x){ var b=document.getElementById(exId+'-'+x+'-'+i); if(b) b.style.cssText=xoBtnStyle; }); }
+function xoPick(exId,i,v){
+  var st=xoState[exId]; var other=v==='a'?'b':'a';
+  xoReset1(exId,i); st.sel[i]=v;
+  var cb=document.getElementById(exId+'-'+v+'-'+i); var wb=document.getElementById(exId+'-'+other+'-'+i);
+  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
+  if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
+}
+function checkXo(exId){
+  var st=xoState[exId]; var score=0;
+  st.items.forEach(function(item,i){
+    if(st.sel[i]===undefined) return;
+    var ok = st.sel[i]!==item.wrong;
+    var selBtn=document.getElementById(exId+'-'+st.sel[i]+'-'+i);
+    var otherKey=st.sel[i]==='a'?'b':'a';
+    var othBtn=document.getElementById(exId+'-'+otherKey+'-'+i);
+    if(ok){
+      score++;
+      if(selBtn){selBtn.style.background='#EEF7F0';selBtn.style.color='#1A5C2A';selBtn.style.borderColor='#1A7A4A';selBtn.style.textDecoration='none';selBtn.style.opacity='1';}
+      if(othBtn){othBtn.style.cssText=xoBtnStyle;}
+    } else {
+      if(selBtn){selBtn.style.background='#FCEEED';selBtn.style.color='#C4614A';selBtn.style.borderColor='#C4614A';selBtn.style.textDecoration='none';selBtn.style.opacity='1';}
+      if(othBtn){othBtn.style.cssText=xoBtnStyle;}
+    }
+  });
+  var res=document.getElementById(st.resultId);
+  res.innerHTML = score===st.items.length
+    ? '<span style="color:#1A7A4A;">✅ Perfect! '+score+'/'+st.items.length+'</span>'
+    : '<span style="color:#C0392B;">'+score+'/'+st.items.length+' — Try again!</span>';
+}
+function resetXo(exId){
+  var st=xoState[exId];
+  xoBuild(exId, st.leftId, st.rightId, st.items, st.resultId, st.exampleHtml, st.exampleContainerId);
+}
+
+/* ═══ shared helper: multiple-choice quiz (Warm-Up/Review pattern) ═══ */
+var mcqState = {};
+function mcqOptId(o){ return o.replace(/[^a-zA-Z0-9]/g,'_'); }
+function mcqBuild(exId, containerId, resultId, data){
+  mcqState[exId] = {data:data, sel:{}, resultId:resultId, containerId:containerId};
+  var el=document.getElementById(containerId); if(!el) return;
+  el.innerHTML='';
+  data.forEach(function(item,i){
+    var block=document.createElement('div'); block.className='mc-question';
+    var optsHtml = item.opts.map(function(o){
+      return '<div class="mc-opt" id="'+exId+'-'+i+'-'+mcqOptId(o)+'" onclick="mcqPick(\''+exId+'\','+i+',\''+o.replace(/'/g,"\\'")+'\')">'+o+'</div>';
+    }).join('');
+    block.innerHTML = '<div class="mc-q-text"><span class="mc-q-num">'+(i+1)+'.</span> '+item.q+'</div>'
+      + '<div class="mc-opts">'+optsHtml+'</div>';
+    el.appendChild(block);
+  });
+  var res=document.getElementById(resultId); if(res) res.textContent='';
+}
+function mcqPick(exId,i,opt){
+  var st=mcqState[exId]; st.sel[i]=opt;
+  st.data[i].opts.forEach(function(o){
+    var b=document.getElementById(exId+'-'+i+'-'+mcqOptId(o));
+    b.className='mc-opt'+(o===opt?' mc-sel':'');
+  });
+}
+function mcqCheck(exId){
+  var st=mcqState[exId]; var score=0;
+  st.data.forEach(function(item,i){
+    item.opts.forEach(function(o){
+      var b=document.getElementById(exId+'-'+i+'-'+mcqOptId(o));
+      b.className='mc-opt';
+    });
+    if(st.sel[i]===undefined) return;
+    var ok=st.sel[i]===item.ans;
+    var b=document.getElementById(exId+'-'+i+'-'+mcqOptId(st.sel[i]));
+    b.className='mc-opt '+(ok?'mc-ok':'mc-bad');
+    if(ok) score++;
+  });
+  var res=document.getElementById(st.resultId);
+  res.textContent=score+' / '+st.data.length+' correct'+(score===st.data.length?' — Great review! 🎉':'');
+  res.style.color=score===st.data.length?'#1A7A4A':'#C4614A';
+}
+function mcqReset(exId){
+  var st=mcqState[exId];
+  mcqBuild(exId, st.containerId, st.resultId, st.data);
+}
+
+/* ═══ S2 — Lesson 1 Review: Choose the Correct Word ═══ */
+var s2XoExample = '<div style="background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
+  +'<span style="font-size:1.05rem;font-weight:800;color:#C45020;flex-shrink:0;">Example</span>'
+  +'<span style="font-size:1.05rem;color:#1C2B3A;">It\'s a</span>'
+  +'<button style="'+xoBtnStyle+'background:#EEF7F0;color:#1A5C2A;border-color:#1A7A4A;pointer-events:none;">pleasure</button>'
+  +'<span style="color:#888;font-size:1.05rem;">/</span>'
+  +'<button style="'+xoBtnStyle+'background:#f5f5f5;color:#bbb;border-color:#e0e0e0;text-decoration:line-through;opacity:.6;pointer-events:none;">pleased</button>'
+  +'<span style="font-size:1.05rem;color:#1C2B3A;">to meet you.</span>'
+  +'</div>';
+var s2XoData = [
+  { pre:"", a:"Good", b:"Goods", post:"morning! My name's Alex.", wrong:"b" },
+  { pre:"Hi, I'm Priya.", a:"Nice", b:"Nicely", post:"to meet you.", wrong:"b" },
+  { pre:"", a:"This", b:"These", post:"is my colleague, Sam.", wrong:"b" },
+  { pre:"May I", a:"introduce", b:"introduces", post:"our new manager?", wrong:"b" }
+];
+function buildS2(){ xoBuild('s2', 's2-xo-left', 's2-xo-right', s2XoData, 's2-xo-result', s2XoExample, 's2-xo-example'); }
+
+/* ═══ S3 — Lesson 2 Review: Fill in the Gaps (Present Simple) ═══ */
+function buildS3(){
+  document.getElementById('s3-example').innerHTML =
+    '<div class="ex-row" style="background:#FFF4EE;border-left:3px solid #C45020;">'
+    +'<strong style="color:#C45020;">Example</strong> &nbsp;Every day, we <input class="ans-input" value="prepare" readonly disabled style="border-bottom-color:#C45020;color:#C45020;"> (prepare) the meeting room.'
+    +'</div>';
+  var left = [
+    { text:'She', verb:'work', ans:'works', tail:'in the finance department.' },
+    { text:'They', verb:'have', ans:'have', tail:'a team meeting every Monday.' },
+    { text:'He usually', verb:'leave', ans:'leaves', tail:'the office at 6pm.' }
+  ];
+  var right = [
+    { text:'I', verb:'read', ans:'read', tail:'my emails every morning.' },
+    { text:'We', verb:'travel', ans:'travel', tail:"to the client's office once a month." },
+    { text:'The manager', verb:'open', ans:'opens', tail:'the store every day.' }
+  ];
+  function rowHtml(item,n){
+    return '<div class="ex-row"><strong>'+n+'</strong> &nbsp;'+item.text+' <input class="ans-input" data-ans="'+item.ans+'"> ('+item.verb+') '+item.tail+'</div>';
+  }
+  document.getElementById('s3-left').innerHTML = left.map(function(it,i){ return rowHtml(it,i+1); }).join('');
+  document.getElementById('s3-right').innerHTML = right.map(function(it,i){ return rowHtml(it,i+4); }).join('');
+}
+
+/* ═══ S4 — Lesson 3 Review: Choose the Correct Word ═══ */
+var s4XoExample = '<div style="background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
+  +'<span style="font-size:1.05rem;font-weight:800;color:#C45020;flex-shrink:0;">Example</span>'
+  +'<span style="font-size:1.05rem;color:#1C2B3A;">These watches are</span>'
+  +'<button style="'+xoBtnStyle+'background:#f5f5f5;color:#bbb;border-color:#e0e0e0;text-decoration:line-through;opacity:.6;pointer-events:none;">Switzerland</button>'
+  +'<span style="color:#888;font-size:1.05rem;">/</span>'
+  +'<button style="'+xoBtnStyle+'background:#EEF7F0;color:#1A5C2A;border-color:#1A7A4A;pointer-events:none;">Swiss</button>'
+  +'<span style="font-size:1.05rem;color:#1C2B3A;">.</span>'
+  +'</div>';
+var s4XoData = [
+  { pre:"The printer", a:"doesn't", b:"isn't", post:"print in color.", wrong:"b" },
+  { pre:"I'm not British, I'm", a:"Ireland", b:"Irish", post:".", wrong:"a" },
+  { pre:"They", a:"aren't", b:"isn't", post:"from Canada.", wrong:"b" },
+  { pre:"This coffee is", a:"Brazil", b:"Brazilian", post:".", wrong:"a" }
+];
+function buildS4(){ xoBuild('s4', 's4-xo-left', 's4-xo-right', s4XoData, 's4-xo-result', s4XoExample, 's4-xo-example'); }
+
+/* ═══ S5 — Lesson 4 Review: Build the Question (word-order) ═══ */
+var s5ExampleHtml = '<div class="wo-row" style="border-left-color:#C45020;">'
+  +'<div class="wo-num" style="color:#C45020;">Ex.</div>'
+  +'<div class="wo-zone" style="border-color:#C45020;border-style:solid;background:#FFF4EE;">'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">Do</span>'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">you</span>'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">have</span>'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">a</span>'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">meeting</span>'
+  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">today?</span>'
+  +'</div></div>';
+var s5Items = [
+  { words:["tomorrow?","Are","free","you"], ans:"Are you free tomorrow?" },
+  { words:["home?","Does","work","she","from"], ans:"Does she work from home?" },
+  { words:["room?","the","Where","meeting","is"], ans:"Where is the meeting room?" },
+  { words:["work?","time","What","start","do","you"], ans:"What time do you start work?" }
+];
+function buildS5(){ woBuild('s5', 's5-wo-left', 's5-wo-right', s5Items, 's5-result', s5ExampleHtml, 's5-example'); }
+
+/* ═══ S6 — Mixed Review quiz ═══ */
+var s6Data = [
+  { q:'___ to meet you!', opts:["Pleased","Pleasant"], ans:"Pleased" },
+  { q:'She ___ (work) in the marketing team.', opts:["work","works"], ans:"works" },
+  { q:'These shoes are ___.', opts:["Brazil","Brazilian"], ans:"Brazilian" },
+  { q:'___ you free this afternoon?', opts:["Are","Do"], ans:"Are" },
+  { q:"We ___ have meetings on Fridays.", opts:["don't","doesn't"], ans:"don't" },
+  { q:'___ does the manager usually start work?', opts:["What time","What times"], ans:"What time" }
+];
+function buildS6(){ mcqBuild('s6', 's6-quiz', 's6-result', s6Data); }
+
+/* ═══ INIT ═══ */
+window.addEventListener('DOMContentLoaded',function(){
+  slides=slideIds.map(function(id){ return document.getElementById(id); });
+  dotsEl=document.getElementById('dots');
+  slides.forEach(function(s,i){
+    var d=document.createElement('div'); d.className='dot';
+    d.title=slideLabels[i]||'';
+    d.onclick=function(){ goTo(i); };
+    dotsEl.appendChild(d);
+  });
+  buildS2(); buildS3(); buildS4(); buildS5(); buildS6();
+  goTo(0);
+});
+</script>
+</body>
+</html>
