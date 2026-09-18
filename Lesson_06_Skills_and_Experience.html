@@ -725,7 +725,7 @@ function goToId(id){ goTo(slideIds.indexOf(id)); }
 function scrollDot(i){ var d=dotsEl.children[i]; if(d) d.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
 function saveNotes(){ try{ localStorage.setItem('notes_l6_'+current, document.getElementById('notesTA').innerHTML); }catch(e){} }
 function loadNotes(){ try{ document.getElementById('notesTA').innerHTML = localStorage.getItem('notes_l6_'+current)||''; }catch(e){} }
-(function(){var t=document.getElementById('notesTA');if(t)t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});})();
+(function(){var t=document.getElementById('notesTA');if(t){t.addEventListener('input',function(){saveNotes();});t.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);});}})();
 var notesOpen = false;
 function toggleNotes(){
   notesOpen = !notesOpen;
