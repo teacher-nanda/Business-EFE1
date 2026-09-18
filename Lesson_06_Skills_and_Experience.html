@@ -171,11 +171,11 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   <div class="slide-main">
     <div class="content">
       <h2>Before We Continue…</h2>
-      <p class="inst-light">A quick spoken review of what you learned in Lesson 5 — talk it through with a partner (or out loud).</p>
+      <p class="inst-light">A quick spoken review of what you learned in Lesson 5 — talk it through out loud with your teacher.</p>
       <div style="background:linear-gradient(135deg,#0E4A5A,#0E7A8A);border-radius:16px;padding:18px 22px;color:#fff;box-shadow:0 4px 14px rgba(14,74,90,.25);">
         <div style="font-size:1.05rem;font-weight:800;letter-spacing:.03em;margin-bottom:10px;">💬 Talk About It</div>
         <div style="font-size:1.05rem;line-height:1.8;opacity:.95;">
-          <div style="margin-bottom:8px;"><strong style="color:#F5893A;">1.</strong> Exchange contact details with a partner as if you'd just met at a conference.</div>
+          <div style="margin-bottom:8px;"><strong style="color:#F5893A;">1.</strong> Exchange contact details with your teacher as if you'd just met at a conference.</div>
           <div><strong style="color:#F5893A;">2.</strong> Give a short answer to this question: "Do you have a business card?"</div>
         </div>
       </div>
@@ -968,7 +968,7 @@ function buildFillGaps(containerId, data, prefix){
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num">'+(i+1)+'.</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.pre+'</span>'
-      +'<input type="text" id="'+prefix+'-inp-'+i+'" placeholder="a/an/the" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">'
+      +'<input type="text" id="'+prefix+'-inp-'+i+'" style="width:90px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.post+'</span>';
     el.appendChild(row);
   });
@@ -995,7 +995,7 @@ function buildListening(containerId, items){
     row.style.cssText='background:'+(item.example?'#FFF4EE':'#F4F8FA')+';border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-left:3px solid '+(item.example?'#C45020':'#8BB0D0')+';';
     row.innerHTML='<span style="font-weight:800;color:'+(item.example?'#C45020':'#1A5080')+';min-width:26px;">'+item.letter+'</span>'
       +'<span style="flex:1;font-size:1.05rem;color:#1C2B3A;">'+item.q+'</span>'
-      +'<input type="text" '+(item.example?'value="1" readonly':'')+' placeholder="?" style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
+      +'<input type="text" '+(item.example?'value="1" readonly':'')+' style="width:40px;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-weight:700;color:#1C2B3A;outline:none;text-align:center;">';
     rows.appendChild(row);
   });
 }
@@ -1187,7 +1187,7 @@ function buildHW2(){
     row.innerHTML='<span class="ex-num" style="flex-shrink:0;">'+item.num+'.</span>'
       +'<span style="flex-shrink:0;">'+jumbleChips(item.words)+'</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;">→</span>'
-      +'<input type="text" id="hw2-inp-'+item.num+'" placeholder="…" style="width:320px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="hw2-inp-'+item.num+'" style="width:320px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     (item.num<=2?left:right).appendChild(row);
   });
   document.getElementById('hw2-result').textContent='';
@@ -1326,7 +1326,7 @@ function buildHW7(){
     row.style.cssText+='display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
     row.innerHTML='<span class="ex-num" style="color:#7A2A5A;flex-shrink:0;">'+(i+1)+'.</span>'
       +'<span style="font-size:1.05rem;color:#1C2B3A;flex-shrink:0;">'+item.q+'</span>'
-      +'<input type="text" id="hw7-inp-'+i+'" placeholder="…" style="width:320px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
+      +'<input type="text" id="hw7-inp-'+i+'" style="width:320px;flex-shrink:0;border:none;border-bottom:2px solid #8BB0D0;background:transparent;font-size:1.05rem;font-family:inherit;font-weight:700;color:#1C2B3A;outline:none;padding:2px 4px;">';
     rows.appendChild(row);
   });
   document.getElementById('hw7-result').textContent='';

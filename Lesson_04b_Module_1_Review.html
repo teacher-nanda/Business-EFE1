@@ -83,6 +83,9 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 .gs-nav button:disabled{opacity:.35;cursor:default;}
 .gs-counter{font-size:1rem;font-weight:700;color:#1A4A8C;min-width:100px;text-align:center;}
 .hw-btns{display:flex;gap:10px;margin-top:16px;}
+#s-hw{background:linear-gradient(145deg,#062024 0%,#0E4A54 60%,#0E7A8A 100%);}
+.hw-check{list-style:none;padding:0;margin:10px 0 14px;}
+.hw-check li{padding:8px 12px;border-left:3px solid #1A4A8C;background:#F4F8FA;border-radius:0 8px 8px 0;font-size:1.06rem;color:#1C2B3A;margin-bottom:16px;line-height:1.5;}
 .btn-check{background:#1A5C2A;color:#fff;border:none;padding:9px 22px;border-radius:20px;cursor:pointer;font-size:1rem;font-weight:700;transition:background .2s;}
 .btn-check:hover{background:#154A22;}
 .btn-reset{background:transparent;color:#C4614A;border:2px solid #C4614A;padding:7px 20px;border-radius:20px;cursor:pointer;font-size:1rem;font-weight:700;transition:all .2s;}
@@ -127,6 +130,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
     <div class="title-sub">Covering Lessons 1–4: Meeting New Colleagues, Everyday Work Activities, Business Around the World, and Asking Questions</div>
   </div>
   <button onclick="location.href='index.html'" style="position:absolute;bottom:70px;left:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">🏠 Course Home</button>
+  <button onclick="goToId('s-hw')" style="position:absolute;bottom:70px;right:32px;background:rgba(255,255,255,.18);color:#fff;border:2px solid rgba(255,255,255,.4);padding:10px 22px;border-radius:22px;cursor:pointer;font-size:1.05rem;font-weight:700;backdrop-filter:blur(4px);">📝 Homework</button>
 </div>
 
 <!-- ══════════════════════════ s2 · REVIEW: LESSON 1 — MEETING NEW COLLEAGUES ══════════════════════════ -->
@@ -138,7 +142,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       <div class="grammar-theory"><strong>📌 Quick recap —</strong> Formal: <strong>"My name is…", "May I introduce…", "It's a pleasure to meet you."</strong> Informal: <strong>"I'm…", "This is…", "Nice to meet you."</strong></div>
 
       <p class="instruction">🎤 Speaking Game — Networking Mixer</p>
-      <p class="inst-light">Work with a partner. Flip through each card and introduce yourself the way the card asks — then swap roles and try the next one.</p>
+      <p class="inst-light">Your teacher will play each role below. Flip through the cards and introduce yourself the way each one asks.</p>
 
       <div style="max-width:660px;margin:0 auto;">
         <div class="gs-scenario gs-active">
@@ -196,7 +200,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       <div class="grammar-theory"><strong>📌 Quick recap —</strong> Base form with I/you/we/they. Add <strong>"-s"</strong> with he/she/it: work → work<strong>s</strong>, have → <strong>has</strong>. Time expressions: <strong>every day, every morning, usually, on Mondays.</strong></div>
 
       <p class="instruction">🕵️ Speaking Game — Guess the Job</p>
-      <p class="inst-light">One partner reads a Mystery Routine aloud, using the Present Simple. The other partner listens and guesses the job — then flip the card to check.</p>
+      <p class="inst-light">Your teacher will read each Mystery Routine aloud, using the Present Simple. Listen and guess the job — then flip the card to check.</p>
 
       <div style="max-width:660px;margin:0 auto;">
         <div class="gs-scenario gs-active" id="s3card-guess">
@@ -242,7 +246,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       <div class="grammar-theory"><strong>📌 Quick recap —</strong> Use <strong>"from" + country</strong> or a <strong>nationality adjective</strong>: "from Italy" / "Italian." Contracted negatives: <strong>doesn't, don't, isn't, aren't, I'm not.</strong></div>
 
       <p class="instruction">🌍 Speaking Game — Guess the Origin</p>
-      <p class="inst-light">Read the clue aloud to your partner without saying the country. Your partner guesses the country and the nationality adjective — then flip the card to check.</p>
+      <p class="inst-light">Your teacher will read each clue aloud without saying the country. Guess the country and the nationality adjective — then flip the card to check.</p>
 
       <div style="max-width:660px;margin:0 auto;">
         <div class="gs-scenario gs-active">
@@ -288,7 +292,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       <div class="grammar-theory"><strong>📌 Quick recap —</strong> <strong>"To be":</strong> Are you…? Is she…? <strong>"Do/Does":</strong> Do you…? Does he…? <strong>Open questions:</strong> What/Where/When/Why/How + do/does…?</div>
 
       <p class="instruction">🔥 Speaking Game — Hot Seat Interview</p>
-      <p class="inst-light">One partner sits in the Hot Seat and plays the role below. The other partner asks a question of the type shown — then swap and try the next round.</p>
+      <p class="inst-light">Your teacher sits in the Hot Seat and plays the role below. Ask a question of the type shown for each round.</p>
 
       <div style="max-width:660px;margin:0 auto;">
         <div class="gs-scenario gs-active">
@@ -343,7 +347,7 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
       </div>
 
       <p class="instruction">🏢 Speaking Challenge — First Day at a New Office</p>
-      <p class="inst-light">Work with a partner. Follow the story step by step, chaining together everything from Lessons 1–4: introducing yourself, describing your routine, saying where your company is from, and asking a question.</p>
+      <p class="inst-light">Your teacher plays Taylor. Follow the story step by step, chaining together everything from Lessons 1–4: introducing yourself, describing your routine, saying where your company is from, and asking a question.</p>
 
       <div style="max-width:660px;margin:0 auto;">
         <div class="gs-scenario gs-active">
@@ -392,6 +396,51 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
   </div>
 </div>
 
+<!-- ══════════════════════════ s-hw COVER ══════════════════════════ -->
+<div class="slide" id="s-hw">
+  <div class="title-inner">
+    <div class="title-main" style="font-size:2.8rem;"><span class="title-accent">Homework</span></div>
+    <div class="title-sub" style="font-size:1.3rem;margin-top:6px;">Module 1 Review</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s-hw1 · HW 1 — POSTCARD FROM YOUR FIRST WEEK ══════════════════════════ -->
+<div class="slide" id="s-hw1">
+  <div class="banner" style="background:#5A2A8C;color:#fff;">📝 Homework</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2 style="font-size:1.75rem;">HW 1 – Postcard From Your First Week</h2>
+      <p class="inst-light">Remember Taylor from the Mixed Review story? Imagine you're the new hire from that story. Write a short message (60–80 words) to a friend describing your first week at the new office.</p>
+      <div style="font-size:1.05rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#5A2A8C;margin:14px 0 6px;">Your message must include:</div>
+      <ul class="hw-check">
+        <li>① An introduction — formal or informal (Lesson 1)</li>
+        <li>② A sentence about your typical daily routine (Lesson 2)</li>
+        <li>③ A sentence about where your company is from (Lesson 3)</li>
+        <li>④ At least one question you asked a colleague (Lesson 4)</li>
+        <li>⑤ A friendly closing line</li>
+      </ul>
+      <textarea style="width:100%;min-height:170px;border-radius:10px;border:2px solid #dde;padding:14px;font-size:1.05rem;font-family:inherit;line-height:1.6;color:#1C2B3A;background:#fff;outline:none;resize:vertical;" placeholder="Hi Jordan,&#10;&#10;You won't believe my first week at the new office…"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ s-hw2 · HW 2 — SPOT THE MISTAKE: OFFICE BLOOPERS ══════════════════════════ -->
+<div class="slide" id="s-hw2">
+  <div class="banner" style="background:#5A2A8C;color:#fff;">📝 Homework</div>
+  <div class="slide-main">
+    <div class="content">
+      <h2 style="font-size:1.75rem;">HW 2 – Spot the Mistake: Office Bloopers</h2>
+      <p class="inst-light">Someone typed each of these office messages in a hurry and made one mistake — one from each lesson in Module 1. Click the corrected version.</p>
+      <div id="hw2-qs"></div>
+      <div class="hw-btns">
+        <button class="btn-check" onclick="checkHw2()">✅ Check Answers</button>
+        <button class="btn-reset" onclick="resetHw2()">↺ Reset</button>
+      </div>
+      <div id="hw2-result" style="margin-top:10px;font-weight:700;font-size:1.05rem;min-height:1.4em;"></div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <div id="nav">
@@ -402,14 +451,17 @@ h2{font-size:1.85rem;font-weight:800;color:#0A0502;margin-bottom:14px;}
 </div>
 
 <script>
-var slideIds = ["s1","s2","s3","s4","s5","s6"];
+var slideIds = ["s1","s2","s3","s4","s5","s6","s-hw","s-hw1","s-hw2"];
 var slideLabels = [
   "Cover",
   "Review — Meeting New Colleagues",
   "Review — Everyday Work Activities",
   "Review — Business Around the World",
   "Review — Asking Questions",
-  "Mixed Review — Lessons 1–4"
+  "Mixed Review — Lessons 1–4",
+  "Homework",
+  "HW1 — Postcard From Your First Week",
+  "HW2 — Spot the Mistake: Office Bloopers"
 ];
 var slides, dotsEl, current = 0;
 function norm(s){ return s.trim().toLowerCase().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' '); }
@@ -560,145 +612,39 @@ document.addEventListener('keydown', function(e){
   if(e.key==='ArrowLeft'||e.key==='ArrowUp') goTo(current-1);
 });
 
-/* ═══ shared helper: text-input fill-gap exercises (Lesson 2 pattern) ═══ */
-function checkInputs(slideId, cls) {
-  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
-  document.querySelectorAll(sel).forEach(function(inp) {
-    if (inp.disabled) return;
-    var alts = inp.dataset.ans.split('|').map(function(a){ return a.trim().toLowerCase().replace(/[.!?,]+$/,''); });
-    var val = inp.value.trim().toLowerCase().replace(/[.!?,]+$/,'');
-    var ok = alts.includes(val);
-    if (!val) return;
-    inp.style.background = ok ? '#d4edda' : '#fddede';
-    inp.style.borderBottomColor = ok ? '#1A7A4A' : '#C4614A';
-    inp.classList.toggle('correct', ok); inp.classList.toggle('wrong', !ok);
-  });
-}
-function resetInputs(slideId, cls) {
-  var sel = cls ? '#' + slideId + ' input' + cls + '[data-ans]' : '#' + slideId + ' input[data-ans]';
-  document.querySelectorAll(sel).forEach(function(inp) {
-    if (inp.disabled || inp.readOnly) return;
-    inp.value = ''; inp.style.background = 'transparent';
-    inp.style.borderBottomColor = '#1A7A4A';
-    inp.classList.remove('correct', 'wrong');
-  });
+/* ═══ shared helper: guided-speaking hint/reveal toggle (Lesson 1 gs-scenario pattern) ═══ */
+function toggleFlip(btn, hideLabel, showLabel){
+  hideLabel = hideLabel || '🙈 Hide hint';
+  showLabel = showLabel || '💡 Show hint';
+  var panel = btn.nextElementSibling;
+  var showing = panel.style.display === 'block';
+  panel.style.display = showing ? 'none' : 'block';
+  btn.textContent = showing ? showLabel : hideLabel;
 }
 
-/* ═══ shared helper: clickable word-order (sentence-building) exercises — same module as Lesson 4 ═══ */
-var woState = {};
-function woBuild(exId, leftId, rightId, items, resultId, exampleHtml, exampleFullWidthId){
-  var n = items.length;
-  var isOdd = n % 2 !== 0;
-  var leftCount = isOdd ? Math.floor(n/2) : n/2;
-  woState[exId] = { items:items, leftId:leftId, rightId:rightId, resultId:resultId,
-    exampleHtml: exampleHtml||null, exampleInColumn: isOdd, leftCount: leftCount,
-    bank: items.map(function(it){return it.words.slice();}),
-    built: items.map(function(){return [];}), checked:false, ok:[] };
-  if(!isOdd && exampleFullWidthId && exampleHtml){
-    var fw=document.getElementById(exampleFullWidthId); if(fw) fw.innerHTML=exampleHtml;
-  }
-  woRender(exId);
+/* ═══ shared helper: flip-through scenario/card navigator (Lesson 1 gs-nav pattern) ═══ */
+var cardNavState = {};
+function cardNavBuild(navKey, containerId, unitLabel){
+  var cards = document.querySelectorAll('#' + containerId + ' .gs-scenario');
+  cardNavState[navKey] = { cards: cards, idx: 0, unitLabel: unitLabel || 'Card' };
+  cardNavUpdate(navKey);
 }
-function woRender(exId){
-  var st=woState[exId];
-  var left=document.getElementById(st.leftId); var right=document.getElementById(st.rightId);
-  if(!left||!right) return;
-  var rowsHtml = st.items.map(function(item,i){
-    var zoneClass='wo-zone'+(st.checked?(st.ok[i]?' wo-correct':' wo-wrong'):'');
-    var builtHtml = st.built[i].map(function(w,wi){
-      return '<span class="wo-chip" onclick="woAdd_remove(\''+exId+'\','+i+','+wi+')">'+w+'</span>';
-    }).join('');
-    var bankHtml = st.bank[i].map(function(w,wi){
-      return '<span class="wo-chip" onclick="woAdd(\''+exId+'\','+i+','+wi+')">'+w+'</span>';
-    }).join('');
-    return '<div class="wo-row"><div class="wo-num">'+(i+1)+'.</div>'
-      +'<div class="'+zoneClass+'" id="'+exId+'-zone-'+i+'">'+builtHtml+'</div>'
-      +'<div class="wo-bank">'+bankHtml+'</div></div>';
-  });
-  left.innerHTML = (st.exampleInColumn && st.exampleHtml ? st.exampleHtml : '') + rowsHtml.slice(0, st.leftCount).join('');
-  right.innerHTML = rowsHtml.slice(st.leftCount).join('');
+function cardNavGo(navKey, dir){
+  var st = cardNavState[navKey];
+  if (!st) return;
+  st.cards[st.idx].classList.remove('gs-active');
+  st.idx = Math.max(0, Math.min(st.cards.length - 1, st.idx + dir));
+  st.cards[st.idx].classList.add('gs-active');
+  cardNavUpdate(navKey);
 }
-function woAdd(exId,i,wi){
-  var st=woState[exId]; var w=st.bank[i].splice(wi,1)[0]; st.built[i].push(w); st.checked=false; woRender(exId);
-}
-function woAdd_remove(exId,i,wi){
-  var st=woState[exId]; var w=st.built[i].splice(wi,1)[0]; st.bank[i].push(w); st.checked=false; woRender(exId);
-}
-function checkWo(exId){
-  var st=woState[exId];
-  st.ok = st.items.map(function(item,i){ return norm(st.built[i].join(' '))===norm(item.ans); });
-  st.checked=true; woRender(exId);
-  var score=st.ok.filter(Boolean).length;
-  if(st.resultId){
-    var res=document.getElementById(st.resultId);
-    res.textContent=score+' / '+st.items.length+' correct'+(score===st.items.length?' — Great job! 🎉':'');
-    res.style.color=score===st.items.length?'#1A7A4A':'#C4614A';
-  }
-}
-function resetWo(exId){
-  var st=woState[exId];
-  st.bank = st.items.map(function(it){return it.words.slice();});
-  st.built = st.items.map(function(){return [];});
-  st.checked=false; st.ok=[];
-  woRender(exId);
-  if(st.resultId) document.getElementById(st.resultId).textContent='';
-}
-
-/* ═══ shared helper: "Choose the Correct Word" cross-out exercises — same visual module as Lesson 1/3/4 ═══ */
-var xoState = {};
-var xoBtnStyle='border:2px solid #BDD4F0;border-radius:8px;padding:4px 14px;font-size:1.05rem;font-weight:700;cursor:pointer;background:#fff;color:#1C2B3A;font-family:inherit;transition:all .15s;';
-function xoBuild(exId, leftId, rightId, items, resultId, exampleHtml, exampleContainerId){
-  xoState[exId] = {items:items, sel:{}, leftId:leftId, rightId:rightId, resultId:resultId, exampleHtml:exampleHtml, exampleContainerId:exampleContainerId};
-  if(exampleContainerId && exampleHtml){ var exEl=document.getElementById(exampleContainerId); if(exEl) exEl.innerHTML=exampleHtml; }
-  var left=document.getElementById(leftId); var right=document.getElementById(rightId);
-  left.innerHTML=''; right.innerHTML='';
-  var half = items.length/2;
-  items.forEach(function(item,i){
-    var row=document.createElement('div');
-    row.style.cssText='background:#F8F8FF;border-radius:12px;border:1.5px solid #DDE5F0;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
-    row.innerHTML='<span style="font-size:1.05rem;font-weight:800;color:#1A5080;min-width:20px;flex-shrink:0;">'+(i+1)+'.</span>'
-      +(item.pre?'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.pre+'</span>':'')
-      +'<button id="'+exId+'-a-'+i+'" onclick="xoPick(\''+exId+'\','+i+',\'a\')" style="'+xoBtnStyle+'">'+item.a+'</button>'
-      +'<span style="color:#888;font-size:1.05rem;">/</span>'
-      +'<button id="'+exId+'-b-'+i+'" onclick="xoPick(\''+exId+'\','+i+',\'b\')" style="'+xoBtnStyle+'">'+item.b+'</button>'
-      +(item.post?'<span style="font-size:1.05rem;color:#1C2B3A;">'+item.post+'</span>':'');
-    (i<half?left:right).appendChild(row);
-  });
-  var res=document.getElementById(resultId); if(res) res.textContent='';
-}
-function xoReset1(exId,i){ ['a','b'].forEach(function(x){ var b=document.getElementById(exId+'-'+x+'-'+i); if(b) b.style.cssText=xoBtnStyle; }); }
-function xoPick(exId,i,v){
-  var st=xoState[exId]; var other=v==='a'?'b':'a';
-  xoReset1(exId,i); st.sel[i]=v;
-  var cb=document.getElementById(exId+'-'+v+'-'+i); var wb=document.getElementById(exId+'-'+other+'-'+i);
-  if(cb){cb.style.background='#EAF1FB';cb.style.color='#1A4A8C';cb.style.borderColor='#1A4A8C';}
-  if(wb){wb.style.background='#f5f5f5';wb.style.color='#bbb';wb.style.borderColor='#e0e0e0';wb.style.textDecoration='line-through';wb.style.opacity='.6';}
-}
-function checkXo(exId){
-  var st=xoState[exId]; var score=0;
-  st.items.forEach(function(item,i){
-    if(st.sel[i]===undefined) return;
-    var ok = st.sel[i]!==item.wrong;
-    var selBtn=document.getElementById(exId+'-'+st.sel[i]+'-'+i);
-    var otherKey=st.sel[i]==='a'?'b':'a';
-    var othBtn=document.getElementById(exId+'-'+otherKey+'-'+i);
-    if(ok){
-      score++;
-      if(selBtn){selBtn.style.background='#EEF7F0';selBtn.style.color='#1A5C2A';selBtn.style.borderColor='#1A7A4A';selBtn.style.textDecoration='none';selBtn.style.opacity='1';}
-      if(othBtn){othBtn.style.cssText=xoBtnStyle;}
-    } else {
-      if(selBtn){selBtn.style.background='#FCEEED';selBtn.style.color='#C4614A';selBtn.style.borderColor='#C4614A';selBtn.style.textDecoration='none';selBtn.style.opacity='1';}
-      if(othBtn){othBtn.style.cssText=xoBtnStyle;}
-    }
-  });
-  var res=document.getElementById(st.resultId);
-  res.innerHTML = score===st.items.length
-    ? '<span style="color:#1A7A4A;">✅ Perfect! '+score+'/'+st.items.length+'</span>'
-    : '<span style="color:#C0392B;">'+score+'/'+st.items.length+' — Try again!</span>';
-}
-function resetXo(exId){
-  var st=xoState[exId];
-  xoBuild(exId, st.leftId, st.rightId, st.items, st.resultId, st.exampleHtml, st.exampleContainerId);
+function cardNavUpdate(navKey){
+  var st = cardNavState[navKey];
+  var counter = document.getElementById(navKey + '-counter');
+  var prev = document.getElementById(navKey + '-prev');
+  var next = document.getElementById(navKey + '-next');
+  if (counter) counter.textContent = st.unitLabel + ' ' + (st.idx + 1) + ' of ' + st.cards.length;
+  if (prev) prev.disabled = st.idx === 0;
+  if (next) next.disabled = st.idx === st.cards.length - 1;
 }
 
 /* ═══ shared helper: multiple-choice quiz (Warm-Up/Review pattern) ═══ */
@@ -748,81 +694,17 @@ function mcqReset(exId){
   mcqBuild(exId, st.containerId, st.resultId, st.data);
 }
 
-/* ═══ S2 — Lesson 1 Review: Choose the Correct Word ═══ */
-var s2XoExample = '<div style="background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
-  +'<span style="font-size:1.05rem;font-weight:800;color:#C45020;flex-shrink:0;">Example</span>'
-  +'<span style="font-size:1.05rem;color:#1C2B3A;">It\'s a</span>'
-  +'<button style="'+xoBtnStyle+'background:#EEF7F0;color:#1A5C2A;border-color:#1A7A4A;pointer-events:none;">pleasure</button>'
-  +'<span style="color:#888;font-size:1.05rem;">/</span>'
-  +'<button style="'+xoBtnStyle+'background:#f5f5f5;color:#bbb;border-color:#e0e0e0;text-decoration:line-through;opacity:.6;pointer-events:none;">pleased</button>'
-  +'<span style="font-size:1.05rem;color:#1C2B3A;">to meet you.</span>'
-  +'</div>';
-var s2XoData = [
-  { pre:"", a:"Good", b:"Goods", post:"morning! My name's Alex.", wrong:"b" },
-  { pre:"Hi, I'm Priya.", a:"Nice", b:"Nicely", post:"to meet you.", wrong:"b" },
-  { pre:"", a:"This", b:"These", post:"is my colleague, Sam.", wrong:"b" },
-  { pre:"May I", a:"introduce", b:"introduces", post:"our new manager?", wrong:"b" }
-];
-function buildS2(){ xoBuild('s2', 's2-xo-left', 's2-xo-right', s2XoData, 's2-xo-result', s2XoExample, 's2-xo-example'); }
+/* ═══ S2 — Lesson 1 Review: Networking Mixer (flip-through role-play cards) ═══ */
+function buildS2(){ cardNavBuild('s2nav', 's2', 'Card'); }
 
-/* ═══ S3 — Lesson 2 Review: Fill in the Gaps (Present Simple) ═══ */
-function buildS3(){
-  document.getElementById('s3-example').innerHTML =
-    '<div class="ex-row" style="background:#FFF4EE;border-left:3px solid #C45020;">'
-    +'<strong style="color:#C45020;">Example</strong> &nbsp;Every day, we <input class="ans-input" value="prepare" readonly disabled style="border-bottom-color:#C45020;color:#C45020;"> (prepare) the meeting room.'
-    +'</div>';
-  var left = [
-    { text:'She', verb:'work', ans:'works', tail:'in the finance department.' },
-    { text:'They', verb:'have', ans:'have', tail:'a team meeting every Monday.' },
-    { text:'He usually', verb:'leave', ans:'leaves', tail:'the office at 6pm.' }
-  ];
-  var right = [
-    { text:'I', verb:'read', ans:'read', tail:'my emails every morning.' },
-    { text:'We', verb:'travel', ans:'travel', tail:"to the client's office once a month." },
-    { text:'The manager', verb:'open', ans:'opens', tail:'the store every day.' }
-  ];
-  function rowHtml(item,n){
-    return '<div class="ex-row"><strong>'+n+'</strong> &nbsp;'+item.text+' <input class="ans-input" data-ans="'+item.ans+'"> ('+item.verb+') '+item.tail+'</div>';
-  }
-  document.getElementById('s3-left').innerHTML = left.map(function(it,i){ return rowHtml(it,i+1); }).join('');
-  document.getElementById('s3-right').innerHTML = right.map(function(it,i){ return rowHtml(it,i+4); }).join('');
-}
+/* ═══ S3 — Lesson 2 Review: Guess the Job (mystery-routine flip cards) ═══ */
+function buildS3(){ cardNavBuild('s3nav', 's3', 'Card'); }
 
-/* ═══ S4 — Lesson 3 Review: Choose the Correct Word ═══ */
-var s4XoExample = '<div style="background:#FFF4EE;border:1.5px solid #C45020;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
-  +'<span style="font-size:1.05rem;font-weight:800;color:#C45020;flex-shrink:0;">Example</span>'
-  +'<span style="font-size:1.05rem;color:#1C2B3A;">These watches are</span>'
-  +'<button style="'+xoBtnStyle+'background:#f5f5f5;color:#bbb;border-color:#e0e0e0;text-decoration:line-through;opacity:.6;pointer-events:none;">Switzerland</button>'
-  +'<span style="color:#888;font-size:1.05rem;">/</span>'
-  +'<button style="'+xoBtnStyle+'background:#EEF7F0;color:#1A5C2A;border-color:#1A7A4A;pointer-events:none;">Swiss</button>'
-  +'<span style="font-size:1.05rem;color:#1C2B3A;">.</span>'
-  +'</div>';
-var s4XoData = [
-  { pre:"The printer", a:"doesn't", b:"isn't", post:"print in color.", wrong:"b" },
-  { pre:"I'm not British, I'm", a:"Ireland", b:"Irish", post:".", wrong:"a" },
-  { pre:"They", a:"aren't", b:"isn't", post:"from Canada.", wrong:"b" },
-  { pre:"This coffee is", a:"Brazil", b:"Brazilian", post:".", wrong:"a" }
-];
-function buildS4(){ xoBuild('s4', 's4-xo-left', 's4-xo-right', s4XoData, 's4-xo-result', s4XoExample, 's4-xo-example'); }
+/* ═══ S4 — Lesson 3 Review: Guess the Origin (info-gap flip cards) ═══ */
+function buildS4(){ cardNavBuild('s4nav', 's4', 'Card'); }
 
-/* ═══ S5 — Lesson 4 Review: Build the Question (word-order) ═══ */
-var s5ExampleHtml = '<div class="wo-row" style="border-left-color:#C45020;">'
-  +'<div class="wo-num" style="color:#C45020;">Ex.</div>'
-  +'<div class="wo-zone" style="border-color:#C45020;border-style:solid;background:#FFF4EE;">'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">Do</span>'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">you</span>'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">have</span>'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">a</span>'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">meeting</span>'
-  +'<span class="wo-chip" style="border-color:#C45020;color:#C45020;pointer-events:none;">today?</span>'
-  +'</div></div>';
-var s5Items = [
-  { words:["tomorrow?","Are","free","you"], ans:"Are you free tomorrow?" },
-  { words:["home?","Does","work","she","from"], ans:"Does she work from home?" },
-  { words:["room?","the","Where","meeting","is"], ans:"Where is the meeting room?" },
-  { words:["work?","time","What","start","do","you"], ans:"What time do you start work?" }
-];
-function buildS5(){ woBuild('s5', 's5-wo-left', 's5-wo-right', s5Items, 's5-result', s5ExampleHtml, 's5-example'); }
+/* ═══ S5 — Lesson 4 Review: Hot Seat Interview (flip-through role cards) ═══ */
+function buildS5(){ cardNavBuild('s5nav', 's5', 'Round'); }
 
 /* ═══ S6 — Mixed Review quiz ═══ */
 var s6Data = [
@@ -833,7 +715,58 @@ var s6Data = [
   { q:"We ___ have meetings on Fridays.", opts:["don't","doesn't"], ans:"don't" },
   { q:'___ does the manager usually start work?', opts:["What time","What times"], ans:"What time" }
 ];
-function buildS6(){ mcqBuild('s6', 's6-quiz', 's6-result', s6Data); }
+function buildS6(){ mcqBuild('s6', 's6-quiz', 's6-result', s6Data); cardNavBuild('s6nav', 's6', 'Step'); }
+
+/* ═══ HW2 — Spot the Mistake: Office Bloopers (one error per Module 1 lesson) ═══ */
+var hw2Data = [
+  { draft:"\"May I <u>introduces</u> you to our new director?\"", a:"\"May I <strong>introduce</strong> you to our new director?\"", b:"\"May I <strong>introducing</strong> you to our new director?\"", ans:"a", exp:"After the modal \"may,\" the verb stays in its bare form — \"introduce,\" not \"introduces\" (Lesson 1)." },
+  { draft:"\"She <u>work</u> in the finance department every day.\"", a:"\"She <strong>working</strong> in the finance department every day.\"", b:"\"She <strong>works</strong> in the finance department every day.\"", ans:"b", exp:"With he/she/it in the Present Simple, the verb takes an \"-s\": work → works (Lesson 2)." },
+  { draft:"\"These printers <u>isn't</u> from Germany — they're French.\"", a:"\"These printers <strong>aren't</strong> from Germany — they're French.\"", b:"\"These printers <strong>don't</strong> from Germany — they're French.\"", ans:"a", exp:"\"Printers\" is plural, so the negative of \"to be\" is \"aren't,\" not \"isn't\" (Lesson 3)." },
+  { draft:"\"<u>Where you work?</u>\"", a:"\"<strong>Where working you?</strong>\"", b:"\"<strong>Where do you work?</strong>\"", ans:"b", exp:"Open questions with a normal verb need the auxiliary \"do/does\": Where + do + you + work? (Lesson 4)." }
+];
+var hw2Sel={};
+function buildHw2(){
+  hw2Sel={};
+  var el=document.getElementById('hw2-qs'); if(!el) return;
+  el.innerHTML='';
+  hw2Data.forEach(function(item,i){
+    var block=document.createElement('div'); block.className='mc-question';
+    block.innerHTML='<div class="mc-q-text"><span class="mc-q-num">'+(i+1)+'.</span> 💬 '+item.draft+'</div>'
+      +'<div class="mc-opts" style="flex-direction:column;">'
+      +'<button class="mc-opt" style="display:block;width:100%;text-align:left;" id="hw2-'+i+'-a" onclick="hw2Pick('+i+',\'a\')">'+item.a+'</button>'
+      +'<button class="mc-opt" style="display:block;width:100%;text-align:left;" id="hw2-'+i+'-b" onclick="hw2Pick('+i+',\'b\')">'+item.b+'</button>'
+      +'</div>'
+      +'<div id="hw2-exp-'+i+'" style="display:none;margin-top:6px;font-size:1.05rem;color:#5A2A8C;font-style:italic;">'+item.exp+'</div>';
+    el.appendChild(block);
+  });
+  document.getElementById('hw2-result').textContent='';
+}
+function hw2Pick(i,v){
+  hw2Sel[i]=v;
+  ['a','b'].forEach(function(x){
+    var b=document.getElementById('hw2-'+i+'-'+x);
+    b.className='mc-opt'+(x===v?' mc-sel':'');
+    b.style.cssText='display:block;width:100%;text-align:left;'+(x===v?'':'');
+  });
+}
+function checkHw2(){
+  var score=0;
+  hw2Data.forEach(function(item,i){
+    ['a','b'].forEach(function(x){ var b=document.getElementById('hw2-'+i+'-'+x); b.className='mc-opt'; b.style.cssText='display:block;width:100%;text-align:left;'; });
+    document.getElementById('hw2-exp-'+i).style.display='block';
+    if(hw2Sel[i]===undefined) return;
+    var ok=hw2Sel[i]===item.ans;
+    if(ok) score++;
+    var picked=document.getElementById('hw2-'+i+'-'+hw2Sel[i]);
+    picked.className='mc-opt '+(ok?'mc-ok':'mc-bad');
+    picked.style.cssText='display:block;width:100%;text-align:left;';
+    if(!ok){ var correct=document.getElementById('hw2-'+i+'-'+item.ans); correct.style.cssText='display:block;width:100%;text-align:left;'; }
+  });
+  var res=document.getElementById('hw2-result');
+  res.textContent=score+' / '+hw2Data.length+' correct'+(score===hw2Data.length?' — Great review! 🎉':'');
+  res.style.color=score===hw2Data.length?'#1A7A4A':'#C4614A';
+}
+function resetHw2(){ buildHw2(); }
 
 /* ═══ INIT ═══ */
 window.addEventListener('DOMContentLoaded',function(){
@@ -845,7 +778,7 @@ window.addEventListener('DOMContentLoaded',function(){
     d.onclick=function(){ goTo(i); };
     dotsEl.appendChild(d);
   });
-  buildS2(); buildS3(); buildS4(); buildS5(); buildS6();
+  buildS2(); buildS3(); buildS4(); buildS5(); buildS6(); buildHw2();
   goTo(0);
 });
 </script>
