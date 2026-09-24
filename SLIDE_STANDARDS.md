@@ -18,6 +18,13 @@ If an existing exercise is only meaningful as a genuine two-person exchange (e.g
 
 ## Layout
 
+### Every listing exercise splits into two columns at 4+ items — no exceptions
+This applies to **every** shared exercise module, not just `qamBuild`/`woBuild`: `catBuild` (category buttons), `xoBuild` (cross-out choice), and `qaBuild` (typed short-answer) must all auto-split into two columns (`floor`/`ceil` of N/2, left column first) once an exercise has 4 or more items. A single full-width column for a 6, 7, 8, 9, or 16-item exercise is a standards violation — check this on every new module and every new exercise before shipping. The split is automatic inside the shared render function (based on `items.length>=4`), so a lesson author never needs to remember to invoke it manually — but when writing a **new** module, build the two-column split in from the start, the same way the fix had to be retrofitted into `catBuild`/`xoBuild`/`qaBuild` after the fact.
+- Exception: an exercise deliberately placed inside a narrow half of a `.split-read` layout (see below) stays single-column regardless of item count — splitting an already-narrow column in two makes it unreadable. Pass whatever flag the module needs (e.g. `qaBuild`'s `stacked` param) to opt out of the auto-split for that specific call site.
+
+### `qaBuild` stacked mode — for short-answer exercises inside a narrow split-read column
+When a typed short-answer exercise (`qaBuild`) sits in the narrow half of a `.split-read` layout, don't use the normal inline "question + short single-line input" row — the column is too narrow for it to read well. Call `qaBuild(exId, rowsId, items, resultId, true)` (5th arg `true`) instead: this renders each question on its own line with a full-width, 2-line-tall `<textarea class="ans-box">` box underneath, instead of a cramped inline `.ans-input`. Reference: `Unit_01_First_Impressions.html` slide `s6`, `Unit_02_Motivation.html` slide `s2`.
+
 ### Columns — Example placement and split
 
 #### When N (exercises) is EVEN
@@ -34,6 +41,65 @@ If an existing exercise is only meaningful as a genuine two-person exchange (e.g
 - Counting total visible blocks per column: left = Example + floor(N/2), right = ceil(N/2). For odd N the total blocks difference is 1 (left heavier), which is acceptable.
   - N=5 → `i < 2` → left: Example+2 (3 blocks), right: 3 (3 blocks) — equal total ✓
   - N=11 → `i < 5` → left: Example+5 (6 blocks), right: 6 (6 blocks) — equal total ✓
+
+### Read + Answer Split — standard for any slide pairing text-to-read with questions
+
+Whenever a slide asks the student to read something (an email, a passage, a script excerpt) **and** answer questions or discuss it, the two must be visible **at the same time**, side by side — never the reading stacked above the questions, forcing the student to scroll past one to see the other.
+
+- Wrapper: `.split-read` — a two-column grid (`grid-template-columns:1fr 1fr`), `align-items:start`.
+- Left cell: `.split-col` containing the `.passage-card` (or email/script block) to read.
+- Right cell: `.split-col.split-q` containing the questions — `.speak-card`s for discussion, or the exercise rows + Check/Reset + result for a scored exercise.
+- **Both halves must scroll independently** if their content is too long for the screen — never let one half push the other off-screen or force the whole slide to scroll. CSS:
+```css
+.split-read{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;margin-top:6px;}
+.split-read>.split-col{max-height:min(58vh,480px);overflow-y:auto;}
+.split-read>.split-col.split-q{display:flex;flex-direction:column;}
+```
+- This same independent-scroll rule applies to any other two-column reading layout too (e.g. a `pmBuild` passage-plus-definitions slide) — both columns get `max-height:min(58vh,480px);overflow-y:auto`, not just the passage side.
+- The definitions column of a `pmBuild` slide uses `.pm-defs-col` (`gap:6px`), not the generic `.col-section` (`gap:16px`) — the generic gap reads as far too much space between short definition rows. `.col-section`'s larger gap is still correct for card-style matching columns (`qamBuild`'s q/a cards), just not for compact `.pm-def-row` items.
+- Reference implementations: `Business-Result-Upper/Unit_01_First_Impressions.html` slides `s2`, `s6`, `s16`; `Unit_02_Motivation.html` slides `s2`, `s16`.
+
+### Image + Discussion Split — standard for any slide pairing a photo with speak-card questions
+
+When a slide shows an image alongside discussion questions (warm-ups, case-study openers, any "look at the picture and discuss" moment), the image and the questions must be visible **at the same time**, side by side — never a full-width image stacked above the questions.
+
+- Wrapper: `.media-discuss` — a two-column grid (`grid-template-columns:1fr 1fr`), `align-items:center`.
+- Left cell: `.media-col` containing a single `<img>` (rounded corners, subtle drop-shadow, `width:100%`).
+- Right cell: `.q-col` — a flex column of the normal `.speak-card` blocks, vertically centered against the image.
+- CSS (add once per lesson file):
+```css
+.media-discuss{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center;margin-top:6px;}
+.media-discuss .media-col img{width:100%;border-radius:14px;display:block;box-shadow:0 6px 18px rgba(0,0,0,.15);}
+.media-discuss .q-col{display:flex;flex-direction:column;gap:14px;justify-content:center;}
+```
+- Markup:
+```html
+<div class="media-discuss">
+  <div class="media-col"><img src="images/..." alt="..."></div>
+  <div class="q-col">
+    <div class="speak-card">...</div>
+    <div class="speak-card">...</div>
+  </div>
+</div>
+```
+- Use real, unit-relevant photos only (the course's own `images/` folder) — never a placeholder or stock filler image.
+- Reference implementation: `Business-Result-Upper/Unit_01_First_Impressions.html`, slide `s1b`.
+
+### Multi-sentence questions and instructions — one sentence per line
+
+Whenever a question or instruction contains **two or more sentences**, each sentence goes on its own line (`<br>` between sentences), never run together in one flowing paragraph. This applies to `.speak-q` text, `.instruction` / `.inst-light` text, task steps — anywhere student-facing prose has more than one sentence.
+
+Wrong:
+```html
+<div class="speak-q">What are your first impressions of the business in the picture? What kind of business could it be? What impression could it want to give?</div>
+```
+
+Right:
+```html
+<div class="speak-q">What are your first impressions of the business in the picture?<br>What kind of business could it be?<br>What impression could it want to give?</div>
+```
+
+A single-sentence question or instruction stays as one line, unchanged. Do not break mid-sentence — only at sentence boundaries (after `.`, `?`, `!`).
 
 ### Slide title position — never override
 Every content slide's `.content` div uses the standard, unmodified layout: `padding:16px 36px 20px;overflow-y:auto;max-height:calc(100vh - 118px);` with the `<h2>` as the first element inside it. **Never add `display:flex`, `flex-direction:column`, `justify-content:center`, or any other rule that vertically centers or repositions content** — even for image-only or short slides. Every slide's title must land in the exact same position as every other slide. If a slide looks sparse, that's fine; do not "fix" it by centering — that breaks visual consistency across the deck.
@@ -89,10 +155,17 @@ Every HW slide must have:
 
 ## Typography
 
+### Standard line-height — `1.65` for every piece of content, everywhere
+**Every** content-bearing text element in a lesson — passages, questions, instructions, lists, task steps, quote boxes, carousel/flashcard/bingo/dice text, anything the student reads — uses `line-height:1.65`. Not 1.5, not 1.75, not 1.85, not 1.9. One value, applied uniformly, so spacing never looks inconsistent from one slide or one course to the next.
+- Exceptions (chrome, not content): single-line decorative titles (`.title-main`), tiny icon-only buttons (`line-height:1`), the notes textarea, and the printed PDF-notes export styling.
+- When building a new interactive module (a new "…Build" pattern), set `line-height:1.65` on its content class from the start — don't leave it at the browser default and fix it later.
+
 ### Minimum font size
 **Never use a font size smaller than `1.05rem`** for any content text in a slide body.
 - `1.05rem` = `.inst-light` baseline — this is the floor, not a target.
-- Exception: decorative UI-only labels (e.g. banner nav pills, dot counters) may use smaller sizes.
+- Exception: decorative UI-only labels (e.g. banner nav pills, dot counters, carousel/bingo badges, "tap to flip" hints) may use smaller sizes — these are chrome, not content.
+- **Never drop below `1rem` for actual exercise content**, even to force a long line to fit on one screen line (e.g. a long `pmBuild` definition). `1rem` is the absolute hard floor for content text, used only as a last resort per-item override — try widening the column or shrinking a fixed-width neighbor (like `.pm-blank`) first. Going smaller than `1rem` (e.g. `.82rem`, `.85rem`) on real content is always wrong — it reads as illegible on a projector. This was a repeated mistake — check every per-item `aSize`/inline `font-size` override against this floor before shipping a lesson.
+- `.pm-def-row` and similar exercise-row wrappers must not carry their own `margin-bottom` when their parent container already has flex/grid `gap` — the two stack and produce visibly doubled spacing between rows. Space rows with ONE mechanism (parent `gap`), never both.
 
 ### Classes
 | Class | Size | Weight | Use |
