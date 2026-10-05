@@ -1,10 +1,13 @@
-# Backup files — never commit these to GitHub
+# macOS / system junk
+.DS_Store
+.fuse_hidden*
+*.bak
+*.bak2
+*.lock.bak
+
+# Backup copies of lessons (local safety net only)
 *backup*
 *BACKUP*
-*_backup_*
 
-# macOS
-.DS_Store
-
-# Practice book PDF (large file, not needed for the website)
+# Course book PDFs: kept locally for building lessons, NOT published
 *.pdf
