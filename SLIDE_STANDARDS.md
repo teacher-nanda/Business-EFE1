@@ -678,3 +678,21 @@ Verified via jsdom on all 27 files: typed a note, dispatched `input`, called `do
 *2026-08-17: Word-Order exercises now explicitly follow the odd/even column-split rule like every other exercise type, with example placement spec for both cases; added explicit "never override title position" rule and a permanent, non-negotiable ban on `placeholder=` attributes on any exercise input*
 *2026-08-17 (earlier): No Book References rule expanded — no meta/course framing, no fabricated Warm-Up quizzes, check precedent in existing lessons before building; no unit numbers, no book-section numbering in titles/labels; Word-Order/Sentence-Building Exercises pattern added — clickable word chips, not free typing, reference implementation in Lesson 4*
 *2026-08-14: Notes Panel — added mandatory paste-sanitizer to prevent invisible pasted text; always-visible #pdfBtn pattern, mandatory loadNotes()-on-navigation to prevent notes bleeding across slides, highlight-readability CSS fix, downloadNotes() spec*
+
+## Business-HR Review decks (added 2026-10-30)
+- Supplementary review/exercise decks use a `Lesson_NNb_…` filename and sit between lessons in `index.html` (card label "Review"; the "18 lessons" count is unchanged). Example: `Lesson_03b_Passive_Voice_Review.html`.
+- Structure: explanation slides first (green "Explanation" banners), then one exercise per slide (teal "Practice"), then a review of the confusable topic (blue), then a "both together" slide (purple). Every exercise has an Ex. row and, after "Check Answers", a one-line explanation per item (`.wb-exp`).
+- Typed-answer exercises use `ptBuild/ptCheck/ptReset` with explicit accepted-answer lists (optional "by …" accepted, "that" after said/told ignored).
+- Use the correct participle in teaching examples ("shown", not "showed").
+
+## Correct-answer order — never predictable (added 2026-10-30)
+In every two-option choice exercise the correct option must NOT follow a pattern (a b a b…, all the same side, or a sequence that repeats). Use an irregular, hand-chosen sequence (e.g. b b a b a a) and a different one in each exercise. Word banks must not list words in the same order as the items. Always check this before delivering any lesson.
+
+## Exercises never reuse the explanation's sentences (added 2026-10-30)
+Exercise items and Example rows must use NEW sentences and vocabulary, never the ones shown on the explanation/recap slides just before them — otherwise the student just recognizes the answer. Check every explanation slide against its exercise before delivering.
+
+## Review-deck layout rules (added 2026-10-30)
+All exercises in review decks follow the column rules: even N → Example full-width above a two-column grid (N/2 + N/2); odd N → Example at the top of the LEFT column (floor(N/2) left, ceil(N/2) right). This includes typed exercises (`ptBuild`) and word-bank exercises (`wbBuild` with `splitIds` and a sticky bank). Each explanation slide is followed by one practice slide.
+
+## Correct-answer order — classification exercises too (added 2026-10-30)
+In "active/passive", "yes/no", "passive/reported" style exercises the pattern shows up in the *content* order (passive, reported, passive, reported…), not just the button side. Shuffle the item order so the correct label never alternates (e.g. P P R P R R), and use a different sequence in each exercise. Read the correct-answer sequence of every exercise aloud before shipping.
