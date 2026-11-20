@@ -696,3 +696,6 @@ All exercises in review decks follow the column rules: even N → Example full-w
 
 ## Correct-answer order — classification exercises too (added 2026-10-30)
 In "active/passive", "yes/no", "passive/reported" style exercises the pattern shows up in the *content* order (passive, reported, passive, reported…), not just the button side. Shuffle the item order so the correct label never alternates (e.g. P P R P R R), and use a different sequence in each exercise. Read the correct-answer sequence of every exercise aloud before shipping.
+
+## Speaking slides inside grammar review decks (added 2026-11-19)
+Purple "🎤 Speaking" slides (module `spBuild`: scenario tabs → situation → task → language chips → 🌀 Twist + 👁 Sample answer) are placed between practice slides, never between an explanation and its own practice. Each uses a business situation, forces the target structure (passive / reported speech / both), and ends with an open "Your own…" tab so the student is free. Sample answers use the target grammar correctly.
